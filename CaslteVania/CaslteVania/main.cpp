@@ -1,40 +1,8 @@
-/* =============================================================
-	INTRODUCTION TO GAME PROGRAMMING SE102
-
-	SAMPLE 04 - COLLISION
-
-	This sample illustrates how to:
-
-		1/ Implement SweptAABB algorithm between moving objects
-		2/ Implement a simple (yet effective) collision frame work
-
-	Key functions:
-		CGame::SweptAABB
-		CGameObject::SweptAABBEx
-		CGameObject::CalcPotentialCollisions
-		CGameObject::FilterCollision
-
-		CGameObject::GetBoundingBox
-
-================================================================ */
-
-#include <windows.h>
-#include <d3d9.h>
-#include <d3dx9.h>
-
 #include "debug.h"
 #include "Game.h"
-#include "GameObject.h"
-#include "Textures.h"
-#include "Animations.h"
-#include "Simon.h"
-#include "Brick.h"
-#include "Ghost.h"
-#include "GlobalConfig.h"
-
+#include "ManagerScene.h"
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
-
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 255)
 
 #define MAX_FRAME_RATE 120
@@ -42,37 +10,6 @@
 CGame *game;
 
 
-class CSampleKeyHander : public CKeyEventHandler
-{
-	virtual void KeyState(BYTE *states);
-	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode);
-};
-
-CSampleKeyHander * keyHandler;
-
-void CSampleKeyHander::OnKeyDown(int KeyCode)
-{
-	
-}
-
-void CSampleKeyHander::OnKeyUp(int KeyCode)
-{
-}
-
-void CSampleKeyHander::KeyState(BYTE *states)
-{
-	// disable control key when Mario die 
-	//if (mario->GetState() == MARIO_STATE_DIE) return;
-	//if (game->IsKeyDown(DIK_RIGHT))
-	//	mario->SetState(MARIO_STATE_WALKING_RIGHT);
-	//else if (game->IsKeyDown(DIK_LEFT))
-	//	mario->SetState(MARIO_STATE_WALKING_LEFT);
-	//else if (game->IsKeyDown(DIK_DOWN))
-	//	mario->SetState(MARIO_STATE_DOWN);
-	//else
-	//	mario->SetState(MARIO_STATE_IDLE);
-}
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -98,7 +35,7 @@ void LoadResources()
 	auto tam = new Stage1();
 	ManagerScene::GetInstance()->PlayScene(tam);
 	ManagerScene::GetInstance()->PresentScene->LoadResources();
-	CGame::GetInstance()->SetCamPos(50.0f, 0);
+	//CGame::GetInstance()->SetCamPos(50.0f, 0);
 
 }
 
@@ -240,8 +177,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game = CGame::GetInstance();
 	game->Init(hWnd);
 
-	keyHandler = new CSampleKeyHander();
-	game->InitKeyboard(keyHandler);
+	game->InitKeyboard();
 
 
 	LoadResources();

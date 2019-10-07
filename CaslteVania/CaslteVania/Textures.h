@@ -1,7 +1,8 @@
 #pragma once
 #include <unordered_map>
-#include <d3dx9.h>
-
+#include "debug.h"
+#include "GlobalConfig.h"
+#include "Game.h"
 using namespace std;
 
 /*

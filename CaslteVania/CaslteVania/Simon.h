@@ -1,28 +1,30 @@
 #pragma once
 #include "GameObject.h"
-#include "GlobalConfig.h"
-
+#include "PlayerWalkingState.h"
+#include "PlayerStandingState.h"
+class CAnimation;
 class CMario : public CGameObject
 {
-	int level;
-	int hitting = -1;
+private:
+	static CMario* _instance;
 	int untouchable;
-	DWORD untouchable_start;
-	bool jumping = true;
 public:
-	CMario() : CGameObject()
+	PlayerState* state;
+
+	CMario() : CGameObject() 
 	{
-		level = MARIO_LEVEL_BIG;
 		untouchable = 0;
 	}
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+
+	CAnimation* CurAnimation;
+	static CMario* GetInstance();
+	virtual void Update(DWORD dt, vector<CGameObject*> *colliable_objects = NULL);
 	virtual void Render();
-	void SetState(int state);
-	void SetLevel(int l) { level = l; }
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void ChangeAnimation(PlayerState* newState);
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	void OnKeyUp(int keyCode){}
-	void OnKeyDown(int KeyCode) {}
+	void OnKeyUp(int key);
+	void OnKeyDown(int key);
 
 };
+

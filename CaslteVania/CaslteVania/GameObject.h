@@ -1,12 +1,7 @@
 #pragma once
 
-#include <Windows.h>
-#include <d3dx9.h>
-#include <vector>
-
-#include "Sprites.h"
 #include "Animations.h"
-#include "GlobalConfig.h"
+#include "PlayerState.h"
 
 using namespace std;
 
@@ -14,9 +9,10 @@ using namespace std;
 
 class CGameObject;
 typedef CGameObject * LPGAMEOBJECT;
-
+class CAnimation;
 struct CCollisionEvent;
 typedef CCollisionEvent * LPCOLLISIONEVENT;
+
 struct CCollisionEvent
 {
 	LPGAMEOBJECT obj;
@@ -46,11 +42,9 @@ public:
 
 	int nx;
 
-	int state;
-
 	DWORD dt;
 
-	vector<LPANIMATION> animations;
+	std::unordered_map<int, CAnimation*> animations;
 
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
@@ -58,7 +52,6 @@ public:
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 
-	int GetState() { return this->state; }
 
 	void RenderBoundingBox();
 
@@ -72,16 +65,16 @@ public:
 		float &nx,
 		float &ny);
 
-	void AddAnimation(int aniId);
+	void AddAnimation(int aniId, int NameState);
 
 	CGameObject();
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;
-	virtual void SetState(int state) { this->state = state; }
 
 
 	~CGameObject();
 };
+
 

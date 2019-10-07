@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.h"
-#include "GlobalConfig.h"
 class ManagerScene
 {
 

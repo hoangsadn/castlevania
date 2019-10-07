@@ -4,9 +4,10 @@
 #include <dinput.h>
 #include <WinUser.h>
 #include <unordered_map>
-
+#include "Camera.h"
+#include <vector>
 /////define /////////
-
+using namespace std;
 ////MARIO//////////////
 #define MARIO_WALKING_SPEED		0.1f 
 
@@ -15,38 +16,11 @@
 #define MARIO_GRAVITY			0.001f
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f
 
-#define MARIO_STATE_IDLE			0
-#define MARIO_STATE_WALKING_RIGHT	100
-#define MARIO_STATE_WALKING_LEFT	200
-#define MARIO_STATE_JUMP			300
-#define MARIO_STATE_DIE				400
-#define MARIO_STATE_DOWN			500
-#define MARIO_STATE_STAND_HIT_RIGHT	600
-#define MARIO_STATE_STAND_HIT_LEFT	700
-#define MARIO_STATE_STAND_HIT		800
-
-
-#define MARIO_ANI_BIG_IDLE_RIGHT		0
-#define MARIO_ANI_BIG_IDLE_LEFT			1
-#define MARIO_ANI_SMALL_IDLE_RIGHT		2
-#define MARIO_ANI_SMALL_IDLE_LEFT		3
-
-
-#define MARIO_ANI_BIG_WALKING_RIGHT			4
-#define MARIO_ANI_BIG_WALKING_LEFT			5
-#define MARIO_ANI_JUMP_LEFT					8
-#define MARIO_ANI_JUMP_RIGHT				9
-#define MARIO_ANI_SMALL_WALKING_RIGHT		6
-#define MARIO_ANI_SMALL_WALKING_LEFT		7
-#define MARIO_ANI_STAND_HIT_RIGHT		13
-#define MARIO_ANI_STAND_HIT_LEFT		12
 
 
 
 #define MARIO_ANI_DIE				8
 
-#define	MARIO_LEVEL_SMALL	1
-#define	MARIO_LEVEL_BIG		2
 
 #define MARIO_BIG_BBOX_WIDTH  33
 #define MARIO_BIG_BBOX_HEIGHT 61
@@ -73,4 +47,31 @@
 //////variable////
 
 extern std::unordered_map<int, bool> keyCode; // manager info of keyboard have been pressed or not 
-
+#define camera Camera::GetInstance()
+#define player CMario::GetInstance()
+#define GAME CGame::GetInstance()
+extern std::unordered_map<int, bool> Allow;
+//////////////
+extern enum class StateName
+{
+	WALKING_LEFT,
+	WALKING_RIGHT,
+	JUMPING_LEFT,
+	FALLING_LEFT,
+	FALLING_RIGHT,
+	STANDING_LEFT,
+	STANDING_RIGHT,
+	DOWN,
+	HURTED,
+	HITTING,
+};
+#define STANDING_LEFT 0
+#define STANDING_RIGHT 1
+#define WALKING_LEFT 2
+#define WALKING_RIGHT 3
+#define JUMPING_LEFT 4
+#define FALLING_LEFT 5
+#define FALLING_RIGHT 7
+#define DOWN 8
+#define HURTED 9
+#define HITTING 10 

@@ -1,46 +1,6 @@
-﻿  Animations.cpp
-  Brick.cpp
+﻿  PlayerWalkingState.cpp
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  debug.cpp
-  Game.cpp
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-d:\uit\kỳ 4\game\project\casltevania\casltevania\game.h(9): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
+d:\uit\kỳ 4\game\project\castlevania\casltevania\casltevania\globalconfig.h(67): warning C4091: 'extern ': ignored on left of 'StateName' when no variable is declared
+d:\uit\kỳ 4\game\project\castlevania\casltevania\casltevania\game.h(5): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
-d:\uit\kỳ 4\game\project\casltevania\casltevania\game.cpp(264): warning C4305: '=': truncation from '__int64' to 'float'
-d:\uit\kỳ 4\game\project\casltevania\casltevania\game.cpp(265): warning C4305: '=': truncation from '__int64' to 'float'
-d:\uit\kỳ 4\game\project\casltevania\casltevania\game.cpp(275): warning C4305: '=': truncation from '__int64' to 'float'
-d:\uit\kỳ 4\game\project\casltevania\casltevania\game.cpp(276): warning C4305: '=': truncation from '__int64' to 'float'
-  GameObject.cpp
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-d:\uit\kỳ 4\game\project\casltevania\casltevania\game.h(9): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
-  Ghost.cpp
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  main.cpp
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-d:\uit\kỳ 4\game\project\casltevania\casltevania\game.h(9): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
-d:\uit\kỳ 4\game\project\casltevania\casltevania\main.cpp(114): warning C4244: 'argument': conversion from 'DWORD' to 'float', possible loss of data
-  ManagerScene.cpp
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  Simon.cpp
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-d:\uit\kỳ 4\game\project\casltevania\casltevania\game.h(9): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
-  Sprites.cpp
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-d:\uit\kỳ 4\game\project\casltevania\casltevania\game.h(9): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
-  Stage1.cpp
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-d:\uit\kỳ 4\game\project\casltevania\casltevania\stage1.cpp(93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\uit\kỳ 4\game\project\casltevania\casltevania\stage1.cpp(207): warning C4018: '<': signed/unsigned mismatch
-d:\uit\kỳ 4\game\project\casltevania\casltevania\stage1.cpp(212): warning C4018: '<': signed/unsigned mismatch
-d:\uit\kỳ 4\game\project\casltevania\casltevania\stage1.cpp(214): warning C4244: 'argument': conversion from 'float' to 'DWORD', possible loss of data
-d:\uit\kỳ 4\game\project\casltevania\casltevania\stage1.cpp(220): warning C4018: '<': signed/unsigned mismatch
-  Textures.cpp
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-d:\uit\kỳ 4\game\project\casltevania\casltevania\game.h(9): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
-  Generating Code...
-  CaslteVania.vcxproj -> D:\UIT\Kỳ 4\Game\project\CaslteVania\Debug\CaslteVania.exe
+  CaslteVania.vcxproj -> D:\UIT\Kỳ 4\Game\project\castlevania\CaslteVania\Debug\CaslteVania.exe

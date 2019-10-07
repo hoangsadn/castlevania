@@ -1,20 +1,20 @@
+#pragma once 
 #include "Scene.h"
-#include "ManagerScene.h"
-#include "GlobalConfig.h"
-#include <map>
 #include "Simon.h"
-#include "Brick.h"
-#include "Ghost.h"
+
+//#include "GameObject.h"
+class CGameObject;
+class CMario;
 class Stage1 : public Scene
 {
 public:
 	void LoadResources();
 	void Update(float dt);
 	void Render();
-	void OnKeyDown(int KeyCode) ;
-	void OnKeyUp(int KeyCode) ;
+	void OnKeyDown(int Key) ;
+	void OnKeyUp(int Key) ;
 private:
-	CMario *player;
-	CGoomba *goomba;
-	vector<LPGAMEOBJECT> objects;
+	CMario *p;
+
+	vector<CGameObject*> objects;
 };

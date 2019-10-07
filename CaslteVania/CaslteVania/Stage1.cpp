@@ -1,7 +1,6 @@
 #include "Stage1.h"
 
 
-
 void Stage1::LoadResources() 
 {
 	CTextures * textures = CTextures::GetInstance();
@@ -41,23 +40,15 @@ void Stage1::LoadResources()
 
 
 
-	ani = new CAnimation(100);		// brick
-	ani->Add(20001);
-	animations->Add(601, ani);
-
-	ani = new CAnimation(300);		// Goomba walk
-	ani->Add(30001);
-	ani->Add(30002);
-	animations->Add(701, ani);
-
-	ani = new CAnimation(1000);		// Goomba dead
-	ani->Add(30003);
-	animations->Add(702, ani);
+	//ani = new CAnimation(100);		// brick
+	//ani->Add(20001);
+	//animations->Add(601, ani);
 
 
 
 
-	for (int i = 0; i < 1; i++)
+
+	/*for (int i = 0; i < 1; i++)
 	{
 		CBrick *brick = new CBrick();
 		brick->AddAnimation(601);
@@ -74,26 +65,16 @@ void Stage1::LoadResources()
 		brick->SetPosition(84.0f + i * 60.0f, 90.0f);
 		objects.push_back(brick);
 	}
-
-
+*/
+/*
 	for (int i = 0; i < 30; i++)
 	{
 		CBrick *brick = new CBrick();
-		brick->AddAnimation(601);
+		brick->AddAnimation(601,STATE::STANDING_LEFT);
 		brick->SetPosition(0 + i * 16.0f, 150);
 		objects.push_back(brick);
-	}
+	}*/
 
-	// and Goombas 
-	for (int i = 0; i < 4; i++)
-	{
-		goomba = new CGoomba();
-		goomba->AddAnimation(701);
-		goomba->AddAnimation(702);
-		goomba->SetPosition(200 + i * 60, 135);
-		goomba->SetState(GOOMBA_STATE_WALKING);
-		objects.push_back(goomba);
-	}
 	
 	LPDIRECT3DTEXTURE9 texMario = textures->Get(ID_TEX_MARIO);
 
@@ -174,32 +155,28 @@ void Stage1::LoadResources()
 
 
 	sprites->Add(10099, 215, 120, 231, 135, texMario);		// die Mario
-	player = new CMario();
-	player->AddAnimation(400);		// idle right big
-	player->AddAnimation(401);		// idle left big
-	player->AddAnimation(402);		// idle right small
-	player->AddAnimation(403);		// idle left small
+	p = player;
 
-	player->AddAnimation(500);		// walk right big
-	player->AddAnimation(501);		// walk left big
-	player->AddAnimation(502);		// walk right small
-	player->AddAnimation(503);		// walk left big
+	p->AddAnimation(400,STANDING_RIGHT);		// idle right big
+	p->AddAnimation(401,STANDING_LEFT);		// idle left big
 
-	player->AddAnimation(508);	//jump left
-	player->AddAnimation(509);	//jump right
-	player->AddAnimation(510);	//down right
-	player->AddAnimation(511);	//down left
-	player->AddAnimation(512);	//stand hit left
-	player->AddAnimation(513);	//stand hit right 
 
-	player->AddAnimation(599);		// die
+	p->AddAnimation(500,WALKING_RIGHT);		// walk right big
+	p->AddAnimation(501,WALKING_LEFT);		// walk left big
+
+	p->AddAnimation(508,JUMPING_LEFT);	//jump left
+	p->AddAnimation(509,JUMPING_LEFT);	//jump right
 
 
 
 
-	player->SetPosition(50.0f, 0);
-	
-	objects.push_back(player);
+
+	p->SetPosition(50.0f, 0);
+	camera->SetPosition(100.f, 200);
+	p->nx = 1;
+	p->ChangeAnimation(new PlayerStandingState());
+
+	objects.push_back(p);
 };
 void Stage1::Update(float dt) 
 {
@@ -213,6 +190,9 @@ void Stage1::Update(float dt)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
+	float cx, cy;
+	p->GetPosition(cx, cy);
+	//camera->SetPosition(cx, 0.0f);
 };
 
 void Stage1::Render() 
@@ -220,24 +200,16 @@ void Stage1::Render()
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 };
-void Stage1::OnKeyDown(int KeyCode) 
+void Stage1::OnKeyDown(int Key)
 {
-	
-	switch (KeyCode)
-	{
-	case DIK_SPACE:
-		player->SetState(MARIO_STATE_JUMP);
-		break;
-	case DIK_A: // reset
-		player->SetState(MARIO_STATE_IDLE);
-		player->SetLevel(MARIO_LEVEL_BIG);
-		player->SetPosition(50.0f, 0.0f);
-		player->SetSpeed(0, 0);
-		break;
-	}
+	keyCode[Key] = true;
+	p->OnKeyUp(Key);
+
 };
-void Stage1::OnKeyUp(int keyCode) 
-{
-	DebugOut(L"[INFO] KeyUp: %d\n", keyCode);
+void Stage1::OnKeyUp(int Key) 
+{	
+	keyCode[Key] = false;
+	p->OnKeyDown(Key);
+	DebugOut(L"[INFO] KeyUp: %d\n", Key);
 
 };

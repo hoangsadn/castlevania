@@ -1,4 +1,5 @@
 #pragma once
+#include "GlobalConfig.h"
 class Scene
 {
 public:

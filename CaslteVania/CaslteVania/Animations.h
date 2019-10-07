@@ -1,24 +1,25 @@
 #pragma once
-#include <Windows.h>
 
+
+#include <Windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-
 #include "debug.h"
 #include "textures.h"
 #include "Sprites.h"
 /*
 	Sprite animation
 */
+class CSprite;
 class CAnimationFrame
 {
-	LPSPRITE sprite;
+	CSprite * sprite;
 	DWORD time;
 
 public:
-	CAnimationFrame(LPSPRITE sprite, int time) { this->sprite = sprite; this->time = time; }
+	CAnimationFrame(CSprite * sprite, int time) { this->sprite = sprite; this->time = time; }
 	DWORD GetTime() { return time; }
-	LPSPRITE GetSprite() { return sprite; }
+	CSprite * GetSprite() { return sprite; }
 };
 
 typedef CAnimationFrame *LPANIMATION_FRAME;
@@ -44,11 +45,11 @@ class CAnimations
 {
 	static CAnimations * __instance;
 
-	unordered_map<int, LPANIMATION> animations;
+	unordered_map<int, CAnimation *> animations;
 
 public:
-	void Add(int id, LPANIMATION ani);
-	LPANIMATION Get(int id);
+	void Add(int id, CAnimation * ani);
+	CAnimation * Get(int id);
 
 	static CAnimations * GetInstance();
 };

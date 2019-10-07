@@ -1,7 +1,5 @@
-#include <Windows.h>
 #include "debug.h"
-#include <fstream>
-#include <iostream>
+
 void DebugOut(wchar_t *fmt, ...)
 {
 	va_list argp;
