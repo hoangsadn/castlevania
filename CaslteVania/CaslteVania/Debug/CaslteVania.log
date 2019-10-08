@@ -1,6 +1,0 @@
-﻿  PlayerWalkingState.cpp
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-d:\uit\kỳ 4\game\project\castlevania\casltevania\casltevania\globalconfig.h(67): warning C4091: 'extern ': ignored on left of 'StateName' when no variable is declared
-d:\uit\kỳ 4\game\project\castlevania\casltevania\casltevania\game.h(5): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
-  CaslteVania.vcxproj -> D:\UIT\Kỳ 4\Game\project\castlevania\CaslteVania\Debug\CaslteVania.exe

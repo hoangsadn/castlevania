@@ -4,12 +4,14 @@
 
 PlayerWalkingState::PlayerWalkingState()
 {
-
-	if (keyCode[DIK_RIGHT]&& !keyCode[DIK_LEFT]) 
-		mStateName = WALKING_RIGHT;
-	else if (keyCode[DIK_LEFT] && !keyCode[DIK_RIGHT])
-		mStateName = WALKING_LEFT;
-
+	if (player->nx > 0)
+	{
+		StateName = WALKING_RIGHT;
+	}
+	else
+	{
+		StateName = WALKING_LEFT;
+	}
 }
 
 
@@ -24,13 +26,26 @@ void PlayerWalkingState::Update()
 }
 void PlayerWalkingState::HandleKeyBoard()
 {
-	if (keyCode[DIK_LEFT])
+
+	if (keyCode[DIK_DOWN])
+	{
+		player->ChangeAnimation(new PlayerDowningState());
+	}
+	else if (keyCode[DIK_LEFT] && keyCode[DIK_RIGHT])
+	{
+		player->ChangeAnimation(new PlayerStandingState());
+	}
+	else if (keyCode[DIK_LEFT])
 	{
 		player->vx = -MARIO_WALKING_SPEED;
+		player->nx = -1;
+		player->ChangeAnimation(new PlayerWalkingState());
 	}
 	else if (keyCode[DIK_RIGHT])
 	{
 		player->vx = MARIO_WALKING_SPEED;
+		player->nx = 1;
+		player->ChangeAnimation(new PlayerWalkingState());
 	}
 	else
 	{

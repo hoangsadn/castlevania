@@ -12,11 +12,16 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Simple fall down
 	
 	// Calculate dx, dy 
-	state->Update();
 
 	CGameObject::Update(dt);
+	vy += MARIO_GRAVITY *dt;
+	state->Update();
 
-	
+	if (y > 20)
+	{
+		y = 20 ;
+		IsJumping = false;
+	}
 
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -72,13 +77,38 @@ void CMario::ChangeAnimation(PlayerState * newState)
 {
 	delete state;
 	state = newState;
-	state->mStateName = newState->mStateName;
-	CurAnimation = animations[newState->mStateName];
+	state->StateName = newState->StateName;
+	CurAnimation = animations[newState->StateName];
 }
-
+void CMario::Revival()
+{
+	allow[JUMPING] = true;
+	allow[WALKING] = true;
+	SetPosition(50.0f, 20);
+	nx = 1;
+	ChangeAnimation(new PlayerStandingState());
+}
 void CMario::OnKeyDown(int key)
 {
-	
+	if (!IsJumping)
+	{
+		if ((key == DIK_SPACE) && (keyCode[DIK_RIGHT]))
+		{
+			vx = MARIO_WALKING_SPEED;
+			nx = 1;
+			ChangeAnimation(new PlayerJumpingState());
+		}
+		else if ((key == DIK_SPACE) && (keyCode[DIK_LEFT]))
+		{
+			vx = -MARIO_WALKING_SPEED;
+			nx = -1;
+			ChangeAnimation(new PlayerJumpingState());
+		}
+		if (key == DIK_SPACE)
+		{
+			ChangeAnimation(new PlayerJumpingState());
+		}
+	}
 }
 void CMario::OnKeyUp(int key)
 {

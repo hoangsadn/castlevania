@@ -1,6 +1,7 @@
 #pragma once
 #include"PlayerState.h"
 #include "PlayerWalkingState.h"
+#include "PlayerDowningState.h"
 #include "Simon.h"
 
 class PlayerStandingState : public PlayerState 

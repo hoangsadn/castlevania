@@ -1,16 +1,19 @@
 #include "PlayerStandingState.h"
 
 
-
 PlayerStandingState::PlayerStandingState()
 {
-	player->vx = 0;
+	player->allow[JUMPING] = true;
+	player->allow[DOWNING] = true;
+	player->allow[WALKING] = true;
 
+	player->vx = 0;
+	player->IsJumping = false;
 	if (player->nx > 0)
 	{
-		mStateName = STANDING_RIGHT;
+		StateName = STANDING_RIGHT;
 	}
-	else mStateName = STANDING_LEFT;
+	else StateName= STANDING_LEFT;
 }
 
 
@@ -25,9 +28,17 @@ void PlayerStandingState::Update()
 
 void PlayerStandingState::HandleKeyBoard()
 {
-	if (keyCode[DIK_LEFT] || keyCode[DIK_RIGHT])
+	if (keyCode[DIK_LEFT] && keyCode[DIK_RIGHT])
+	{
+		player->ChangeAnimation(new PlayerStandingState());
+	}
+	else if (keyCode[DIK_LEFT] || keyCode[DIK_RIGHT])
 	{
 		player->ChangeAnimation(new PlayerWalkingState());
+	}
+	else if (keyCode[DIK_DOWN])
+	{
+		player->ChangeAnimation(new PlayerDowningState());
 	}
 	
 }

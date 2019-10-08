@@ -11,9 +11,9 @@ using namespace std;
 ////MARIO//////////////
 #define MARIO_WALKING_SPEED		0.1f 
 
-#define MARIO_JUMP_SPEED_Y		0.3f
+#define MARIO_JUMP_SPEED_Y		0.1f
 #define MARIO_JUMP_DEFLECT_SPEED 0.2f
-#define MARIO_GRAVITY			0.001f
+#define MARIO_GRAVITY			0.0001f
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f
 
 
@@ -34,8 +34,8 @@ using namespace std;
 
 //screen
 
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
+#define SCREEN_WIDTH 1536
+#define SCREEN_HEIGHT 365
 
 
 
@@ -52,26 +52,25 @@ extern std::unordered_map<int, bool> keyCode; // manager info of keyboard have b
 #define GAME CGame::GetInstance()
 extern std::unordered_map<int, bool> Allow;
 //////////////
-extern enum class StateName
+extern enum StateName
 {
+	WALKING,
 	WALKING_LEFT,
 	WALKING_RIGHT,
+	JUMPING,
+	JUMPING_RIGHT,
 	JUMPING_LEFT,
+	FALLING,
 	FALLING_LEFT,
 	FALLING_RIGHT,
+	STANDING,
 	STANDING_LEFT,
 	STANDING_RIGHT,
-	DOWN,
+	DOWNING,
+	DOWNING_LEFT,
+	DOWNING_RIGHT,
 	HURTED,
 	HITTING,
+	HITTING_LEFT,
+	HITTING_RIGHT,
 };
-#define STANDING_LEFT 0
-#define STANDING_RIGHT 1
-#define WALKING_LEFT 2
-#define WALKING_RIGHT 3
-#define JUMPING_LEFT 4
-#define FALLING_LEFT 5
-#define FALLING_RIGHT 7
-#define DOWN 8
-#define HURTED 9
-#define HITTING 10 

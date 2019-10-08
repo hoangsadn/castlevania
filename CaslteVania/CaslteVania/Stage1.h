@@ -8,6 +8,8 @@ class CMario;
 class Stage1 : public Scene
 {
 public:
+	Stage1();
+
 	void LoadResources();
 	void Update(float dt);
 	void Render();

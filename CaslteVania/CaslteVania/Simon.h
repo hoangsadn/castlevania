@@ -2,20 +2,21 @@
 #include "GameObject.h"
 #include "PlayerWalkingState.h"
 #include "PlayerStandingState.h"
+#include "PlayerJumpingState.h"
 class CAnimation;
 class CMario : public CGameObject
 {
 private:
 	static CMario* _instance;
-	int untouchable;
 public:
 	PlayerState* state;
-
+	bool IsJumping;
 	CMario() : CGameObject() 
 	{
-		untouchable = 0;
 	}
+	void Revival();
 
+	std::unordered_map<StateName, bool> allow;
 	CAnimation* CurAnimation;
 	static CMario* GetInstance();
 	virtual void Update(DWORD dt, vector<CGameObject*> *colliable_objects = NULL);
