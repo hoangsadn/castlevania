@@ -9,6 +9,8 @@ PlayerStandingState::PlayerStandingState()
 
 	player->vx = 0;
 	player->IsJumping = false;
+	player->IsHitting = false;
+
 	if (player->nx > 0)
 	{
 		StateName = STANDING_RIGHT;

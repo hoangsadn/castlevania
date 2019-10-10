@@ -17,9 +17,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vy += MARIO_GRAVITY *dt;
 	state->Update();
 
-	if (y > 20)
+	if (y > 100)
 	{
-		y = 20 ;
+		y = 100;
 		IsJumping = false;
 	}
 
@@ -84,31 +84,49 @@ void CMario::Revival()
 {
 	allow[JUMPING] = true;
 	allow[WALKING] = true;
-	SetPosition(50.0f, 20);
+	SetPosition(50.0f, 100);
 	nx = 1;
 	ChangeAnimation(new PlayerStandingState());
 }
 void CMario::OnKeyDown(int key)
 {
-	if (!IsJumping)
+	switch (key)
 	{
-		if ((key == DIK_SPACE) && (keyCode[DIK_RIGHT]))
+	case DIK_SPACE:
+	{
+		if (!IsJumping)
 		{
-			vx = MARIO_WALKING_SPEED;
-			nx = 1;
-			ChangeAnimation(new PlayerJumpingState());
+			if ((keyCode[DIK_RIGHT]))
+
+			{
+				vx = MARIO_WALKING_SPEED;
+				nx = 1;
+				ChangeAnimation(new PlayerJumpingState());
+			}
+			else if ((keyCode[DIK_LEFT]))
+			{
+				vx = -MARIO_WALKING_SPEED;
+				nx = -1;
+				ChangeAnimation(new PlayerJumpingState());
+			}
+			else
+			{
+				ChangeAnimation(new PlayerJumpingState());
+			}
 		}
-		else if ((key == DIK_SPACE) && (keyCode[DIK_LEFT]))
-		{
-			vx = -MARIO_WALKING_SPEED;
-			nx = -1;
-			ChangeAnimation(new PlayerJumpingState());
-		}
-		if (key == DIK_SPACE)
-		{
-			ChangeAnimation(new PlayerJumpingState());
-		}
+		break;
 	}
+	case DIK_C:
+	{
+		if (!IsHitting)
+		{
+			ChangeAnimation(new PlayerHittingState());
+		}
+		break;
+
+	}
+	}
+	
 }
 void CMario::OnKeyUp(int key)
 {

@@ -119,6 +119,8 @@ void Stage1::LoadResources()
 	p->AddAnimation(510, DOWNING_RIGHT);	 //down right
 	p->AddAnimation(511, DOWNING_LEFT);		//down left
 
+	p->AddAnimation(512, HITTING_STAND_LEFT);
+	p->AddAnimation(513, HITTING_STAND_RIGHT);
 
 	camera->SetPosition(100.f, 200);
 
@@ -152,13 +154,15 @@ void Stage1::Render()
 void Stage1::OnKeyDown(int Key)
 {
 	keyCode[Key] = true;
-	p->OnKeyUp(Key);
+	p->OnKeyDown(Key);
+
 
 };
 void Stage1::OnKeyUp(int Key) 
 {	
 	keyCode[Key] = false;
-	p->OnKeyDown(Key);
+	p->OnKeyUp(Key);
+
 	DebugOut(L"[INFO] KeyUp: %d\n", Key);
 
 };

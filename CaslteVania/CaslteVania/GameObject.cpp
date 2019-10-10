@@ -129,7 +129,7 @@ void CGameObject::RenderBoundingBox()
 	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
 }
 
-void CGameObject::AddAnimation(int aniId,StateName NameState)
+void CGameObject::AddAnimation(int aniId,STATENAME NameState)
 {
 	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
 	animations[NameState] = ani;

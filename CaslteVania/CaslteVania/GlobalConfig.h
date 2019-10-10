@@ -52,7 +52,7 @@ extern std::unordered_map<int, bool> keyCode; // manager info of keyboard have b
 #define GAME CGame::GetInstance()
 extern std::unordered_map<int, bool> Allow;
 //////////////
-extern enum StateName
+extern enum STATENAME
 {
 	WALKING,
 	WALKING_LEFT,
@@ -71,6 +71,6 @@ extern enum StateName
 	DOWNING_RIGHT,
 	HURTED,
 	HITTING,
-	HITTING_LEFT,
-	HITTING_RIGHT,
+	HITTING_STAND_LEFT,
+	HITTING_STAND_RIGHT,
 };

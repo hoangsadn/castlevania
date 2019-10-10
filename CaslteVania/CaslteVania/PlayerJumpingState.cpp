@@ -16,7 +16,7 @@ PlayerJumpingState::PlayerJumpingState()
 {
 	player->IsJumping = true;
 	player->vy = -MARIO_JUMP_SPEED_Y;
-	if (player->nx)
+	if (player->nx > 0 )
 		StateName = JUMPING_RIGHT;
 	else
 		StateName = JUMPING_LEFT;

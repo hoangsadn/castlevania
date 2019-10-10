@@ -3,6 +3,7 @@
 #include "PlayerWalkingState.h"
 #include "PlayerStandingState.h"
 #include "PlayerJumpingState.h"
+#include "PlayerHittingState.h"
 class CAnimation;
 class CMario : public CGameObject
 {
@@ -11,12 +12,13 @@ private:
 public:
 	PlayerState* state;
 	bool IsJumping;
+	bool IsHitting;
 	CMario() : CGameObject() 
 	{
 	}
 	void Revival();
 
-	std::unordered_map<StateName, bool> allow;
+	std::unordered_map<STATENAME, bool> allow;
 	CAnimation* CurAnimation;
 	static CMario* GetInstance();
 	virtual void Update(DWORD dt, vector<CGameObject*> *colliable_objects = NULL);
