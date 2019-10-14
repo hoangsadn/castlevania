@@ -67,7 +67,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CMario::Render()
 {
-	int ani;
 	int alpha = 255;
 	CurAnimation->Render(x, y, alpha);
 	RenderBoundingBox();
@@ -120,6 +119,8 @@ void CMario::OnKeyDown(int key)
 	{
 		if (!IsHitting)
 		{
+			whip->GetInstance()->SetPosition(player->x, player->y);
+			whip->GetInstance()->ChangeAnimations(WHIP_ONE_RIGHT);
 			ChangeAnimation(new PlayerHittingState());
 		}
 		break;

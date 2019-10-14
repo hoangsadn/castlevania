@@ -66,6 +66,7 @@ public:
 		float &ny);
 
 	void AddAnimation(int aniId, STATENAME NameState);
+	void AddAnimation(int aniId, TYPE type);
 
 	CGameObject();
 

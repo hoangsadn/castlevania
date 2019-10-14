@@ -3,6 +3,7 @@
 Stage1::Stage1()
 {
 	p = player;
+	whip = whip->GetInstance();
 	p->SetPosition(50.0f, 0);
 	p->nx = 1;
 	p->ChangeAnimation(new PlayerStandingState());
@@ -15,6 +16,8 @@ void Stage1::LoadResources()
 	textures->Add(ID_TEX_MARIO, L"textures\\simon.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 0, 255));
+	 
+	textures->Add(ID_TEX_WHIP, L"textures\\morningstar.png", D3DCOLOR_XRGB(255, 0, 255));
 
 
 	CSprites * sprites = CSprites::GetInstance();
@@ -22,6 +25,37 @@ void Stage1::LoadResources()
 
 
 	LPANIMATION ani;
+
+	LPDIRECT3DTEXTURE9 textWhip = textures->Get(ID_TEX_WHIP);
+	sprites->Add(20001, 0, 0, 158, 68, textWhip);		//whip one right
+	sprites->Add(20002, 158, 0, 317, 68, textWhip);
+	sprites->Add(20003, 317, 0, 474, 68, textWhip);
+	sprites->Add(20004, 474, 0, 635, 68, textWhip);
+
+	sprites->Add(20011, 0, 68, 158, 136, textWhip);		//whip two right
+	sprites->Add(20012, 158, 68, 317, 136, textWhip);
+	sprites->Add(20013, 317, 68, 474, 136, textWhip);
+	sprites->Add(20014, 474, 68, 635, 136, textWhip);
+
+	sprites->Add(20021, 0, 136, 158, 204, textWhip);	//whip three right
+	sprites->Add(20022, 158, 136, 317, 204, textWhip);
+	sprites->Add(20023, 317, 136, 474, 204, textWhip);
+	sprites->Add(20024, 474, 136, 635, 204, textWhip);
+
+	sprites->Add(20034, 0, 204, 158, 272, textWhip);	//whip one left
+	sprites->Add(20033, 158, 204, 317, 272, textWhip);
+	sprites->Add(20032, 317, 204, 474, 272, textWhip);
+	sprites->Add(20031, 474, 204, 635, 272, textWhip);
+
+	sprites->Add(20044, 0, 272, 158, 340, textWhip);	//whip two left
+	sprites->Add(20043, 158, 272, 317, 340, textWhip);
+	sprites->Add(20042, 317, 272, 474, 340, textWhip);
+	sprites->Add(20041, 474, 272, 635, 340, textWhip);
+
+	sprites->Add(20054, 0, 340, 158, 408, textWhip);	//whip two left
+	sprites->Add(20053, 158, 340, 317, 408, textWhip);
+	sprites->Add(20052, 317, 340, 474, 408, textWhip);
+	sprites->Add(20051, 474, 340, 635, 408, textWhip);
 
 
 	
@@ -91,19 +125,75 @@ void Stage1::LoadResources()
 	ani->Add(10010);	//down left
 	animations->Add(511, ani);
 
-	ani = new CAnimation(100);		//stand hit left
+	ani = new CAnimation(1000);		//stand hit left
 	ani->Add(10011);
 	ani->Add(10016);
 	ani->Add(10017);
 	ani->Add(10018);
 	animations->Add(512, ani);
 
-	ani = new CAnimation(100);	//stand hit right
+	ani = new CAnimation(1000);	//stand hit right
 	ani->Add(10001);
 	ani->Add(10019);
 	ani->Add(10020);
 	ani->Add(10021);
 	animations->Add(513, ani);
+
+
+	ani = new CAnimation(1000); //Whip one right
+	ani->Add(20004);
+	ani->Add(20001);
+	ani->Add(20002);
+	ani->Add(20003);
+	animations->Add(600, ani);
+
+	ani = new CAnimation(100); //Whip two right
+	ani->Add(20011);
+	ani->Add(20012);
+	ani->Add(20013);
+	ani->Add(20014);
+	animations->Add(601, ani);
+
+	ani = new CAnimation(100); //Whip three right
+	ani->Add(20021);
+	ani->Add(20022);
+	ani->Add(20023);
+	ani->Add(20024);
+	animations->Add(602, ani);
+
+	ani = new CAnimation(100); //Whip one right
+	ani->Add(20031);
+	ani->Add(20032);
+	ani->Add(20033);
+	ani->Add(20034);
+	animations->Add(603, ani);
+
+	ani = new CAnimation(1000); //Whip one left
+	ani->Add(20041);
+	ani->Add(20042);
+	ani->Add(20043);
+	ani->Add(20044);
+	animations->Add(604, ani);
+
+	ani = new CAnimation(100); //Whip two left
+	ani->Add(20051);
+	ani->Add(20052);
+	ani->Add(20053);
+	ani->Add(20054);
+	animations->Add(605, ani);
+
+	ani = new CAnimation(100); //Whip three left
+	ani->Add(20061);
+	ani->Add(20062);
+	ani->Add(20063);
+	ani->Add(20064);
+	animations->Add(606, ani);
+
+
+	whip->AddAnimation(600, WHIP_ONE_RIGHT);
+	whip->AddAnimation(604, WHIP_ONE_LEFT);
+
+
 
 
 	p->AddAnimation(400, STANDING_RIGHT);		// idle right big
@@ -125,21 +215,37 @@ void Stage1::LoadResources()
 	camera->SetPosition(100.f, 200);
 
 	p->Revival();
-	
 
-	objects.push_back(p);
+	objects.insert(p);
+	objects.insert(whip);
+
 };
+void Stage1::UpdatePlayer()
+{
+	auto it = PresentObjects.begin();
+	while ( it != PresentObjects.end())
+	{
+		if (dynamic_cast<CWhip*> (*it)&& !p->IsHitting)
+		{
+			it = PresentObjects.erase(it);
+		}
+		else it++;
+	};
+}
 void Stage1::Update(float dt) 
 {
 	vector<LPGAMEOBJECT> coObjects;
-	for (int i = 1; i < objects.size(); i++)
+	unordered_set<CGameObject*> ::iterator itr;
+	for (auto o : objects) 
 	{
-		coObjects.push_back(objects[i]);
+		coObjects.push_back(o);
+		PresentObjects.insert(o);	
 	}
+	Stage1::UpdatePlayer();
 
-	for (int i = 0; i < objects.size(); i++)
+	for (auto o: PresentObjects)
 	{
-		objects[i]->Update(dt, &coObjects);
+		(o)->Update(dt, &coObjects);
 	}
 	float cx, cy;
 	p->GetPosition(cx, cy);
@@ -148,8 +254,9 @@ void Stage1::Update(float dt)
 
 void Stage1::Render() 
 {
-	for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render();
+	for (auto it : PresentObjects)
+		(it)->Render();
+
 };
 void Stage1::OnKeyDown(int Key)
 {

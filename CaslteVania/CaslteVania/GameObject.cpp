@@ -16,8 +16,6 @@ void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	this->dt = dt;
 	dx = vx * dt;
 	dy = vy * dt;
-	/*GAMELOG("MyDebug:Update:dx: %6.4lf \n", dx);
-	GAMELOG("MyDebug:Update:dy: %6.4lf \n", dy);*/
 }
 
 /*
@@ -134,6 +132,12 @@ void CGameObject::AddAnimation(int aniId,STATENAME NameState)
 	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
 	animations[NameState] = ani;
 }
+void CGameObject::AddAnimation(int aniId, TYPE type)
+{
+	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
+	animations[type] = ani;
+}
+
 
 
 CGameObject::~CGameObject()

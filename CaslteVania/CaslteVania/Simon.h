@@ -4,13 +4,17 @@
 #include "PlayerStandingState.h"
 #include "PlayerJumpingState.h"
 #include "PlayerHittingState.h"
+#include "Whip.h"
 class CAnimation;
+
 class CMario : public CGameObject
 {
 private:
 	static CMario* _instance;
+
 public:
 	PlayerState* state;
+	CWhip* whip;
 	bool IsJumping;
 	bool IsHitting;
 	CMario() : CGameObject() 

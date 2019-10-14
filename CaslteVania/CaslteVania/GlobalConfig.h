@@ -6,6 +6,9 @@
 #include <unordered_map>
 #include "Camera.h"
 #include <vector>
+#include <iostream> 
+#include <string> 
+#include <unordered_set> 
 /////define /////////
 using namespace std;
 ////MARIO//////////////
@@ -42,7 +45,7 @@ using namespace std;
 #define ID_TEX_MARIO 0
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
-
+#define ID_TEX_WHIP 30
 
 //////variable////
 
@@ -73,4 +76,13 @@ extern enum STATENAME
 	HITTING,
 	HITTING_STAND_LEFT,
 	HITTING_STAND_RIGHT,
+};
+extern enum TYPE
+{
+	WHIP_ONE_RIGHT,
+	WHIP_ONE_LEFT,
+	WHIP_TWO_RIGHT,
+	WHIP_TWO_LEFT,
+	WHIP_THREE_RIGHT,
+	WHIP_THREE_LEFT,
 };

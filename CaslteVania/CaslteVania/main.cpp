@@ -73,9 +73,6 @@ void Render()
 
 		ManagerScene::GetInstance()->PresentScene->Render();
 
-		/*for (int i = 0; i < objects.size(); i++)
-			objects[i]->Render();*/
-
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
