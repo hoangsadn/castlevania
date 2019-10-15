@@ -52,7 +52,14 @@ void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 
 	DebugOut(L"[INFO] Texture loaded Ok: id=%d, %s \n", id, filePath);
 }
+void CTextures::LoadResources()
+{
+	Add(ID_TEX_MARIO, L"textures\\simon.png", D3DCOLOR_XRGB(255, 0, 255));
+	Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 0, 255));
+	Add(ID_TEX_WHIP, L"textures\\morningstar.png", D3DCOLOR_XRGB(255, 0, 255));
+	Add(ID_TEX_TITLE, L"textures\\title1.png", D3DCOLOR_XRGB(255, 0, 255));
 
+}
 LPDIRECT3DTEXTURE9 CTextures::Get(unsigned int i)
 {
 	return textures[i];

@@ -13,6 +13,7 @@ public:
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom) {};
 	virtual void Update(float dt);
 	virtual void Render();
+	void Init();
 	void ChangeAnimations(TYPE type);
 	CWhip* GetInstance();
 	~CWhip();

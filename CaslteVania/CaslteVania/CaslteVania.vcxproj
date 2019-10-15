@@ -164,6 +164,7 @@
     <ClCompile Include="GlobalConfig.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ManagerScene.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="PlayerDowningState.cpp" />
     <ClCompile Include="PlayerFallingState.cpp" />
     <ClCompile Include="PlayerHittingState.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GlobalConfig.h" />
     <ClInclude Include="ManagerScene.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="PlayerDowningState.h" />
     <ClInclude Include="PlayerFallingState.h" />
     <ClInclude Include="PlayerHittingState.h" />

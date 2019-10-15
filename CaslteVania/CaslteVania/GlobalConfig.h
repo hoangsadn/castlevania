@@ -38,7 +38,7 @@ using namespace std;
 //screen
 
 #define SCREEN_WIDTH 1536
-#define SCREEN_HEIGHT 365
+#define SCREEN_HEIGHT 288
 
 
 
@@ -46,6 +46,7 @@ using namespace std;
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
 #define ID_TEX_WHIP 30
+#define ID_TEX_TITLE 40
 
 //////variable////
 

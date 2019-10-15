@@ -119,8 +119,6 @@ void CMario::OnKeyDown(int key)
 	{
 		if (!IsHitting)
 		{
-			whip->GetInstance()->SetPosition(player->x, player->y);
-			whip->GetInstance()->ChangeAnimations(WHIP_ONE_RIGHT);
 			ChangeAnimation(new PlayerHittingState());
 		}
 		break;
