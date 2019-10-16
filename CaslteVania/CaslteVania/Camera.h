@@ -7,18 +7,20 @@ class Camera
 private:
 	int mWidth;
 	int mHeight;
+	
 	D3DXVECTOR3 mPosition;
 	static Camera * __instance;
 
 public:
-	Camera(int width, int height);
-
-	void SetPosition(float x, float y);
-	void SetPosition(D3DXVECTOR3 pos);
+	float x;
+	float y;
+	void SetCamPos(float x, float y) { this->x = x; this->y = y; };
+	void SetRect(int width,int height) { mWidth = width; mHeight = height; };
+	RECT GetBound();
 
 	int GetHeight() { return mHeight; }
 	int GetWidht() { return mWidth; }
-	D3DXVECTOR3 GetPosition() { return mPosition; }
+	void Update();
 	static Camera* GetInstance();
 
 	Camera();

@@ -23,7 +23,7 @@ private:
 	CMario *p;
 	CWhip *whip;
 	Map *map;
-
+	Camera *camera;
 	std::unordered_set <CGameObject*> objects;
 	std::unordered_set <CGameObject*> PresentObjects;
 

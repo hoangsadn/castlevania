@@ -1,6 +1,7 @@
 #include "Map.h"
 
 Map * Map::_instance = NULL;
+Camera * cam = CAMERA;
 
 Map::Map()
 {
@@ -8,10 +9,10 @@ Map::Map()
 	File.open(L"textures\\map.txt");
 	File >> col >> row;
 	mapTiles = new int*[row];
-	for (int r = 1; r <= row; ++r)
+	for (int r = 0; r < row; ++r)
 	{
 		mapTiles[r] = new int[col];
-		for (int c = 1; c <= col; ++c)
+		for (int c = 0; c < col; ++c)
 		{
 			File >> mapTiles[r][c];
 		}
@@ -24,19 +25,36 @@ void Map::Render()
 {
 	CTextures * textures = CTextures::GetInstance();
 	LPDIRECT3DTEXTURE9 texMap = textures->Get(ID_TEX_TITLE);
+
 	CSprites * sprites = CSprites::GetInstance();
 	sprites->Add(99999, 0,0, 32,1568, texMap);
-	CSprite* sprite = sprites->Get(99999);
-	for (int i = 1; i <= row; ++i)
-		for (int j = 1; j <= col; ++j)
-		{
-			if (mapTiles[i][j] == 0)
-			{
-				sprite->Draw(i * 32, j * 32, 0, 0, 32, 32);
-			}
-			else sprite->Draw(j * 32, i* 32, 32 * mapTiles[i][j]-32, 0, 32*mapTiles[i][j] , 32);
 
+	CSprite* sprite = sprites->Get(99999);
+	
+
+	for (int i = 0; i < row; ++i)
+		for (int j = 0; j < col; ++j)
+		{
+			RECT r; // bounding box of title red
+			r.left = j * TITLE_WIDTH;
+			r.top = i * TITLE_HEIGHT;
+			r.right = r.left + TITLE_WIDTH;
+			r.bottom = r.top + TITLE_HEIGHT;
+			if (IsCollision(cam->GetBound(),r)) // if title rect touch the Camera rect then do not draw 
+				sprite->Draw(r.left, r.top, TITLE_WIDTH * mapTiles[i][j]- TITLE_WIDTH, 0, TITLE_HEIGHT*mapTiles[i][j] , TITLE_HEIGHT);
 		}
+
+}
+bool Map::IsCollision(RECT rect1, RECT rect2)
+{
+	if (rect1.left > rect2.right || rect1.right < rect2.left || rect1.top > rect2.bottom || rect1.bottom < rect2.top)
+		return false;
+	return true;
+
+}
+void Map::Update(float dt)
+{
+	SetCamPos(player->x - SCREEN_WIDTH/2, player->y - SCREEN_HEIGHT/2);
 
 }
 Map * Map::GetInstance()

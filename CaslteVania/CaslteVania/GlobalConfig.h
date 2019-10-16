@@ -37,9 +37,11 @@ using namespace std;
 
 //screen
 
-#define SCREEN_WIDTH 1536
-#define SCREEN_HEIGHT 288
+#define SCREEN_WIDTH 500	
+#define SCREEN_HEIGHT 365
 
+#define TITLE_WIDTH 32
+#define TITLE_HEIGHT 32
 
 
 #define ID_TEX_MARIO 0
@@ -51,7 +53,7 @@ using namespace std;
 //////variable////
 
 extern std::unordered_map<int, bool> keyCode; // manager info of keyboard have been pressed or not 
-#define camera Camera::GetInstance()
+#define CAMERA Camera::GetInstance()
 #define player CMario::GetInstance()
 #define GAME CGame::GetInstance()
 extern std::unordered_map<int, bool> Allow;

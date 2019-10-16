@@ -4,7 +4,7 @@
 #include "GlobalConfig.h"
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
-
+#include "Camera.h"
 #define KEYBOARD_BUFFER_SIZE 1024
 /*
 Abstract class to define keyboard event handlers
@@ -15,6 +15,7 @@ class CGame
 	static CGame * __instance;
 	HWND hWnd;									// Window handle
 
+	Camera * cam;
 	LPDIRECT3D9 d3d = NULL;						// Direct3D handle
 	LPDIRECT3DDEVICE9 d3ddv = NULL;				// Direct3D device object
 
@@ -27,9 +28,6 @@ class CGame
 	BYTE  keyStates[256];			// DirectInput keyboard state buffer 
 	DIDEVICEOBJECTDATA keyEvents[KEYBOARD_BUFFER_SIZE];		// Buffered keyboard data
 
-
-	float cam_x = 0.0f;
-	float cam_y = 0.0f;
 
 public:
 	void InitKeyboard();
@@ -58,7 +56,6 @@ public:
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
 
-	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
 
 	static CGame * GetInstance();
 

@@ -63,6 +63,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
 }
 
 void CMario::Render()
@@ -81,9 +82,10 @@ void CMario::ChangeAnimation(PlayerState * newState)
 }
 void CMario::Revival()
 {
+	cam = CAMERA;
 	allow[JUMPING] = true;
 	allow[WALKING] = true;
-	SetPosition(50.0f, 100);
+	SetPosition(0.0f, 0);
 	nx = 1;
 	ChangeAnimation(new PlayerStandingState());
 }

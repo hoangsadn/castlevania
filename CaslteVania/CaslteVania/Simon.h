@@ -15,6 +15,7 @@ private:
 public:
 	PlayerState* state;
 	CWhip* whip;
+	Camera * cam;
 	bool IsJumping;
 	bool IsHitting;
 	CMario() : CGameObject() 

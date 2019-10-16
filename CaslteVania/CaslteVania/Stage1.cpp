@@ -3,11 +3,11 @@
 Stage1::Stage1()
 {
 	p = player;
+	camera = camera->GetInstance();
+	camera->SetRect(SCREEN_WIDTH, SCREEN_HEIGHT);
+	//camera->SetCamPos(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	map = map->GetInstance();
 	whip = whip->GetInstance();
-	p->SetPosition(50.0f, 0);
-	p->nx = 1;
-	p->ChangeAnimation(new PlayerStandingState());
 }
 void Stage1::LoadResources() 
 {
@@ -190,7 +190,6 @@ void Stage1::LoadResources()
 	p->AddAnimation(400, STANDING_RIGHT);		// idle right big
 	p->AddAnimation(401, STANDING_LEFT);		// idle left big
 
-
 	p->AddAnimation(500, WALKING_RIGHT);		// walk right big
 	p->AddAnimation(501, WALKING_LEFT);		// walk left big
 
@@ -203,7 +202,6 @@ void Stage1::LoadResources()
 	p->AddAnimation(512, HITTING_STAND_LEFT);
 	p->AddAnimation(513, HITTING_STAND_RIGHT);
 
-	camera->SetPosition(100.f, 200);
 
 	p->Revival();
 
@@ -242,16 +240,24 @@ void Stage1::Update(float dt)
 	{
 		(o)->Update(dt, &coObjects);
 	}
+
+	map->Update(dt);
 	float cx, cy;
 	p->GetPosition(cx, cy);
-	//camera->SetPosition(cx, 0.0f);
+
+	cx -= SCREEN_WIDTH / 2;
+	cy -= SCREEN_HEIGHT / 2;
+	camera->SetCamPos(cx, 0);
+	camera->Update();
+
 };
 
 void Stage1::Render() 
 {
+	map->Render();
 	for (auto it : PresentObjects)
 		(it)->Render();
-	map->Render();
+	
 
 };
 void Stage1::OnKeyDown(int Key)
