@@ -1,0 +1,4 @@
+0 textures\\simon.png 255 0 255
+-100 textures\\bbox.png 255 0 255
+30 textures\\morningstar.png 255 0 255
+40 textures\\title1.png 245 245 245

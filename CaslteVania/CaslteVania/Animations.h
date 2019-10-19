@@ -28,11 +28,10 @@ class CAnimation
 {
 	DWORD lastFrameTime;
 	int defaultTime;
-	int currentFrame;
 	vector<LPANIMATION_FRAME> frames;
 
 public:
-
+	int currentFrame;
 	bool isLastFrame;
 	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; isLastFrame = false; }
 	void Add(int spriteId, DWORD time = 0);
@@ -50,7 +49,7 @@ class CAnimations
 public:
 	void Add(int id, CAnimation * ani);
 	CAnimation * Get(int id);
-
+	void LoadResources();
 	static CAnimations * GetInstance();
 };
 

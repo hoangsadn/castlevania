@@ -54,10 +54,20 @@ void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 }
 void CTextures::LoadResources()
 {
-	Add(ID_TEX_MARIO, L"textures\\simon.png", D3DCOLOR_XRGB(255, 0, 255));
-	Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 0, 255));
-	Add(ID_TEX_WHIP, L"textures\\morningstar.png", D3DCOLOR_XRGB(255, 0, 255));
-	Add(ID_TEX_TITLE, L"textures\\title1.png", D3DCOLOR_XRGB(245, 245, 245));
+	ifstream File;
+	File.open(L"text\\texture.txt");
+	int rgb1, rgb2, rgb3, id;
+	string path;
+	while (!File.eof())
+	{
+		
+		File >> id  >> path >> rgb1 >> rgb2 >> rgb3;
+		std::wstring stemp = std::wstring(path.begin(), path.end());		//change string to LPSWSTR
+		LPCWSTR sw = stemp.c_str();
+		Add(id, sw, D3DCOLOR_XRGB(rgb1, rgb2, rgb3));
+	}
+	File.close();
+
 
 }
 LPDIRECT3DTEXTURE9 CTextures::Get(unsigned int i)

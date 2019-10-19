@@ -5,10 +5,7 @@ class CWhip : public CGameObject
 private:
 	static CWhip* _instance;
 public:
-	CWhip() : CGameObject() 
-	{
-
-	}
+	CWhip();
 	CAnimation* CurAnimation;
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom) {};
 	virtual void Update(float dt);

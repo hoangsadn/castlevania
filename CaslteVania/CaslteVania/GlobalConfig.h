@@ -14,7 +14,7 @@ using namespace std;
 ////MARIO//////////////
 #define MARIO_WALKING_SPEED		0.1f 
 
-#define MARIO_JUMP_SPEED_Y		0.1f
+#define MARIO_JUMP_SPEED_Y		0.25f
 #define MARIO_JUMP_DEFLECT_SPEED 0.2f
 #define MARIO_GRAVITY			0.0001f
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f
@@ -79,6 +79,8 @@ extern enum STATENAME
 	HITTING,
 	HITTING_STAND_LEFT,
 	HITTING_STAND_RIGHT,
+	HITTING_DOWN_LEFT,
+	HITTING_DOWN_RIGHT,
 };
 extern enum TYPE
 {

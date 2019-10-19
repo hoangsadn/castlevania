@@ -4,6 +4,7 @@
 
 PlayerWalkingState::PlayerWalkingState()
 {
+	player->ny = 1;
 	if (player->nx > 0)
 	{
 		StateName = WALKING_RIGHT;

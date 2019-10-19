@@ -41,6 +41,7 @@ public:
 	float vy;
 
 	int nx;
+	int ny;
 
 	DWORD dt;
 

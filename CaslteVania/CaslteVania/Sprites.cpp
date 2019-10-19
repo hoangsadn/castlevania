@@ -42,4 +42,21 @@ LPSPRITE CSprites::Get(int id)
 	return sprites[id];
 }
 
+void CSprites::LoadResources()
+{
+	ifstream File;
+	File.open(L"text\\sprites.txt");
+	int idSpirtes, left, top, right, bottom, Idtex;
+	CTextures * textures = CTextures::GetInstance();
+	while (!File.eof())
+	{
+		
+		File >> idSpirtes >> left >> top >> right >> bottom >> Idtex;
+		LPDIRECT3DTEXTURE9 textWhip = textures->Get(Idtex);
+		Add(idSpirtes, left, top, right, bottom, textWhip);
+
+	}
+	File.close();
+}
+
 

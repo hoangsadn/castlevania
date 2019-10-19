@@ -1,6 +1,28 @@
 #include "Simon.h"
 
 CMario * CMario::_instance = NULL;
+CMario::CMario() :CGameObject()
+{
+	AddAnimation(400, STANDING_RIGHT);		// idle right big
+	AddAnimation(401, STANDING_LEFT);		// idle left big
+
+	AddAnimation(500, WALKING_RIGHT);		// walk right big
+	AddAnimation(501, WALKING_LEFT);		// walk left big
+
+	AddAnimation(508, JUMPING_LEFT);		//jump left
+	AddAnimation(509, JUMPING_RIGHT);	//jump right
+	AddAnimation(400, FALLING_RIGHT);
+	AddAnimation(401, FALLING_LEFT);
+
+	AddAnimation(510, DOWNING_RIGHT);	 //down right
+	AddAnimation(511, DOWNING_LEFT);		//down left
+
+	AddAnimation(512, HITTING_STAND_LEFT);
+	AddAnimation(513, HITTING_STAND_RIGHT);
+
+	AddAnimation(514, HITTING_DOWN_RIGHT);
+	AddAnimation(515, HITTING_DOWN_LEFT);
+}
 CMario * CMario::GetInstance()
 {
 	if (_instance == NULL)
@@ -20,6 +42,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (y > 100)
 	{
 		y = 100;
+		vy = 0;
+
 		IsJumping = false;
 	}
 
@@ -58,7 +82,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			
 		}
 	}
 	// clean up collision events
@@ -83,6 +106,7 @@ void CMario::ChangeAnimation(PlayerState * newState)
 void CMario::Revival()
 {
 	cam = CAMERA;
+	UsingWhip = false;
 	allow[JUMPING] = true;
 	allow[WALKING] = true;
 	SetPosition(0.0f, 0);

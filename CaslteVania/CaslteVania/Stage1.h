@@ -15,6 +15,8 @@ public:
 
 	void LoadResources();
 	void Update(float dt);
+	void UpdateObject();
+
 	void UpdatePlayer();
 	void Render();
 	void OnKeyDown(int Key) ;

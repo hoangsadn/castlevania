@@ -16,11 +16,10 @@ public:
 	PlayerState* state;
 	CWhip* whip;
 	Camera * cam;
+	bool UsingWhip;
 	bool IsJumping;
 	bool IsHitting;
-	CMario() : CGameObject() 
-	{
-	}
+	CMario();
 	void Revival();
 
 	std::unordered_map<STATENAME, bool> allow;

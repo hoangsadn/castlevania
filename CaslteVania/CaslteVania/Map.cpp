@@ -6,7 +6,7 @@ Camera * cam = CAMERA;
 Map::Map()
 {
 	ifstream File;
-	File.open(L"textures\\map.txt");
+	File.open(L"text\\map.txt");
 	File >> col >> row;
 	mapTiles = new int*[row];
 	for (int r = 0; r < row; ++r)

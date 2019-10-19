@@ -4,6 +4,8 @@
 PlayerDowningState::PlayerDowningState()
 {
 	player->vx = 0;
+	player->ny = -1;
+
 	if (player->nx > 0)
 	{
 		StateName = DOWNING_RIGHT;
