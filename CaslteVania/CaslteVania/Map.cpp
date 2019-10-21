@@ -1,4 +1,6 @@
 #include "Map.h"
+#include "Textures.h"
+#include "Simon.h"
 
 Map * Map::_instance = NULL;
 Camera * cam = CAMERA;

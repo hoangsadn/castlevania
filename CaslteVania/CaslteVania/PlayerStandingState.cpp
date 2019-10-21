@@ -3,6 +3,7 @@
 
 PlayerStandingState::PlayerStandingState()
 {
+
 	player->allow[JUMPING] = true;
 	player->allow[DOWNING] = true;
 	player->allow[WALKING] = true;
@@ -17,6 +18,8 @@ PlayerStandingState::PlayerStandingState()
 		StateName = STANDING_RIGHT;
 	}
 	else StateName= STANDING_LEFT;
+	player->BoundingBox = SIMON_BIG_BOUNDING_BOX;
+
 }
 
 

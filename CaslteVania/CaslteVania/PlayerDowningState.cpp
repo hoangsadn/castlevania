@@ -3,9 +3,13 @@
 
 PlayerDowningState::PlayerDowningState()
 {
+	PrevState = player->state->StateName;
 	player->vx = 0;
 	player->ny = -1;
+	if (player->BoundingBox != SIMON_SMALL_BOUNDING_BOX)
+		player->y += 10;
 
+	player->BoundingBox = SIMON_SMALL_BOUNDING_BOX;
 	if (player->nx > 0)
 	{
 		StateName = DOWNING_RIGHT;
@@ -17,6 +21,7 @@ PlayerDowningState::PlayerDowningState()
 void PlayerDowningState::Update()
 {
 	this->HandleKeyBoard();
+	
 }
 void PlayerDowningState::HandleKeyBoard()
 {
@@ -37,8 +42,10 @@ void PlayerDowningState::HandleKeyBoard()
 	}
 	
 	else if (!(keyCode[DIK_DOWN]))
+	{
+		player->y -= 15;
 		player->ChangeAnimation(new PlayerStandingState());
-
+	}
 }
 
 

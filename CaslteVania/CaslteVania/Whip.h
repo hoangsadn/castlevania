@@ -1,5 +1,8 @@
 #pragma once
 #include "Simon.h"
+
+class CSimon;
+
 class CWhip : public CGameObject
 {
 private:
@@ -13,6 +16,7 @@ public:
 	void Init();
 	void ChangeAnimations(TYPE type);
 	CWhip* GetInstance();
+
 	~CWhip();
 };
 

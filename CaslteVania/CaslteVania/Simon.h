@@ -1,31 +1,33 @@
 #pragma once
 #include "GameObject.h"
-#include "PlayerWalkingState.h"
-#include "PlayerStandingState.h"
-#include "PlayerJumpingState.h"
-#include "PlayerHittingState.h"
-#include "Whip.h"
-class CAnimation;
 
-class CMario : public CGameObject
+
+
+class CAnimation;
+class CWhip;
+class PlayerState;
+class CGameObject;
+
+class CSimon : public CGameObject
 {
 private:
-	static CMario* _instance;
+	static CSimon* _instance;
 
 public:
 	PlayerState* state;
 	CWhip* whip;
 	Camera * cam;
+	int BoundingBox;
 	bool UsingWhip;
 	bool IsJumping;
 	bool IsHitting;
-	CMario();
+	CSimon();
 	void Revival();
 
 	std::unordered_map<STATENAME, bool> allow;
 	CAnimation* CurAnimation;
-	static CMario* GetInstance();
-	virtual void Update(DWORD dt, vector<CGameObject*> *colliable_objects = NULL);
+	static CSimon* GetInstance();
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 	void ChangeAnimation(PlayerState* newState);
 

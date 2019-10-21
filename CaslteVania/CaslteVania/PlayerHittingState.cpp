@@ -1,11 +1,13 @@
 #include "PlayerHittingState.h"
-
+#include "PlayerStandingState.h"
+#include "PlayerFallingState.h"
+#include "PlayerJumpingState.h"
 
 
 PlayerHittingState::PlayerHittingState()
 {
 	player->IsHitting = true;
-	PrevAnimation = player->state->StateName;
+	PrevState = player->state->StateName;
 	if (player->nx > 0)
 	{
 		if (player->ny < 0)
@@ -37,7 +39,7 @@ void PlayerHittingState::Update()
 		player->IsHitting = false;
 		player->CurAnimation->isLastFrame = false;
 		player->CurAnimation->currentFrame = -1; //switch animation in the last frame , must return to defaut
-		switch (PrevAnimation)
+		switch (PrevState)
 		{
 		case WALKING_LEFT : case WALKING_RIGHT : case STANDING_LEFT : case STANDING_RIGHT:
 			player->ChangeAnimation(new PlayerStandingState());

@@ -11,7 +11,6 @@ void CAnimation::Add(int spriteId, DWORD time)
 
 void CAnimation::Render(float x, float y, int alpha)
 {
-	GAMELOG("Currenr %d", currentFrame);
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
 	{
@@ -69,10 +68,10 @@ void CAnimations::LoadResources()
 		else
 		{
 			LPANIMATION ani = new CAnimation(100);
-			for (auto it = ParaAni.begin(); it != ParaAni.end(); ++it)
+			
+			for (auto it = ParaAni.begin(); it != ParaAni.end()-1; ++it)
 				ani->Add(*it);
 			it = ParaAni.end() - 1;
-		
 			Add(*it, ani);
 			ParaAni.clear();
 		}

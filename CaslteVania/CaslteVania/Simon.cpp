@@ -1,7 +1,12 @@
 #include "Simon.h"
+#include "PlayerState.h"
+#include "PlayerWalkingState.h"
+#include "PlayerStandingState.h"
+#include "PlayerHittingState.h"
+#include "PlayerJumpingState.h"
 
-CMario * CMario::_instance = NULL;
-CMario::CMario() :CGameObject()
+CSimon * CSimon::_instance = NULL;
+CSimon::CSimon() :CGameObject()
 {
 	AddAnimation(400, STANDING_RIGHT);		// idle right big
 	AddAnimation(401, STANDING_LEFT);		// idle left big
@@ -23,29 +28,21 @@ CMario::CMario() :CGameObject()
 	AddAnimation(514, HITTING_DOWN_RIGHT);
 	AddAnimation(515, HITTING_DOWN_LEFT);
 }
-CMario * CMario::GetInstance()
+CSimon * CSimon::GetInstance()
 {
 	if (_instance == NULL)
-		_instance = new CMario();
+		_instance = new CSimon();
 	return _instance;
 }
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	// Simple fall down
 	
 	// Calculate dx, dy 
 
 	CGameObject::Update(dt);
-	vy += MARIO_GRAVITY *dt;
+	vy += SIMON_GRAVITY *dt;
 	state->Update();
-
-	if (y > 100)
-	{
-		y = 100;
-		vy = 0;
-
-		IsJumping = false;
-	}
 
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -74,7 +71,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		// block 
 		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		y += min_ty * dy + ny * 0.4f;
-
+		IsJumping = false;
 
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
@@ -89,23 +86,24 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 }
 
-void CMario::Render()
+void CSimon::Render()
 {
 	int alpha = 255;
 	CurAnimation->Render(x, y, alpha);
 	RenderBoundingBox();
 }
 
-void CMario::ChangeAnimation(PlayerState * newState)
+void CSimon::ChangeAnimation(PlayerState * newState)
 {
 	delete state;
 	state = newState;
 	state->StateName = newState->StateName;
 	CurAnimation = animations[newState->StateName];
 }
-void CMario::Revival()
+void CSimon::Revival()
 {
 	cam = CAMERA;
+
 	UsingWhip = false;
 	allow[JUMPING] = true;
 	allow[WALKING] = true;
@@ -113,7 +111,7 @@ void CMario::Revival()
 	nx = 1;
 	ChangeAnimation(new PlayerStandingState());
 }
-void CMario::OnKeyDown(int key)
+void CSimon::OnKeyDown(int key)
 {
 	switch (key)
 	{
@@ -124,13 +122,13 @@ void CMario::OnKeyDown(int key)
 			if ((keyCode[DIK_RIGHT]))
 
 			{
-				vx = MARIO_WALKING_SPEED;
+				vx = SIMON_WALKING_SPEED;
 				nx = 1;
 				ChangeAnimation(new PlayerJumpingState());
 			}
 			else if ((keyCode[DIK_LEFT]))
 			{
-				vx = -MARIO_WALKING_SPEED;
+				vx = -SIMON_WALKING_SPEED;
 				nx = -1;
 				ChangeAnimation(new PlayerJumpingState());
 			}
@@ -153,16 +151,26 @@ void CMario::OnKeyDown(int key)
 	}
 	
 }
-void CMario::OnKeyUp(int key)
+void CSimon::OnKeyUp(int key)
 {
 
 }
 
-void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
+void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	left = x;
-	top = y;
-	right = x + MARIO_BIG_BBOX_WIDTH;
-	bottom = y + MARIO_BIG_BBOX_HEIGHT;
+	if (BoundingBox == SIMON_BIG_BOUNDING_BOX)
+	{
+		left = x + 11;
+		top = y + 4;
+		right = x + SIMON_BIG_BBOX_WIDTH;
+		bottom = y + SIMON_BIG_BBOX_HEIGHT;
+	}
+	else
+	{
+		left = x + 11;
+		top = y + 4;
+		right = x + SIMON_SMALL_BBOX_WIDTH;
+		bottom = y + SIMON_SMALL_BBOX_HEIGHT;
+	}
 
 }

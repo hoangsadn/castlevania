@@ -21,6 +21,8 @@ PlayerFallingState::PlayerFallingState()
 		StateName = FALLING_RIGHT;
 	else
 		StateName = FALLING_LEFT;
+	player->BoundingBox = SIMON_BIG_BOUNDING_BOX;
+
 }
 
 

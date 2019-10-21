@@ -38,13 +38,13 @@ void PlayerWalkingState::HandleKeyBoard()
 	}
 	else if (keyCode[DIK_LEFT])
 	{
-		player->vx = -MARIO_WALKING_SPEED;
+		player->vx = -SIMON_WALKING_SPEED;
 		player->nx = -1;
 		player->ChangeAnimation(new PlayerWalkingState());
 	}
 	else if (keyCode[DIK_RIGHT])
 	{
-		player->vx = MARIO_WALKING_SPEED;
+		player->vx = SIMON_WALKING_SPEED;
 		player->nx = 1;
 		player->ChangeAnimation(new PlayerWalkingState());
 	}

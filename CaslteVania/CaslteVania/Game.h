@@ -2,10 +2,11 @@
 #include "ManagerScene.h"
 #include "Stage1.h"
 #include "GlobalConfig.h"
-#define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include "Camera.h"
 #define KEYBOARD_BUFFER_SIZE 1024
+#define DIRECTINPUT_VERSION 0x0800
+
 /*
 Abstract class to define keyboard event handlers
 */

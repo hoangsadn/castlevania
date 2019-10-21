@@ -1,12 +1,11 @@
 #pragma once 
 #include "Scene.h"
-#include "Simon.h"
 #include "Map.h"
-
 class CGameObject;
-class CMario;
+class CSimon;
 class CWhip;
 class Map;
+class CBrick;
 
 class Stage1 : public Scene
 {
@@ -22,7 +21,8 @@ public:
 	void OnKeyDown(int Key) ;
 	void OnKeyUp(int Key) ;
 private:
-	CMario *p;
+	CSimon *p;
+	CBrick * brick;
 	CWhip *whip;
 	Map *map;
 	Camera *camera;

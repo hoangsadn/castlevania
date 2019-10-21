@@ -27,5 +27,4 @@ ManagerScene * ManagerScene::GetInstance()
 		__instance = new ManagerScene();
 	}
 	return __instance;
-	
 }
