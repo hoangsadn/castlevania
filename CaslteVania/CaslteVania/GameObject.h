@@ -64,7 +64,8 @@ public:
 		float &min_ty,
 		float &nx,
 		float &ny);
-
+	bool IsCollision(float left1, float top1, float right1, float bottom1, 
+					float left2, float top2, float bottom2, float right2);
 	void AddAnimation(int aniId, STATENAME NameState);
 	void AddAnimation(int aniId, TYPE type);
 

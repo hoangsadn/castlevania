@@ -15,7 +15,7 @@ void PlayerJumpingState::HandleKeyBoard()
 }
 PlayerJumpingState::PlayerJumpingState()
 {
-	
+	player->allow[JUMPING] = false;
 	if (!player->IsJumping)
 		player->vy = -SIMON_JUMP_SPEED_Y;
 	player->IsJumping = true;

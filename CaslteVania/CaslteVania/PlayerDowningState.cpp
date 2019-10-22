@@ -16,6 +16,7 @@ PlayerDowningState::PlayerDowningState()
 	}
 	else
 		StateName = DOWNING_LEFT;
+
 }
 
 void PlayerDowningState::Update()
@@ -38,6 +39,7 @@ void PlayerDowningState::HandleKeyBoard()
 	}
 	else if (keyCode[DIK_RIGHT]||keyCode[DIK_LEFT])
 	{
+		player->y -= 15;
 		player->ChangeAnimation(new PlayerWalkingState());
 	}
 	

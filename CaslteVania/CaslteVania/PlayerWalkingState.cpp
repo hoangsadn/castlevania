@@ -4,6 +4,7 @@
 
 PlayerWalkingState::PlayerWalkingState()
 {
+	player->allow[JUMPING] = true;
 	player->ny = 1;
 	if (player->nx > 0)
 	{
@@ -13,6 +14,7 @@ PlayerWalkingState::PlayerWalkingState()
 	{
 		StateName = WALKING_LEFT;
 	}
+	player->BoundingBox = SIMON_BIG_BOUNDING_BOX;
 }
 
 

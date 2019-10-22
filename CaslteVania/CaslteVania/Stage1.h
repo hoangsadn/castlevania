@@ -16,7 +16,7 @@ public:
 	void Update(float dt);
 	void UpdateObject();
 
-	void UpdatePlayer();
+	void UpdatePlayer(float dt);
 	void Render();
 	void OnKeyDown(int Key) ;
 	void OnKeyUp(int Key) ;
@@ -27,6 +27,8 @@ private:
 	Map *map;
 	Camera *camera;
 	std::unordered_set <CGameObject*> objects;
+	
+
 	std::unordered_set <CGameObject*> PresentObjects;
 
 };

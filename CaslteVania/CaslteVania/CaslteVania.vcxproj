@@ -175,6 +175,7 @@
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Stage1.cpp" />
+    <ClCompile Include="StoredItem.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Whip.cpp" />
   </ItemGroup>
@@ -199,6 +200,8 @@
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Stage1.h" />
+    <ClInclude Include="StoredItem.h" />
+    <ClInclude Include="StoredItemFirePillar.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Whip.h" />
   </ItemGroup>

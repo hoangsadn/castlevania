@@ -4,7 +4,7 @@
 #include "PlayerStandingState.h"
 #include "PlayerHittingState.h"
 #include "PlayerJumpingState.h"
-
+#include "Brick.h"
 CSimon * CSimon::_instance = NULL;
 CSimon::CSimon() :CGameObject()
 {
@@ -56,33 +56,28 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// reset untouchable timer if untouchable time has passed
 	// No collision occured, proceed normally
 
-	if (coEvents.size() == 0)
-	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
+	//if (coEvents.size() == 0)
+	//{
+	//	x += dx;
+	//	y += dy;
+	//}
+	//else
+	//{
 
-		float min_tx, min_ty, nx = 0, ny;
+	//	float min_tx, min_ty, nx = 0, ny;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+	//	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		// block 
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f;
-		IsJumping = false;
+	//	
+	//	// Collision logic with Goombas
+	//	for (UINT i = 0; i < coEventsResult.size(); i++)
+	//	{
+	//		LPCOLLISIONEVENT e = coEventsResult[i];
 
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
-		// Collision logic with Goombas
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-		}
-	}
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	//	}
+	//}
+	//// clean up collision events
+	//for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 }
 
@@ -117,10 +112,9 @@ void CSimon::OnKeyDown(int key)
 	{
 	case DIK_SPACE:
 	{
-		if (!IsJumping)
+		if (!IsJumping && allow[JUMPING])
 		{
 			if ((keyCode[DIK_RIGHT]))
-
 			{
 				vx = SIMON_WALKING_SPEED;
 				nx = 1;
@@ -173,4 +167,41 @@ void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom
 		bottom = y + SIMON_SMALL_BBOX_HEIGHT;
 	}
 
+}
+
+void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	// turn off collision when die 
+	CalcPotentialCollisions(coObjects, coEvents);
+
+	// reset untouchable timer if untouchable time has passed
+	// No collision occured, proceed normally
+
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		// block 
+		float min_tx, min_ty, nx = 0, ny;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		y += min_ty * dy + ny * 0.4f;
+
+		IsJumping = false;
+
+		if (nx != 0) vx = 0;
+		if (ny != 0) vy = 0;
+		
+	}
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }

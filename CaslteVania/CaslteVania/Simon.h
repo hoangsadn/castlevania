@@ -28,6 +28,7 @@ public:
 	CAnimation* CurAnimation;
 	static CSimon* GetInstance();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	void CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects);
 	virtual void Render();
 	void ChangeAnimation(PlayerState* newState);
 

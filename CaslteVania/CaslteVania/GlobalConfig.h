@@ -48,6 +48,8 @@ using namespace std;
 #define ID_TEX_MISC 20
 #define ID_TEX_WHIP 30
 #define ID_TEX_TITLE 40
+#define ID_TEX_FIRE_PILLAR 50
+
 
 //////variable////
 
@@ -89,4 +91,6 @@ extern enum TYPE
 	WHIP_TWO_LEFT,
 	WHIP_THREE_RIGHT,
 	WHIP_THREE_LEFT,
+	FIRE_PILLAR,
+	CANDLE,
 };

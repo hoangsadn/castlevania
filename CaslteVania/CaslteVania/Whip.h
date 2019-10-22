@@ -10,8 +10,8 @@ private:
 public:
 	CWhip();
 	CAnimation* CurAnimation;
-	void GetBoundingBox(float &left, float &top, float &right, float &bottom) {};
-	virtual void Update(float dt);
+	void GetBoundingBox(float &l, float &t, float &r, float &b);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render();
 	void Init();
 	void ChangeAnimations(TYPE type);
