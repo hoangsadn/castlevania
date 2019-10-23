@@ -7,7 +7,11 @@ class CStoredItem : public CGameObject
 public:
 	CAnimation* CurAnimation;
 	bool isDead;
-	CStoredItem() : CGameObject() {}
+
+	TYPE stored;
+	CStoredItem() : CGameObject()
+	{
+	}
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render();

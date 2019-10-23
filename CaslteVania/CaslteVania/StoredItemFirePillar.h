@@ -4,11 +4,12 @@
 class CStoredItemFirePillar : public CStoredItem
 {
 public:
-	CStoredItemFirePillar()
+	CStoredItemFirePillar(TYPE stored)
 	{
-		AddAnimation(30001, FIRE_PILLAR);
+		AddAnimation(301, FIRE_PILLAR);
 		CurAnimation = animations[FIRE_PILLAR];
 		isDead = false;
+		this->stored = stored;
 	}
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{

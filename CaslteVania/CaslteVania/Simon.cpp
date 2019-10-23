@@ -5,6 +5,7 @@
 #include "PlayerHittingState.h"
 #include "PlayerJumpingState.h"
 #include "Brick.h"
+#include "Item.h"
 CSimon * CSimon::_instance = NULL;
 CSimon::CSimon() :CGameObject()
 {
@@ -37,11 +38,11 @@ CSimon * CSimon::GetInstance()
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	// Simple fall down
-	
+
 	// Calculate dx, dy 
 
 	CGameObject::Update(dt);
-	vy += SIMON_GRAVITY *dt;
+	vy += SIMON_GRAVITY * dt;
 	state->Update();
 
 
@@ -56,31 +57,29 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// reset untouchable timer if untouchable time has passed
 	// No collision occured, proceed normally
 
-	//if (coEvents.size() == 0)
-	//{
-	//	x += dx;
-	//	y += dy;
-	//}
-	//else
-	//{
 
-	//	float min_tx, min_ty, nx = 0, ny;
+	float min_tx, min_ty, nx = 0, ny;
 
-	//	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-	//	
-	//	// Collision logic with Goombas
-	//	for (UINT i = 0; i < coEventsResult.size(); i++)
-	//	{
-	//		LPCOLLISIONEVENT e = coEventsResult[i];
 
-	//	}
-	//}
-	//// clean up collision events
-	//for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	// Collision logic with 
+	for (UINT i = 0; i < coEventsResult.size(); i++)
+	{
+		LPCOLLISIONEVENT e = coEventsResult[i];
+		if (dynamic_cast<CItem*>(e->obj)) // if e->obj is Goomba 
+		{
+			CItem *item = dynamic_cast<CItem *>(e->obj);
+			item->isDead = true;
 
+
+		}
+
+		// clean up collision events
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+	}
 }
-
 void CSimon::Render()
 {
 	int alpha = 255;
@@ -143,7 +142,7 @@ void CSimon::OnKeyDown(int key)
 
 	}
 	}
-	
+
 }
 void CSimon::OnKeyUp(int key)
 {
@@ -200,7 +199,7 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
-		
+
 	}
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];

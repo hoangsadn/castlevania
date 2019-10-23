@@ -33,7 +33,7 @@ void CAnimation::Render(float x, float y, int alpha)
 		}
 		else
 		{
-			//isLastFrame = false;
+			isLastFrame = false;
 			t += now - lastFrameTime;
 		}
 

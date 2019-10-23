@@ -1,0 +1,5 @@
+20000 WHIP
+10000 SIMON
+30000 OJ - 
+ + 30001,2 : fire_pillar
+40000 Item

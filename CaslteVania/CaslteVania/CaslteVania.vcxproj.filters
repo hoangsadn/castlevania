@@ -13,159 +13,177 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Player.cpp">
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{2692fef3-4903-4ff2-921d-ca83864e37ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameComponents">
+      <UniqueIdentifier>{7f10a422-2efc-4536-9a8b-10c976647feb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects">
+      <UniqueIdentifier>{eb9d887d-4d63-41c7-83fd-f0b91bd3899c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\Item">
+      <UniqueIdentifier>{0aaded6c-d0ef-40b5-8b26-1682cb13d06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\Player.cpp">
       <UniqueIdentifier>{df1fa436-dbc8-4f99-89f4-7538e57583b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\player.h">
-      <UniqueIdentifier>{c10f1d46-c265-4d1c-8146-54d2ab99eaf7}</UniqueIdentifier>
+    <Filter Include="Source Files\GameObjects\StoredItem">
+      <UniqueIdentifier>{01430cb9-ac9c-41dd-9c61-86576cb31526}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Image.cpp">
+    <Filter Include="Source Files\GameComponents\Image">
       <UniqueIdentifier>{eb8a4766-bd61-4143-ab6d-6f23a84e99ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Image.h">
-      <UniqueIdentifier>{ec6c73c6-707f-44c3-b58f-b6872dda44e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="debug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ManagerScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Stage1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GlobalConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerDowningState.cpp">
-      <Filter>Source Files\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
     </ClCompile>
     <ClCompile Include="PlayerJumpingState.cpp">
-      <Filter>Source Files\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
     </ClCompile>
     <ClCompile Include="PlayerStandingState.cpp">
-      <Filter>Source Files\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
     </ClCompile>
     <ClCompile Include="PlayerWalkingState.cpp">
-      <Filter>Source Files\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Simon.cpp">
-      <Filter>Source Files\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Animations.cpp">
-      <Filter>Source Files\Image.cpp</Filter>
+      <Filter>Source Files\GameComponents\Image</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
-      <Filter>Source Files\Image.cpp</Filter>
+      <Filter>Source Files\GameComponents\Image</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
-      <Filter>Source Files\Image.cpp</Filter>
+      <Filter>Source Files\GameComponents\Image</Filter>
     </ClCompile>
     <ClCompile Include="PlayerHittingState.cpp">
-      <Filter>Source Files\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
     </ClCompile>
     <ClCompile Include="PlayerFallingState.cpp">
-      <Filter>Source Files\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Whip.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files\GameObjects\Item</Filter>
     </ClCompile>
     <ClCompile Include="StoredItem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjects\StoredItem</Filter>
+    </ClCompile>
+    <ClCompile Include="ManagerScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage1.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Whip.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Source Files\GameComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GlobalConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ManagerScene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Stage1.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerDowningState.h">
-      <Filter>Header Files\player.h</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerJumpingState.h">
-      <Filter>Header Files\player.h</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerStandingState.h">
-      <Filter>Header Files\player.h</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerWalkingState.h">
-      <Filter>Header Files\player.h</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>Header Files\player.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Simon.h">
-      <Filter>Header Files\player.h</Filter>
+    <ClInclude Include="Item.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
     </ClInclude>
     <ClInclude Include="Animations.h">
-      <Filter>Header Files\Image.h</Filter>
+      <Filter>Source Files\GameComponents\Image</Filter>
     </ClInclude>
     <ClInclude Include="Sprites.h">
-      <Filter>Header Files\Image.h</Filter>
+      <Filter>Source Files\GameComponents\Image</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
-      <Filter>Header Files\Image.h</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerHittingState.h">
-      <Filter>Header Files\player.h</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerFallingState.h">
-      <Filter>Header Files\player.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Whip.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\GameComponents\Image</Filter>
     </ClInclude>
     <ClInclude Include="StoredItem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\GameObjects\StoredItem</Filter>
     </ClInclude>
     <ClInclude Include="StoredItemFirePillar.h">
+      <Filter>Source Files\GameObjects\StoredItem</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDowningState.h">
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFallingState.h">
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHittingState.h">
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpingState.h">
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandingState.h">
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWalkingState.h">
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Simon.h">
+      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Source Files\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Source Files\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Whip.h">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
+      <Filter>Source Files\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalConfig.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemWhip.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

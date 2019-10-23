@@ -163,6 +163,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GlobalConfig.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ManagerScene.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -187,6 +188,8 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GlobalConfig.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemWhip.h" />
     <ClInclude Include="ManagerScene.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="PlayerDowningState.h" />

@@ -17,29 +17,31 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vector<LPGAMEOBJECT> coEvents;
 
 	coEvents.clear();
-	for (UINT i = 0; i < coObjects->size(); i++)
-	{
-		float l1, t1, r1, b1, l2, t2, r2, b2;
 
-		GetBoundingBox(l1, t1, r1, b1);
-		
-		coObjects->at(i)->GetBoundingBox(l2, t2, r2, b2);
-		if (IsCollision(l1, t1, r1, b1, l2, t2, r2, b2))
+		for (UINT i = 0; i < coObjects->size(); i++)
 		{
-			coEvents.push_back(coObjects->at(i));
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+
+			GetBoundingBox(l1, t1, r1, b1);
+
+			coObjects->at(i)->GetBoundingBox(l2, t2, r2, b2);
+			if (IsCollision(l1, t1, r1, b1, l2, t2, r2, b2))
+			{
+				coEvents.push_back(coObjects->at(i));
+			}
 		}
-	}
 
-	for (UINT i = 0; i < coEvents.size(); i++)
-	{
-
-		if (dynamic_cast<CStoredItemFirePillar *>(coEvents.at(i))) // if e->obj is Goomba 
+		for (UINT i = 0; i < coEvents.size(); i++)
 		{
-			CStoredItemFirePillar *FirePillar = dynamic_cast<CStoredItemFirePillar *>(coEvents.at(i));
-			FirePillar->isDead = true;
 
+			if (dynamic_cast<CStoredItemFirePillar *>(coEvents.at(i))) // if e->obj is Goomba 
+			{
+				CStoredItemFirePillar *FirePillar = dynamic_cast<CStoredItemFirePillar *>(coEvents.at(i));
+				FirePillar->isDead = true;
+
+			}
 		}
-	}
+	
 }
 
 void CWhip::Init()
@@ -49,6 +51,8 @@ void CWhip::Init()
 	else
 		CWhip::ChangeAnimations(WHIP_ONE_LEFT);
 	CurAnimation->currentFrame = -1;			//switch animation in the last frame , must return to defaut
+	CurAnimation->isLastFrame = false;
+
 }
 void CWhip::ChangeAnimations(TYPE type)
 {

@@ -3,6 +3,7 @@
 #include "Brick.h"
 #include "Simon.h"
 #include "StoredItemFirePillar.h"
+#include "Item.h"
 class CBrick;
 vector<LPGAMEOBJECT> CannotTouchObjects;
 Stage1::Stage1()
@@ -26,16 +27,16 @@ void Stage1::LoadResources()
 	brick->SetPosition(0.0f, 300.0f);
 	CannotTouchObjects.push_back(brick);
 
-	CStoredItemFirePillar * cotlua = new CStoredItemFirePillar();
+	CStoredItemFirePillar * cotlua = new CStoredItemFirePillar(MORNING_STAR);
 	cotlua->SetPosition(300.0f, 250.0f);
 	cotlua->isDead = false;
-	objects.insert(cotlua);
+	PresentObjects.insert(cotlua);
 	
 
 	p = player;
 	p->Revival();
 
-	objects.insert(p);
+	PresentObjects.insert(p);
 
 
 };
@@ -55,9 +56,25 @@ void Stage1::UpdateObject()
 		{
 			CStoredItemFirePillar *FirePillar = dynamic_cast<CStoredItemFirePillar *>(*it);
 			if (FirePillar->isDead)
+			{
 				it = PresentObjects.erase(it);
+				auto itemdrop = CItems::CreateIteam(FirePillar->stored);
+				itemdrop->SetPosition(FirePillar->x, FirePillar->y);
+				PresentObjects.insert(itemdrop);
+				
+			}
 			else it++;
 		}
+		else if (dynamic_cast<CItem*> (*it))
+		{
+			CItem *item = dynamic_cast<CItem *>(*it);
+			if (item->isDead)
+			{
+				it = PresentObjects.erase(it);
+			}
+			else it++;
+		}
+
 		else it++;
 	}
 }
@@ -80,10 +97,10 @@ void Stage1::Update(float dt)
 {
 	
 	vector<LPGAMEOBJECT> coObjects;
-	for (auto o : objects) 
+	for (auto o : PresentObjects)
 	{
 		coObjects.push_back(o);
-		PresentObjects.insert(o);	
+		//PresentObjects.insert(o);	
 	}
 	Stage1::UpdatePlayer(dt);
 
