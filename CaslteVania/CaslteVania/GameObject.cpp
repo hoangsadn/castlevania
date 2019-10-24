@@ -21,7 +21,7 @@ void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 /*
 	Extension of original SweptAABB to deal with two moving objects
 */
-bool CGameObject::IsCollision(float left1,float top1,float right1,float bottom1, float left2,float top2,float bottom2,float right2)
+bool CGameObject::IsCollision(float left1,float top1,float right1,float bottom1, float left2,float top2,float right2,float bottom2)
 {
 	if (left1 > right2 || right1 < left2 || top1 > bottom2 || bottom1 < top2)
 		return false;

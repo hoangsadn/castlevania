@@ -2,8 +2,10 @@
 #include "Whip.h"
 #include "Brick.h"
 #include "Simon.h"
-#include "StoredItemFirePillar.h"
+#include "HolderFirePillar.h"
 #include "Item.h"
+#include "Effect.h"
+#include "Items.h"
 class CBrick;
 vector<LPGAMEOBJECT> CannotTouchObjects;
 Stage1::Stage1()
@@ -11,7 +13,6 @@ Stage1::Stage1()
 	camera = camera->GetInstance();
 	camera->SetRect(SCREEN_WIDTH, SCREEN_HEIGHT);
 	map = map->GetInstance();
-	whip = whip->GetInstance();
 
 }
 void Stage1::LoadResources() 
@@ -27,11 +28,13 @@ void Stage1::LoadResources()
 	brick->SetPosition(0.0f, 300.0f);
 	CannotTouchObjects.push_back(brick);
 
-	CStoredItemFirePillar * cotlua = new CStoredItemFirePillar(MORNING_STAR);
-	cotlua->SetPosition(300.0f, 250.0f);
-	cotlua->isDead = false;
+	CHolderFirePillar * cotlua = new CHolderFirePillar(MORNING_STAR);
+	cotlua->SetPosition(300.0f, 235.0f);
 	PresentObjects.insert(cotlua);
 	
+	CHolderFirePillar * cotlua2 = new CHolderFirePillar(BIG_HEART);
+	cotlua2->SetPosition(600.0f, 235.0f);
+	PresentObjects.insert(cotlua2);
 
 	p = player;
 	p->Revival();
@@ -40,42 +43,60 @@ void Stage1::LoadResources()
 
 
 };
-void Stage1::UpdateObject()
+void Stage1::UpdateObject(float dt)
 {
 	if (!p->UsingWhip&& p->IsHitting)
 	{
-		whip = new CWhip();
-		whip->Init();
+		whip = whip->GetInstance();
+		whip->Init(p->whipType);
 		PresentObjects.insert(whip);
 		p->UsingWhip = true;
 	}
 	auto it = PresentObjects.begin();
 	while (it != PresentObjects.end())
 	{
-		if (dynamic_cast<CStoredItemFirePillar*> (*it))
+		auto obj = *it;
+		switch (obj->tag)
 		{
-			CStoredItemFirePillar *FirePillar = dynamic_cast<CStoredItemFirePillar *>(*it);
-			if (FirePillar->isDead)
-			{
-				it = PresentObjects.erase(it);
-				auto itemdrop = CItems::CreateIteam(FirePillar->stored);
-				itemdrop->SetPosition(FirePillar->x, FirePillar->y);
-				PresentObjects.insert(itemdrop);
-				
-			}
-			else it++;
-		}
-		else if (dynamic_cast<CItem*> (*it))
-		{
-			CItem *item = dynamic_cast<CItem *>(*it);
-			if (item->isDead)
-			{
-				it = PresentObjects.erase(it);
-			}
-			else it++;
-		}
 
-		else it++;
+		case HOLDER:
+			if (obj->isDead)
+			{
+				auto holder = (CHolder*)obj;
+				it = PresentObjects.erase(it);
+
+				Effect *efc = new Effect();						// effect of holder dead
+				efc->SetPosition(holder->x, holder->y);
+				PresentObjects.insert(efc);
+
+				auto itemdrop = CItems::CreateIteam(holder->stored);
+				itemdrop->SetPosition(holder->x, holder->y);
+				PresentObjects.insert(itemdrop);
+
+			}
+			else it++;
+			break;
+		case ITEM:
+			if (obj->isDead)
+				it = PresentObjects.erase(it);
+			else
+			{
+				obj->Update(dt, &CannotTouchObjects);
+				it++;
+			}
+			break;
+		case EFFECT:
+		{
+			auto effect = (Effect*)obj;
+			if (effect->CurAnimation->isLastFrame)
+				it = PresentObjects.erase(it);
+			else it++;
+			break;
+		}
+		default:
+			it++;
+		
+		}
 	}
 }
 void Stage1::UpdatePlayer(float dt)
@@ -88,21 +109,21 @@ void Stage1::UpdatePlayer(float dt)
 			it = PresentObjects.erase(it);
 			p->UsingWhip = false;
 		}
+		
 		else it++;
 	};
-	this->UpdateObject();
+	this->UpdateObject(dt);
 	p->CollisonGroundWall(dt, &CannotTouchObjects);
 }
 void Stage1::Update(float dt) 
 {
-	
+	Stage1::UpdatePlayer(dt);
 	vector<LPGAMEOBJECT> coObjects;
 	for (auto o : PresentObjects)
 	{
 		coObjects.push_back(o);
-		//PresentObjects.insert(o);	
 	}
-	Stage1::UpdatePlayer(dt);
+	
 
 	for (auto o: PresentObjects)
 	{
@@ -129,7 +150,6 @@ void Stage1::OnKeyDown(int Key)
 {	
 	keyCode[Key] = true;
 	p->OnKeyDown(Key);
-
 
 };
 void Stage1::OnKeyUp(int Key) 

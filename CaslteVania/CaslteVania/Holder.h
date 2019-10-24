@@ -2,20 +2,20 @@
 #include "GameObject.h"
 class CAnimation;
 
-class CStoredItem : public CGameObject
+class CHolder : public CGameObject
 {
 public:
 	CAnimation* CurAnimation;
-	bool isDead;
 
 	TYPE stored;
-	CStoredItem() : CGameObject()
+	CHolder() : CGameObject()
 	{
+		tag = HOLDER;
 	}
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render();
 
-	~CStoredItem();
+	~CHolder();
 };
 

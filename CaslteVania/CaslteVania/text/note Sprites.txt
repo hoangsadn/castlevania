@@ -3,3 +3,4 @@
 30000 OJ - 
  + 30001,2 : fire_pillar
 40000 Item
+50000 effects

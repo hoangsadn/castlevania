@@ -78,9 +78,6 @@
     <ClCompile Include="Item.cpp">
       <Filter>Source Files\GameObjects\Item</Filter>
     </ClCompile>
-    <ClCompile Include="StoredItem.cpp">
-      <Filter>Source Files\GameObjects\StoredItem</Filter>
-    </ClCompile>
     <ClCompile Include="ManagerScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -105,6 +102,12 @@
     <ClCompile Include="debug.cpp">
       <Filter>Source Files\GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="Holder.cpp">
+      <Filter>Source Files\GameObjects\StoredItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ManagerScene.h">
@@ -127,12 +130,6 @@
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Source Files\GameComponents\Image</Filter>
-    </ClInclude>
-    <ClInclude Include="StoredItem.h">
-      <Filter>Source Files\GameObjects\StoredItem</Filter>
-    </ClInclude>
-    <ClInclude Include="StoredItemFirePillar.h">
-      <Filter>Source Files\GameObjects\StoredItem</Filter>
     </ClInclude>
     <ClInclude Include="PlayerDowningState.h">
       <Filter>Source Files\GameObjects\Player.cpp</Filter>
@@ -183,6 +180,21 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="ItemWhip.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Holder.h">
+      <Filter>Source Files\GameObjects\StoredItem</Filter>
+    </ClInclude>
+    <ClInclude Include="HolderFirePillar.h">
+      <Filter>Source Files\GameObjects\StoredItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Items.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBigHeart.h">
       <Filter>Source Files\GameObjects\Item</Filter>
     </ClInclude>
   </ItemGroup>

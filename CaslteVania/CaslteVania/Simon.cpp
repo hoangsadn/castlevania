@@ -5,7 +5,7 @@
 #include "PlayerHittingState.h"
 #include "PlayerJumpingState.h"
 #include "Brick.h"
-#include "Item.h"
+#include "Whip.h"
 CSimon * CSimon::_instance = NULL;
 CSimon::CSimon() :CGameObject()
 {
@@ -16,7 +16,7 @@ CSimon::CSimon() :CGameObject()
 	AddAnimation(501, WALKING_LEFT);		// walk left big
 
 	AddAnimation(508, JUMPING_LEFT);		//jump left
-	AddAnimation(509, JUMPING_RIGHT);	//jump right
+	AddAnimation(509, JUMPING_RIGHT);		//jump right
 	AddAnimation(400, FALLING_RIGHT);
 	AddAnimation(401, FALLING_LEFT);
 
@@ -28,6 +28,10 @@ CSimon::CSimon() :CGameObject()
 
 	AddAnimation(514, HITTING_DOWN_RIGHT);
 	AddAnimation(515, HITTING_DOWN_LEFT);
+	tag = PLAYER;
+	
+
+
 }
 CSimon * CSimon::GetInstance()
 {
@@ -67,15 +71,22 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
-		if (dynamic_cast<CItem*>(e->obj)) // if e->obj is Goomba 
+		auto object = e->obj;
+		if (object->tag == ITEM ) 
 		{
-			CItem *item = dynamic_cast<CItem *>(e->obj);
-			item->isDead = true;
-
-
+			object->isDead = true;
+			switch (object->type)
+			{
+			case MORNING_STAR:
+				whipType = whipType != 3 ? whipType +1 : 3;
+				break;
+			case BIG_HEART:
+				bullet += 5;
+			}
 		}
 
 		// clean up collision events
+
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 	}
@@ -103,6 +114,8 @@ void CSimon::Revival()
 	allow[WALKING] = true;
 	SetPosition(0.0f, 0);
 	nx = 1;
+	whipType = 1;
+	bullet = 0;
 	ChangeAnimation(new PlayerStandingState());
 }
 void CSimon::OnKeyDown(int key)

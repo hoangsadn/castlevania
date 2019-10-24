@@ -21,6 +21,9 @@ public:
 	bool UsingWhip;
 	bool IsJumping;
 	bool IsHitting;
+	TYPE weaponTypeCarry;
+	int whipType;
+	int bullet;
 	CSimon();
 	void Revival();
 

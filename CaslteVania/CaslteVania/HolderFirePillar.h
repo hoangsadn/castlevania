@@ -1,15 +1,16 @@
 #pragma once
-#include "StoredItem.h"
+#include "Holder.h"
 
-class CStoredItemFirePillar : public CStoredItem
+class CHolderFirePillar : public CHolder
 {
 public:
-	CStoredItemFirePillar(TYPE stored)
+	CHolderFirePillar(TYPE stored)
 	{
 		AddAnimation(301, FIRE_PILLAR);
 		CurAnimation = animations[FIRE_PILLAR];
 		isDead = false;
 		this->stored = stored;
+		type = FIRE_PILLAR;
 	}
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{

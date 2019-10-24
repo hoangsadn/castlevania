@@ -42,8 +42,10 @@ public:
 	int nx;
 	int ny;
 
+	TYPE type;
+	TAG tag;
 	DWORD dt;
-
+	bool isDead;
 	std::unordered_map<int, CAnimation*> animations;
 
 public:
@@ -65,7 +67,7 @@ public:
 		float &nx,
 		float &ny);
 	bool IsCollision(float left1, float top1, float right1, float bottom1, 
-					float left2, float top2, float bottom2, float right2);
+					float left2, float top2, float right2, float bottom2);
 	void AddAnimation(int aniId, STATENAME NameState);
 	void AddAnimation(int aniId, TYPE type);
 
