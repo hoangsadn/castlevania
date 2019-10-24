@@ -1,9 +1,8 @@
 #include "Whip.h"
-#include "HolderFirePillar.h"
-#include <algorithm>
+
 
 CWhip * CWhip::_instance = NULL;
-CWhip::CWhip() :CGameObject()
+CWhip::CWhip()
 {
 	AddAnimation(600, WHIP_ONE_LEFT);
 	AddAnimation(601, WHIP_TWO_LEFT);
@@ -15,40 +14,7 @@ CWhip::CWhip() :CGameObject()
 	typeWhip = 1;
 
 }
-void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
-{
-	int posX = player->nx > 0 ? player->x - 22 : player->x - 80;
-	int	posY = player->nx > 0 ? player->y + 1 : player->y;
-	SetPosition(posX, posY);
 
-	vector<LPGAMEOBJECT> coEvents;
-
-	coEvents.clear();
-
-	for (UINT i = 0; i < coObjects->size(); i++)
-	{
-		float l1, t1, r1, b1, l2, t2, r2, b2;
-
-		GetBoundingBox(l1, t1, r1, b1);
-
-		coObjects->at(i)->GetBoundingBox(l2, t2, r2, b2);
-		if (IsCollision(l1, t1, r1, b1, l2, t2, r2, b2))
-		{
-			coEvents.push_back(coObjects->at(i));
-		}
-	}
-
-	for (UINT i = 0; i < coEvents.size(); i++)
-	{
-
-		if (dynamic_cast<CHolderFirePillar *>(coEvents.at(i))) // if e->obj is Goomba 
-		{
-			CHolderFirePillar *FirePillar = dynamic_cast<CHolderFirePillar *>(coEvents.at(i));
-			FirePillar->isDead = true;
-		}
-	}
-
-}
 
 void CWhip::Init(int typeWhip)
 {
@@ -84,16 +50,19 @@ void CWhip::Init(int typeWhip)
 	CurAnimation->isLastFrame = false;
 
 }
+void CWhip::UpdatePosititon(DWORD dt)
+{
+	int posX = player->nx > 0 ? player->x - 22 : player->x - 80;
+	int	posY = player->nx > 0 ? player->y + 1 : player->y;
+	SetPosition(posX, posY);
+	if (CurAnimation->isLastFrame)
+		isDead = true;
+}
 void CWhip::ChangeAnimations(TYPE type)
 {
 	CurAnimation = animations[type];
 }
-void CWhip::Render()
-{
-	int alpha = 255;
-	CurAnimation->Render(x, y, alpha);
-	RenderBoundingBox();
-}
+
 void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b)
 {
 	if (CurAnimation->isLastFrame)

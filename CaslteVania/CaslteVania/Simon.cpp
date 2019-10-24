@@ -29,7 +29,7 @@ CSimon::CSimon() :CGameObject()
 	AddAnimation(514, HITTING_DOWN_RIGHT);
 	AddAnimation(515, HITTING_DOWN_LEFT);
 	tag = PLAYER;
-	
+
 
 
 }
@@ -72,16 +72,18 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
 		auto object = e->obj;
-		if (object->tag == ITEM ) 
+		if (object->tag == ITEM)
 		{
 			object->isDead = true;
 			switch (object->type)
 			{
 			case MORNING_STAR:
-				whipType = whipType != 3 ? whipType +1 : 3;
+				whipType = whipType != 3 ? whipType + 1 : 3;
 				break;
 			case BIG_HEART:
 				bullet += 5;
+			case KNIFE:
+				weaponTypeCarry = KNIFE;
 			}
 		}
 
@@ -115,7 +117,8 @@ void CSimon::Revival()
 	SetPosition(0.0f, 0);
 	nx = 1;
 	whipType = 1;
-	bullet = 0;
+	bullet = 5;
+	weaponTypeCarry = KNIFE;
 	ChangeAnimation(new PlayerStandingState());
 }
 void CSimon::OnKeyDown(int key)
@@ -146,15 +149,23 @@ void CSimon::OnKeyDown(int key)
 		break;
 	}
 	case DIK_C:
-	{
-		if (!IsHitting)
+
+		if (keyCode[DIK_UP] && bullet != 0 && !IsThrowing && weaponTypeCarry != NOTHING)
+		{
+			bullet--;
+			ChangeAnimation(new PlayerHittingState());
+			IsThrowing = true;
+			break;
+		}
+		else if (!IsHitting)
 		{
 			ChangeAnimation(new PlayerHittingState());
+			IsHitting = true;
+			break;
 		}
-		break;
 
 	}
-	}
+
 
 }
 void CSimon::OnKeyUp(int key)

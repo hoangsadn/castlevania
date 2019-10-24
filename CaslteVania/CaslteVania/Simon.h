@@ -20,7 +20,7 @@ public:
 	int BoundingBox;
 	bool UsingWhip;
 	bool IsJumping;
-	bool IsHitting;
+	bool IsHitting, IsThrowing;
 	TYPE weaponTypeCarry;
 	int whipType;
 	int bullet;

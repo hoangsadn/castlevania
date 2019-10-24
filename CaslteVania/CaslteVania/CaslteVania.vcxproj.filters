@@ -25,14 +25,17 @@
     <Filter Include="Source Files\GameObjects\Item">
       <UniqueIdentifier>{0aaded6c-d0ef-40b5-8b26-1682cb13d06c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameObjects\Player.cpp">
-      <UniqueIdentifier>{df1fa436-dbc8-4f99-89f4-7538e57583b3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GameObjects\StoredItem">
       <UniqueIdentifier>{01430cb9-ac9c-41dd-9c61-86576cb31526}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\GameComponents\Image">
       <UniqueIdentifier>{eb8a4766-bd61-4143-ab6d-6f23a84e99ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\Weapon">
+      <UniqueIdentifier>{9313d7c6-7813-470e-9bcd-a93a9f1e5332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\Player">
+      <UniqueIdentifier>{df1fa436-dbc8-4f99-89f4-7538e57583b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,19 +49,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayerDowningState.cpp">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerJumpingState.cpp">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerStandingState.cpp">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerWalkingState.cpp">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="Simon.cpp">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="Animations.cpp">
       <Filter>Source Files\GameComponents\Image</Filter>
@@ -70,10 +73,10 @@
       <Filter>Source Files\GameComponents\Image</Filter>
     </ClCompile>
     <ClCompile Include="PlayerHittingState.cpp">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerFallingState.cpp">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Source Files\GameObjects\Item</Filter>
@@ -96,9 +99,6 @@
     <ClCompile Include="Brick.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Whip.cpp">
-      <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="debug.cpp">
       <Filter>Source Files\GameComponents</Filter>
     </ClCompile>
@@ -107,6 +107,15 @@
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Whip.cpp">
+      <Filter>Source Files\GameObjects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Source Files\GameObjects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Knife.cpp">
+      <Filter>Source Files\GameObjects\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,28 +141,28 @@
       <Filter>Source Files\GameComponents\Image</Filter>
     </ClInclude>
     <ClInclude Include="PlayerDowningState.h">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerFallingState.h">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerHittingState.h">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerJumpingState.h">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerStandingState.h">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerState.h">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerWalkingState.h">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="Simon.h">
-      <Filter>Source Files\GameObjects\Player.cpp</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Source Files\GameComponents</Filter>
@@ -162,9 +171,6 @@
       <Filter>Source Files\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Source Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Whip.h">
       <Filter>Source Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="debug.h">
@@ -196,6 +202,21 @@
     </ClInclude>
     <ClInclude Include="ItemBigHeart.h">
       <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Whip.h">
+      <Filter>Source Files\GameObjects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Source Files\GameObjects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Knife.h">
+      <Filter>Source Files\GameObjects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemKnife.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons.h">
+      <Filter>Source Files\GameObjects\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

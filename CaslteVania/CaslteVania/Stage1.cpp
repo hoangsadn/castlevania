@@ -6,6 +6,7 @@
 #include "Item.h"
 #include "Effect.h"
 #include "Items.h"
+#include "Weapons.h"
 class CBrick;
 vector<LPGAMEOBJECT> CannotTouchObjects;
 Stage1::Stage1()
@@ -36,6 +37,10 @@ void Stage1::LoadResources()
 	cotlua2->SetPosition(600.0f, 235.0f);
 	PresentObjects.insert(cotlua2);
 
+	CHolderFirePillar * cotlua3 = new CHolderFirePillar(KNIFE);
+	cotlua3->SetPosition(700.0f, 235.0f);
+	PresentObjects.insert(cotlua3);
+
 	p = player;
 	p->Revival();
 
@@ -51,6 +56,13 @@ void Stage1::UpdateObject(float dt)
 		whip->Init(p->whipType);
 		PresentObjects.insert(whip);
 		p->UsingWhip = true;
+	}
+	else if (p->IsThrowing)
+	{
+		auto w = CWeapons::CreateWeapon(p->weaponTypeCarry);
+		w->SetPosition(player->x, player->y);
+		PresentObjects.insert(w);
+		p->IsThrowing = false;
 	}
 	auto it = PresentObjects.begin();
 	while (it != PresentObjects.end())
@@ -104,7 +116,8 @@ void Stage1::UpdatePlayer(float dt)
 	auto it = PresentObjects.begin();
 	while ( it != PresentObjects.end())
 	{
-		if (dynamic_cast<CWhip*> (*it) && !p->IsHitting)
+		auto obj = *it;
+		if (obj->tag == WEAPON && !p->IsHitting && obj->isDead)
 		{
 			it = PresentObjects.erase(it);
 			p->UsingWhip = false;

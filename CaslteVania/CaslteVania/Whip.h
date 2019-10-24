@@ -1,20 +1,17 @@
 #pragma once
-#include "Simon.h"
-
+#include "Weapon.h"
 class CSimon;
 
-class CWhip : public CGameObject
+class CWhip : public CWeapon
 {
 private:
 	static CWhip* _instance;
 public:
 	CWhip();
-	CAnimation* CurAnimation;
 	int typeWhip;
-	void GetBoundingBox(float &l, float &t, float &r, float &b);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
-	virtual void Render();
+	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	void Init(int typeWhip);
+	virtual void UpdatePosititon(DWORD dt);
 	void ChangeAnimations(TYPE type);
 	CWhip* GetInstance();
 

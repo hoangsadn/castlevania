@@ -8,7 +8,7 @@ PlayerHittingState::PlayerHittingState()
 {
 	player->allow[JUMPING] = false;
 
-	player->IsHitting = true;
+	
 	PrevState = player->state->StateName;
 	if (player->nx > 0)
 	{
