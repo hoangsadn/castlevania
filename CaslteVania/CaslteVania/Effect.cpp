@@ -17,6 +17,7 @@ void Effect::Render()
 {
 	int alpha = 255;
 	CurAnimation->Render(x, y, alpha);
+	
 }
 Effect* Effect::GetInstance()
 {

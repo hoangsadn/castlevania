@@ -6,12 +6,12 @@ CKnife::CKnife()
 	if (player->nx > 0)
 	{
 		CurAnimation = animations[KNIFE_RIGHT];
-		vx = 0.5;
+		vx = 0.2;
 	}
 	else
 	{
 		CurAnimation = animations[KNIFE_LEFT];
-		vx = -0.5;
+		vx = -0.2;
 	}
 	type = KNIFE;
 

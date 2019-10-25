@@ -110,10 +110,10 @@ void CSimon::ChangeAnimation(PlayerState * newState)
 void CSimon::Revival()
 {
 	cam = CAMERA;
-
-	UsingWhip = false;
 	allow[JUMPING] = true;
 	allow[WALKING] = true;
+	allow[THROWING] = true;
+	allow[HITTING] = true;
 	SetPosition(0.0f, 0);
 	nx = 1;
 	whipType = 1;
@@ -150,17 +150,17 @@ void CSimon::OnKeyDown(int key)
 	}
 	case DIK_C:
 
-		if (keyCode[DIK_UP] && bullet != 0 && !IsThrowing && weaponTypeCarry != NOTHING)
+		if (keyCode[DIK_UP] && bullet != 0 && allow[THROWING] && weaponTypeCarry != NOTHING)
 		{
 			bullet--;
 			ChangeAnimation(new PlayerHittingState());
 			IsThrowing = true;
 			break;
 		}
-		else if (!IsHitting)
+		else if (allow[HITTING])
 		{
-			ChangeAnimation(new PlayerHittingState());
 			IsHitting = true;
+			ChangeAnimation(new PlayerHittingState());
 			break;
 		}
 
@@ -175,7 +175,7 @@ void CSimon::OnKeyUp(int key)
 
 void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (BoundingBox == SIMON_BIG_BOUNDING_BOX)
+	if (stateBoundingBox == SIMON_BIG_BOUNDING_BOX)
 	{
 		left = x + 11;
 		top = y + 4;

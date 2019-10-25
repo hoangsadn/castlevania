@@ -7,7 +7,8 @@
 PlayerHittingState::PlayerHittingState()
 {
 	player->allow[JUMPING] = false;
-
+	player->allow[THROWING] = false;
+	player->allow[HITTING] = false;
 	
 	PrevState = player->state->StateName;
 	if (player->nx > 0)
@@ -38,7 +39,8 @@ void PlayerHittingState::Update()
 	this->HandleKeyBoard();
 	if (player->CurAnimation->isLastFrame)
 	{
-		player->IsHitting = false;
+		player->allow[HITTING] = true;
+		player->allow[THROWING] = true;
 		player->CurAnimation->isLastFrame = false;
 		player->CurAnimation->currentFrame = -1; //switch animation in the last frame , must return to defaut
 		switch (PrevState)

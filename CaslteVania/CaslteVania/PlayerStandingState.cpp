@@ -18,7 +18,7 @@ PlayerStandingState::PlayerStandingState()
 		StateName = STANDING_RIGHT;
 	}
 	else StateName= STANDING_LEFT;
-	player->BoundingBox = SIMON_BIG_BOUNDING_BOX;
+	player->stateBoundingBox = SIMON_BIG_BOUNDING_BOX;
 
 }
 

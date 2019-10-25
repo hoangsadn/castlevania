@@ -14,7 +14,7 @@ PlayerWalkingState::PlayerWalkingState()
 	{
 		StateName = WALKING_LEFT;
 	}
-	player->BoundingBox = SIMON_BIG_BOUNDING_BOX;
+	player->stateBoundingBox = SIMON_BIG_BOUNDING_BOX;
 }
 
 

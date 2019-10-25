@@ -9,7 +9,9 @@ void CItem::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	
 	CGameObject::Update(dt);
-	
+	if (GetTickCount() - timeDead > 4000)
+		isDead = true;
+
 	CollisonGroundWall(dt, coObjects);
 }
 void CItem::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

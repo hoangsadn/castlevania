@@ -23,7 +23,7 @@ PlayerJumpingState::PlayerJumpingState()
 		StateName = JUMPING_RIGHT;
 	else
 		StateName = JUMPING_LEFT;
-	player->BoundingBox = SIMON_SMALL_BOUNDING_BOX;
+	player->stateBoundingBox = SIMON_SMALL_BOUNDING_BOX;
 }
 
 

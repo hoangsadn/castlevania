@@ -6,10 +6,10 @@ PlayerDowningState::PlayerDowningState()
 	PrevState = player->state->StateName;
 	player->vx = 0;
 	player->ny = -1;
-	if (player->BoundingBox != SIMON_SMALL_BOUNDING_BOX)
+	if (player->stateBoundingBox != SIMON_SMALL_BOUNDING_BOX)
 		player->y += 10;
 
-	player->BoundingBox = SIMON_SMALL_BOUNDING_BOX;
+	player->stateBoundingBox = SIMON_SMALL_BOUNDING_BOX;
 	if (player->nx > 0)
 	{
 		StateName = DOWNING_RIGHT;

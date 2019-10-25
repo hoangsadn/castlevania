@@ -34,11 +34,11 @@ void Stage1::LoadResources()
 	PresentObjects.insert(cotlua);
 	
 	CHolderFirePillar * cotlua2 = new CHolderFirePillar(BIG_HEART);
-	cotlua2->SetPosition(600.0f, 235.0f);
+	cotlua2->SetPosition(330.0f, 235.0f);
 	PresentObjects.insert(cotlua2);
 
 	CHolderFirePillar * cotlua3 = new CHolderFirePillar(KNIFE);
-	cotlua3->SetPosition(700.0f, 235.0f);
+	cotlua3->SetPosition(350.0f, 235.0f);
 	PresentObjects.insert(cotlua3);
 
 	p = player;
@@ -50,12 +50,13 @@ void Stage1::LoadResources()
 };
 void Stage1::UpdateObject(float dt)
 {
-	if (!p->UsingWhip&& p->IsHitting)
+	if (p->IsHitting)
 	{
 		whip = whip->GetInstance();
 		whip->Init(p->whipType);
 		PresentObjects.insert(whip);
-		p->UsingWhip = true;
+		p->IsHitting = false;
+
 	}
 	else if (p->IsThrowing)
 	{
@@ -117,10 +118,9 @@ void Stage1::UpdatePlayer(float dt)
 	while ( it != PresentObjects.end())
 	{
 		auto obj = *it;
-		if (obj->tag == WEAPON && !p->IsHitting && obj->isDead)
+		if (obj->tag == WEAPON && obj->isDead)
 		{
 			it = PresentObjects.erase(it);
-			p->UsingWhip = false;
 		}
 		
 		else it++;

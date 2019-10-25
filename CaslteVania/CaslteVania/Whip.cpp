@@ -12,6 +12,7 @@ CWhip::CWhip()
 	AddAnimation(605, WHIP_THREE_RIGHT);
 	tag = WEAPON;
 	typeWhip = 1;
+	
 
 }
 
@@ -19,6 +20,7 @@ CWhip::CWhip()
 void CWhip::Init(int typeWhip)
 {
 	this->typeWhip = typeWhip;
+	isDead = false;
 	switch (typeWhip)
 	{
 	case 1:

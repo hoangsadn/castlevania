@@ -17,8 +17,7 @@ public:
 	PlayerState* state;
 	CWhip* whip;
 	Camera * cam;
-	int BoundingBox;
-	bool UsingWhip;
+	int stateBoundingBox;
 	bool IsJumping;
 	bool IsHitting, IsThrowing;
 	TYPE weaponTypeCarry;
