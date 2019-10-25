@@ -218,6 +218,9 @@
     <ClInclude Include="Weapons.h">
       <Filter>Source Files\GameObjects\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerReciveItemState.h">
+      <Filter>Source Files\GameObjects\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\bbox.png">

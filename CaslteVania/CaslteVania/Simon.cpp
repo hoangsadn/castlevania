@@ -4,6 +4,7 @@
 #include "PlayerStandingState.h"
 #include "PlayerHittingState.h"
 #include "PlayerJumpingState.h"
+#include "PlayerReciveItemState.h"
 #include "Brick.h"
 #include "Whip.h"
 CSimon * CSimon::_instance = NULL;
@@ -28,6 +29,9 @@ CSimon::CSimon() :CGameObject()
 
 	AddAnimation(514, HITTING_DOWN_RIGHT);
 	AddAnimation(515, HITTING_DOWN_LEFT);
+
+	AddAnimation(516, RECIVE_RIGHT);
+	AddAnimation(517, RECIVE_LEFT);
 	tag = PLAYER;
 
 
@@ -79,6 +83,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 			case MORNING_STAR:
 				whipType = whipType != 3 ? whipType + 1 : 3;
+				ChangeAnimation(new PlayerReciveItemState());
 				break;
 			case BIG_HEART:
 				bullet += 5;

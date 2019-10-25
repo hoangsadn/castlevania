@@ -1,5 +1,7 @@
 20000 WHIP
 10000 SIMON
+10029->10032 Right - flash simon 
+10032->10036 Left - flash simon
 30000 OJ - 
  + 30001,2 : fire_pillar
 40000 Item

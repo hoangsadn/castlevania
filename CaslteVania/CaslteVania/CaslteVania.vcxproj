@@ -204,6 +204,7 @@
     <ClInclude Include="PlayerFallingState.h" />
     <ClInclude Include="PlayerHittingState.h" />
     <ClInclude Include="PlayerJumpingState.h" />
+    <ClInclude Include="PlayerReciveItemState.h" />
     <ClInclude Include="PlayerStandingState.h" />
     <ClInclude Include="PlayerState.h" />
     <ClInclude Include="PlayerWalkingState.h" />
