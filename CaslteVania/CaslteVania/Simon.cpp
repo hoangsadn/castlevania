@@ -87,8 +87,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				break;
 			case BIG_HEART:
 				bullet += 5;
+				break;
+			case SMALL_HEART:
+				bullet++;
+				break;
 			case KNIFE:
 				weaponTypeCarry = KNIFE;
+				break;
 			}
 		}
 
@@ -102,7 +107,7 @@ void CSimon::Render()
 {
 	int alpha = 255;
 	CurAnimation->Render(x, y, alpha);
-	RenderBoundingBox();
+//	RenderBoundingBox();
 }
 
 void CSimon::ChangeAnimation(PlayerState * newState)
@@ -182,14 +187,14 @@ void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom
 {
 	if (stateBoundingBox == SIMON_BIG_BOUNDING_BOX)
 	{
-		left = x + 11;
+		left = x + 15;
 		top = y + 4;
 		right = x + SIMON_BIG_BBOX_WIDTH;
 		bottom = y + SIMON_BIG_BBOX_HEIGHT;
 	}
 	else
 	{
-		left = x + 11;
+		left = x + 15;
 		top = y + 4;
 		right = x + SIMON_SMALL_BBOX_WIDTH;
 		bottom = y + SIMON_SMALL_BBOX_HEIGHT;

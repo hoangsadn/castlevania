@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "ManagerScene.h"
 #define WINDOW_CLASS_NAME L"SampleWindow"
-#define MAIN_WINDOW_TITLE L"04 - Collision"
+#define MAIN_WINDOW_TITLE L"CaslteVania- 17520021"
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
 
 #define MAX_FRAME_RATE 120
@@ -33,6 +33,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void LoadResources()
 {
 	auto tam = new Stage1();
+	
 	ManagerScene::GetInstance()->PlayScene(tam);
 	ManagerScene::GetInstance()->PresentScene->LoadResources();
 	//CGame::GetInstance()->SetCamPos(50.0f, 0);

@@ -8,7 +8,7 @@ Camera * cam = CAMERA;
 Map::Map()
 {
 	ifstream File;
-	File.open(L"text\\map.txt");
+	File.open(L"text\\Scene2.txt");
 	File >> col >> row;
 	mapTiles = new int*[row];
 	for (int r = 0; r < row; ++r)
@@ -26,7 +26,7 @@ Map::Map()
 void Map::Render()
 {
 	CTextures * textures = CTextures::GetInstance();
-	LPDIRECT3DTEXTURE9 texMap = textures->Get(ID_TEX_TITLE);
+	LPDIRECT3DTEXTURE9 texMap = textures->Get(41);
 
 	CSprites * sprites = CSprites::GetInstance();
 	sprites->Add(99999, 0,0, 32,1568, texMap);

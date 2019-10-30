@@ -7,7 +7,7 @@ PlayerDowningState::PlayerDowningState()
 	player->vx = 0;
 	player->ny = -1;
 	if (player->stateBoundingBox != SIMON_SMALL_BOUNDING_BOX)
-		player->y += 10;
+		player->y += 17;
 
 	player->stateBoundingBox = SIMON_SMALL_BOUNDING_BOX;
 	if (player->nx > 0)
@@ -39,13 +39,13 @@ void PlayerDowningState::HandleKeyBoard()
 	}
 	else if (keyCode[DIK_RIGHT]||keyCode[DIK_LEFT])
 	{
-		player->y -= 15;
+		player->y -= 17;
 		player->ChangeAnimation(new PlayerWalkingState());
 	}
 	
 	else if (!(keyCode[DIK_DOWN]))
 	{
-		player->y -= 15;
+		player->y -= 17;
 		player->ChangeAnimation(new PlayerStandingState());
 	}
 }

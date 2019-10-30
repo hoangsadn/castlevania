@@ -13,6 +13,7 @@ public:
 	Stage1();
 
 	void LoadResources();
+	void LoadObjects();
 	void Update(float dt);
 	void UpdateObject(float dt);
 	void UpdatePlayer(float dt);
@@ -21,7 +22,6 @@ public:
 	void OnKeyUp(int Key) ;
 private:
 	CSimon *p;
-	CBrick * brick;
 	CWhip *whip;
 	Map *map;
 	Camera *camera;

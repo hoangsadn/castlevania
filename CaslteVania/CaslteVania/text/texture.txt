@@ -2,8 +2,11 @@
 -100 textures\\bbox.png 255 0 255
 30 textures\\morningstar.png 255 0 255
 40 textures\\title1.png 245 245 245
+41 textures\\Level2.png 245 245 245
 50 textures\\fire_pillar.png 255 0 255
+51 textures\\candle.png 255 0 255
 60 textures\\Items\\MORNING_STAR.png 255 0 255
 61 textures\\Items\\BIG_HEART.png 255 0 255
 62 textures\\Sub_weapons\\KNIFE.png 255 0 255
+63 textures\\Items\\SMALL_HEART.png 255 0 255
 70 textures\\Effect\\DEAD.png 255 0 255

@@ -2,6 +2,7 @@
 #include "ItemWhip.h"
 #include "ItemBigHeart.h"
 #include "ItemKnife.h"
+#include "ItemSmallHeart.h"
 class CItems
 {
 public:
@@ -17,6 +18,8 @@ public:
 			return new CItemBigHeart();
 		case KNIFE:
 			return new CItemKnife();
+		case SMALL_HEART:
+			return new CItemSmallHeart();
 		default:
 			return NULL;
 		}

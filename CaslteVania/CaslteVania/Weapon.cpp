@@ -5,7 +5,7 @@ void CWeapon::Render()
 {
 	int alpha = 255;
 	CurAnimation->Render(x, y, alpha);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CWeapon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -30,11 +30,10 @@ void CWeapon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
-
-		if (dynamic_cast<CHolderFirePillar *>(coEvents.at(i))) // if e->obj is Goomba 
+		
+		if (coEvents.at(i)->tag == HOLDER) 
 		{
-			CHolderFirePillar *FirePillar = dynamic_cast<CHolderFirePillar *>(coEvents.at(i));
-			FirePillar->isDead = true;
+			coEvents.at(i)->isDead = true;
 			isDead = true;
 		}
 	}

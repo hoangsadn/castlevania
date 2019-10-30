@@ -117,6 +117,9 @@
     <ClCompile Include="Knife.cpp">
       <Filter>Source Files\GameObjects\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ManagerScene.h">
@@ -220,6 +223,15 @@
     </ClInclude>
     <ClInclude Include="PlayerReciveItemState.h">
       <Filter>Source Files\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemSmallHeart.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="HolderCandle.h">
+      <Filter>Source Files\GameObjects\StoredItem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

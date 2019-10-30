@@ -9,7 +9,7 @@ CHolder::~CHolder()
 void CHolder::Render() 
 {
 	CurAnimation->Render(x, y, 255);
-	RenderBoundingBox();
+//	RenderBoundingBox();
 
 }
 void CHolder::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

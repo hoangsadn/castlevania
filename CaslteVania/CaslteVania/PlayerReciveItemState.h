@@ -10,12 +10,18 @@ public:
 	{
 		if (player->CurAnimation->isLastFrame)
 		{
+			player->CurAnimation->currentFrame = -1;
+			player->CurAnimation->isLastFrame = false;
 			player->ChangeAnimation(new PlayerStandingState());
 		}
 	}
 	void HandleKeyBoard() {};
 	PlayerReciveItemState()
 	{
+		player->allow[HITTING] = false;
+		player->allow[THROWING] = false;
+		player->allow[JUMPING] = false;
+
 		player->vx = 0;
 		if (player->nx > 0)
 		{
