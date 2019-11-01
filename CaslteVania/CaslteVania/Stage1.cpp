@@ -8,7 +8,8 @@
 #include "Effect.h"
 #include "Items.h"
 #include "Weapons.h"
-#include "Door.h"
+#include "CheckPoint.h"
+#include "Stair.h"
 
 class CBrick;
 vector<LPGAMEOBJECT> CannotTouchObjects;
@@ -19,20 +20,19 @@ Stage1::Stage1()
 	camera = camera->GetInstance();
 	camera->SetRect(SCREEN_WIDTH, SCREEN_HEIGHT);
 	map = map->GetInstance();
+	level = 1;
 
 }
-void Stage1::LoadObjects()
+void Stage1::LoadObjects(LPCWSTR filePath)
 {
 	ifstream File;
-	File.open(L"text\\obj\\Scene2_Object.txt");
+	File.open(filePath);
 	float posX, posY, width, height;
 	string str;
 
 	while (!File.eof())
 	{
-
-		File >> str;
-
+		File >> str;		// read type of obj
 		switch (TYPEString[str])
 		{
 		case FIRE_PILLAR:
@@ -60,41 +60,63 @@ void Stage1::LoadObjects()
 			PresentObjects.insert(holder);
 			break;
 		}
-		} 
+		}
 	}
 	File.close();
 
 }
-void Stage1::LoadResources() 
+void Stage1::LoadResources(int level)
 {
-	auto a = new CGlobalConfig();
-	a->TypeMapToString();
+	PresentObjects.clear();
+	CannotTouchObjects.clear();
+	switch (level)
+	{
+	case 1:
+	{
+		auto a = new CGlobalConfig();
+		a->TypeMapToString();
+		CTextures * textures = CTextures::GetInstance();
+		textures->LoadResources();
+		CSprites * sprites = CSprites::GetInstance();
+		sprites->LoadResources();
+		CAnimations * animations = CAnimations::GetInstance();
+		animations->LoadResources();
+
+		map->LoadResources(L"text\\Level1.txt");
+		LoadObjects(L"text\\obj\\Scene1_Object.txt");
+
+		CCheckPoint * checkpoint = new CCheckPoint();
+		checkpoint->SetPosition(300.0f, 235.0f);
+		PresentObjects.insert(checkpoint);
 
 
-	
-	CTextures * textures = CTextures::GetInstance();
-	textures->LoadResources();
-	CSprites * sprites = CSprites::GetInstance();
-	sprites->LoadResources();
-	CAnimations * animations = CAnimations::GetInstance();	
-	animations->LoadResources();
-	
-	LoadObjects();
-	
-	
+		CStair * stair = new CStair(STAIR_BOTTOM_LEFT);
+		stair->SetPosition(150.0f, 235.0f);
+		PresentObjects.insert(stair);
 
-	
-
-	CDoor * door = new CDoor();
-	door->SetPosition(1200.0f, 235.0f);
-	PresentObjects.insert(door);
+		CStair * stair2 = new CStair(STAIR_TOP_LEFT);
+		stair2->SetPosition(0.0f, 150.0f);
+		PresentObjects.insert(stair2);
 
 
-	p = player;
-	p->Revival();
+		p = player;
+		p->Revival();
+		break;
+
+	}
+	case 2:
+	{
+		map->LoadResources(L"text\\Level2.txt");
+		LoadObjects(L"text\\obj\\Scene2_Object.txt");
+		p->SetPosition(50.0f, 235.0f);
+		break;
+	}
+	default:
+		break;
+	}
 
 	PresentObjects.insert(p);
-
+	loadDone = true;
 
 };
 void Stage1::UpdateObject(float dt)
@@ -155,39 +177,52 @@ void Stage1::UpdateObject(float dt)
 			else it++;
 			break;
 		}
+		case BOX:
+		{
+			if (obj->type == CHECKPOINT && obj->isDead)
+			{
+				it = PresentObjects.erase(it);
+				level++;
+				loadDone = false;
+			}
+			else it++;
+			break;
+		}
 		default:
 			it++;
-		
+
 		}
 	}
 }
 void Stage1::UpdatePlayer(float dt)
 {
 	auto it = PresentObjects.begin();
-	while ( it != PresentObjects.end())
+	while (it != PresentObjects.end())
 	{
 		auto obj = *it;
 		if (obj->tag == WEAPON && obj->isDead)
 		{
 			it = PresentObjects.erase(it);
 		}
-		
+
 		else it++;
 	};
 	this->UpdateObject(dt);
 	p->CollisonGroundWall(dt, &CannotTouchObjects);
 }
-void Stage1::Update(float dt) 
+void Stage1::Update(float dt)
 {
+	if (level == 2 && !loadDone)
+		LoadResources(level);
 	Stage1::UpdatePlayer(dt);
 	vector<LPGAMEOBJECT> coObjects;
 	for (auto o : PresentObjects)
 	{
 		coObjects.push_back(o);
 	}
-	
 
-	for (auto o: PresentObjects)
+
+	for (auto o : PresentObjects)
 	{
 		(o)->Update(dt, &coObjects);
 	}
@@ -202,20 +237,20 @@ void Stage1::Update(float dt)
 	camera->Update();
 };
 
-void Stage1::Render() 
+void Stage1::Render()
 {
-	map->Render();
+	map->Render(level);
 	for (auto it : PresentObjects)
 		(it)->Render();
 };
 void Stage1::OnKeyDown(int Key)
-{	
+{
 	keyCode[Key] = true;
 	p->OnKeyDown(Key);
 
 };
-void Stage1::OnKeyUp(int Key) 
-{	
+void Stage1::OnKeyUp(int Key)
+{
 	keyCode[Key] = false;
 	p->OnKeyUp(Key);
 

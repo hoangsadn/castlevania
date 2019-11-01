@@ -35,7 +35,7 @@ void LoadResources()
 	auto tam = new Stage1();
 	
 	ManagerScene::GetInstance()->PlayScene(tam);
-	ManagerScene::GetInstance()->PresentScene->LoadResources();
+	ManagerScene::GetInstance()->PresentScene->LoadResources(1);
 	//CGame::GetInstance()->SetCamPos(50.0f, 0);
 
 }

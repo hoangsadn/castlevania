@@ -1,5 +1,5 @@
 #include "PlayerStandingState.h"
-
+#include "PlayerWalkingStairState.h"
 
 PlayerStandingState::PlayerStandingState()
 {
@@ -14,7 +14,9 @@ PlayerStandingState::PlayerStandingState()
 	player->ny = 1;
 	player->IsJumping = false;
 	player->IsHitting = false;
-
+	
+	player->IsOnStair = false;
+	
 	if (player->nx > 0)
 	{
 		StateName = STANDING_RIGHT;
@@ -47,6 +49,10 @@ void PlayerStandingState::HandleKeyBoard()
 	else if (keyCode[DIK_DOWN])
 	{
 		player->ChangeAnimation(new PlayerDowningState());
+	}
+	else if (keyCode[DIK_UP] && player->IsOnFootStair)
+	{
+		player->ChangeAnimation(new PlayerWalkingStairState());
 	}
 	
 }

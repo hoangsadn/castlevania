@@ -1,7 +1,18 @@
 20000 WHIP
 10000 SIMON
+
 10029->10032 Right - flash simon 
 10032->10036 Left - flash simon
+10037: stand stair up right
+10038: stand stair up left
+10039: stand stair down right
+10040: stand stair down left
+10037 -10004 walk stair up right 520
+10038 -10014 walk stair up left	 521
+
+10039 -10004 walk stair down right 524
+10040 -10014 walk stair down left 525
+
 30000 OJ - 
  + 30001,2 : fire_pillar
 40000 Item

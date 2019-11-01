@@ -78,7 +78,8 @@ public:
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;
-
+	bool IsCollisionAABB(RECT rect1, RECT rect2);
+	RECT GetRect();
 
 	~CGameObject();
 };

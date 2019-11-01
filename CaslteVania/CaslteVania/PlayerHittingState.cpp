@@ -26,6 +26,7 @@ PlayerHittingState::PlayerHittingState()
 			StateName = HITTING_STAND_LEFT;
 	}
 	player->vx = 0;
+	player->stateBoundingBox = SIMON_BIG_BOUNDING_BOX;
 
 }
 
@@ -49,8 +50,16 @@ void PlayerHittingState::Update()
 			player->ChangeAnimation(new PlayerStandingState());
 			return;
 		case JUMPING_LEFT: case JUMPING_RIGHT:
-			player->ChangeAnimation(new PlayerJumpingState());
-			return;
+			if (player->vy >= 0)
+			{
+				player->ChangeAnimation(new PlayerFallingState());
+				return;
+			}
+			else 
+			{
+				player->ChangeAnimation(new PlayerJumpingState());
+				return;
+			}
 		case DOWNING_LEFT: case DOWNING_RIGHT:
 			player->ChangeAnimation(new PlayerDowningState());
 			return;

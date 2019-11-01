@@ -32,9 +32,20 @@ CSimon::CSimon() :CGameObject()
 
 	AddAnimation(516, RECIVE_RIGHT);
 	AddAnimation(517, RECIVE_LEFT);
+
+	AddAnimation(518, STANDING_STAIR_UP_RIGHT);
+	AddAnimation(519, STANDING_STAIR_UP_LEFT);
+
+	AddAnimation(520, WALKING_STAIR_UP_RIGHT);
+	AddAnimation(521, WALKING_STAIR_UP_LEFT);
+
+	AddAnimation(522, STANDING_STAIR_DOWN_RIGHT);
+	AddAnimation(523, STANDING_STAIR_DOWN_LEFT);
+
+	AddAnimation(524, WALKING_STAIR_DOWN_RIGHT);
+	AddAnimation(525, WALKING_STAIR_DOWN_LEFT);
+
 	tag = PLAYER;
-
-
 
 }
 CSimon * CSimon::GetInstance()
@@ -45,12 +56,14 @@ CSimon * CSimon::GetInstance()
 }
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	// Simple fall down
 
 	// Calculate dx, dy 
-
 	CGameObject::Update(dt);
-	vy += SIMON_GRAVITY * dt;
+	// Simple fall down
+	if (!IsOnStair)
+		vy += SIMON_GRAVITY * dt;
+
+	//update state
 	state->Update();
 
 
@@ -59,55 +72,144 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	coEvents.clear();
 
-	// turn off collision when die 
+
 	CalcPotentialCollisions(coObjects, coEvents);
 
-	// reset untouchable timer if untouchable time has passed
-	// No collision occured, proceed normally
-
-
-	float min_tx, min_ty, nx = 0, ny;
-
-	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
-
-	// Collision logic with 
-	for (UINT i = 0; i < coEventsResult.size(); i++)
+	if (coEvents.size() == 0)
 	{
-		LPCOLLISIONEVENT e = coEventsResult[i];
-		auto object = e->obj;
-		if (object->tag == ITEM)
+		for (UINT i = 0; i < coObjects->size(); i++)
 		{
-			object->isDead = true;
-			switch (object->type)
+			if (IsCollisionAABB(GetRect(), coObjects->at(i)->GetRect()))
 			{
-			case MORNING_STAR:
-				whipType = whipType != 3 ? whipType + 1 : 3;
-				ChangeAnimation(new PlayerReciveItemState());
-				break;
-			case BIG_HEART:
-				bullet += 5;
-				break;
-			case SMALL_HEART:
-				bullet++;
-				break;
-			case KNIFE:
-				weaponTypeCarry = KNIFE;
-				break;
+				if (coObjects->at(i)->tag == ITEM)
+				{
+					coObjects->at(i)->isDead = true;
+					switch (coObjects->at(i)->type)
+					{
+					case MORNING_STAR:
+						whipType = whipType != 3 ? whipType + 1 : 3;
+						ChangeAnimation(new PlayerReciveItemState());
+						break;
+					case BIG_HEART:
+						bullet += 5;
+						break;
+					case SMALL_HEART:
+						bullet++;
+						break;
+					case KNIFE:
+						weaponTypeCarry = KNIFE;
+						break;
+					}
+				}
+				else if (coObjects->at(i)->tag == BOX)
+				{
+					switch (coObjects->at(i)->type)
+					{
+					case STAIR_BOTTOM_RIGHT:
+						IsOnFootStair = true;
+						stairDirection = 1;
+						break;
+					case STAIR_BOTTOM_LEFT:
+						IsOnFootStair = true;
+						stairDirection = 2;
+						break;
+					case STAIR_TOP_RIGHT:
+						IsOnTopStair = true;
+						stairDirection = -1;
+						break;
+					case STAIR_TOP_LEFT:
+						IsOnTopStair = true;
+						stairDirection = -2;
+						break;
+					}
+				}
+				else if (coObjects->at(i)->tag == PLAYER)
+				{
+
+				}
+				else 
+				{
+					if (!IsOnStair)
+					{
+						IsOnFootStair = false;
+						IsOnTopStair = false;
+					}
+				}
 			}
+
 		}
+	}
+	else {
 
-		// clean up collision events
+		float min_tx, min_ty, nx = 0, ny;
 
-		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
+		// Collision logic with SweepAABB
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			auto object = e->obj;
+			if (object->tag == ITEM)
+			{
+				object->isDead = true;
+				switch (object->type)
+				{
+				case MORNING_STAR:
+					whipType = whipType != 3 ? whipType + 1 : 3;
+					ChangeAnimation(new PlayerReciveItemState());
+					break;
+				case BIG_HEART:
+					bullet += 5;
+					break;
+				case SMALL_HEART:
+					bullet++;
+					break;
+				case KNIFE:
+					weaponTypeCarry = KNIFE;
+					break;
+				}
+			}
+			else if (object->tag == BOX)
+			{
+				switch (object->type)
+				{
+				case CHECKPOINT:
+					object->isDead = true;
+					break;
+				
+				case STAIR_BOTTOM_RIGHT:
+					IsOnFootStair = true;
+					stairDirection = 1;
+					break;
+				case STAIR_BOTTOM_LEFT:
+					IsOnFootStair = true;
+					stairDirection = 2;
+					break;
+				case STAIR_TOP_RIGHT:
+					IsOnTopStair = true;
+					stairDirection = -1;
+					break;
+				case STAIR_TOP_LEFT:
+					IsOnTopStair = true;
+					stairDirection = -2;
+					break;
+				}
+				
+			}
+
+			// clean up collision events
+
+			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+		}
 	}
 }
 void CSimon::Render()
 {
 	int alpha = 255;
 	CurAnimation->Render(x, y, alpha);
-//	RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CSimon::ChangeAnimation(PlayerState * newState)
@@ -124,6 +226,7 @@ void CSimon::Revival()
 	allow[WALKING] = true;
 	allow[THROWING] = true;
 	allow[HITTING] = true;
+	
 	SetPosition(0.0f, 0);
 	nx = 1;
 	whipType = 1;
@@ -173,7 +276,6 @@ void CSimon::OnKeyDown(int key)
 			ChangeAnimation(new PlayerHittingState());
 			break;
 		}
-
 	}
 
 
@@ -238,3 +340,4 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
+

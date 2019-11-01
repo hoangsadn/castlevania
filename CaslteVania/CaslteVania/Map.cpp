@@ -7,8 +7,11 @@ Camera * cam = CAMERA;
 
 Map::Map()
 {
+}
+void Map::LoadResources(LPCWSTR filePath)
+{
 	ifstream File;
-	File.open(L"text\\Scene2.txt");
+	File.open(filePath);
 	File >> col >> row;
 	mapTiles = new int*[row];
 	for (int r = 0; r < row; ++r)
@@ -23,11 +26,14 @@ Map::Map()
 	File.close();
 }
 
-void Map::Render()
+void Map::Render(int level)
 {
 	CTextures * textures = CTextures::GetInstance();
-	LPDIRECT3DTEXTURE9 texMap = textures->Get(41);
-
+	LPDIRECT3DTEXTURE9 texMap;
+	if (level == 1)
+		texMap = textures->Get(40);
+	else
+		texMap = textures->Get(41);
 	CSprites * sprites = CSprites::GetInstance();
 	sprites->Add(99999, 0,0, 32,1568, texMap);
 
@@ -52,7 +58,6 @@ bool Map::IsCollision(RECT rect1, RECT rect2)
 	if (rect1.left > rect2.right || rect1.right < rect2.left || rect1.top > rect2.bottom || rect1.bottom < rect2.top)
 		return false;
 	return true;
-
 }
 void Map::Update(float dt)
 {

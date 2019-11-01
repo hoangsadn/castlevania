@@ -12,8 +12,8 @@ class Stage1 : public Scene
 public:
 	Stage1();
 
-	void LoadResources();
-	void LoadObjects();
+	void LoadResources(int level);
+	void LoadObjects(LPCWSTR filePath);
 	void Update(float dt);
 	void UpdateObject(float dt);
 	void UpdatePlayer(float dt);
@@ -25,9 +25,10 @@ private:
 	CWhip *whip;
 	Map *map;
 	Camera *camera;
-	std::unordered_set <CGameObject*> objects;
-	
+	int level;
+	bool loadDone;
 
+	//std::unordered_set <CGameObject*> objects;
 	std::unordered_set <CGameObject*> PresentObjects;
 
 };

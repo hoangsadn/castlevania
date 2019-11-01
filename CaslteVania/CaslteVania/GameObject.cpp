@@ -143,8 +143,23 @@ void CGameObject::AddAnimation(int aniId, TYPE type)
 	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
 	animations[type] = ani;
 }
-
-
+RECT CGameObject::GetRect()
+{
+	float l, t, r, b;
+	RECT rect;
+	GetBoundingBox(l, t, r, b);
+	rect.left = l;
+	rect.top = t;
+	rect.right = r;
+	rect.bottom = b;
+	return rect;
+}
+bool CGameObject::IsCollisionAABB(RECT rect1, RECT rect2)
+{
+	if (rect1.left > rect2.right || rect1.right < rect2.left || rect1.top > rect2.bottom || rect1.bottom < rect2.top)
+		return false;
+	return true;
+}
 
 CGameObject::~CGameObject()
 {
