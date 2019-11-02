@@ -46,13 +46,24 @@ void PlayerStandingState::HandleKeyBoard()
 	{
 		player->ChangeAnimation(new PlayerWalkingState());
 	}
-	else if (keyCode[DIK_DOWN])
+	else if (keyCode[DIK_DOWN] && player->IsOnTopStair)
 	{
-		player->ChangeAnimation(new PlayerDowningState());
+		if (player->allow[STAIRING])
+			player->ChangeAnimation(new PlayerWalkingStairState());
+		else
+			player->ChangeAnimation(new PlayerWalkingState(player->posOfStair));
 	}
 	else if (keyCode[DIK_UP] && player->IsOnFootStair)
 	{
-		player->ChangeAnimation(new PlayerWalkingStairState());
+		
+		if (player->allow[STAIRING])
+			player->ChangeAnimation(new PlayerWalkingStairState());
+		else 
+			player->ChangeAnimation(new PlayerWalkingState(player->posOfStair));
+	}
+	else if (keyCode[DIK_DOWN])
+	{
+		player->ChangeAnimation(new PlayerDowningState());
 	}
 	
 }

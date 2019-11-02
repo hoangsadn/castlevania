@@ -22,6 +22,8 @@ public:
 	bool IsHitting, IsThrowing;
 	bool IsOnStair, IsOutStair;
 	bool IsOnFootStair, IsOnTopStair;
+	bool IsFinishWalking;
+	float posOfStair;
 	int stairDirection;
 	TYPE weaponTypeCarry;
 	int whipType;
@@ -34,7 +36,6 @@ public:
 	static CSimon* GetInstance();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	void CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects);
-	void CollisonAABB(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects);
 	virtual void Render();
 	void ChangeAnimation(PlayerState* newState);
 

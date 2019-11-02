@@ -86,17 +86,11 @@ void Stage1::LoadResources(int level)
 		LoadObjects(L"text\\obj\\Scene1_Object.txt");
 
 		CCheckPoint * checkpoint = new CCheckPoint();
-		checkpoint->SetPosition(300.0f, 235.0f);
+		checkpoint->SetPosition(0.0f, 235.0f);
 		PresentObjects.insert(checkpoint);
 
 
-		CStair * stair = new CStair(STAIR_BOTTOM_LEFT);
-		stair->SetPosition(150.0f, 235.0f);
-		PresentObjects.insert(stair);
-
-		CStair * stair2 = new CStair(STAIR_TOP_LEFT);
-		stair2->SetPosition(0.0f, 150.0f);
-		PresentObjects.insert(stair2);
+		
 
 
 		p = player;
@@ -108,7 +102,15 @@ void Stage1::LoadResources(int level)
 	{
 		map->LoadResources(L"text\\Level2.txt");
 		LoadObjects(L"text\\obj\\Scene2_Object.txt");
-		p->SetPosition(50.0f, 235.0f);
+		p->SetPosition(1200.0f, 235.0f);
+
+		CStair * stair = new CStair(STAIR_BOTTOM_RIGHT);
+		stair->SetPosition(1220.0f, 315.0f);
+		PresentObjects.insert(stair);
+
+		CStair * stair2 = new CStair(STAIR_TOP_LEFT);
+		stair2->SetPosition(1350.0f, 72.0f);
+		PresentObjects.insert(stair2);
 		break;
 	}
 	default:

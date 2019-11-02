@@ -75,8 +75,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	CalcPotentialCollisions(coObjects, coEvents);
 
+
+	if (!IsOnStair)		
+	{
+		IsOnFootStair = false;
+		IsOnTopStair = false;
+	}
 	if (coEvents.size() == 0)
 	{
+		
+		//clac obj with AABB
 		for (UINT i = 0; i < coObjects->size(); i++)
 		{
 			if (IsCollisionAABB(GetRect(), coObjects->at(i)->GetRect()))
@@ -123,18 +131,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						break;
 					}
 				}
-				else if (coObjects->at(i)->tag == PLAYER)
-				{
-
-				}
-				else 
-				{
-					if (!IsOnStair)
-					{
-						IsOnFootStair = false;
-						IsOnTopStair = false;
-					}
-				}
+				
 			}
 
 		}
@@ -180,18 +177,22 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				
 				case STAIR_BOTTOM_RIGHT:
 					IsOnFootStair = true;
+					posOfStair = object->x;
 					stairDirection = 1;
 					break;
 				case STAIR_BOTTOM_LEFT:
 					IsOnFootStair = true;
+					posOfStair = object->x;
 					stairDirection = 2;
 					break;
 				case STAIR_TOP_RIGHT:
 					IsOnTopStair = true;
+					posOfStair = object->x;
 					stairDirection = -1;
 					break;
 				case STAIR_TOP_LEFT:
 					IsOnTopStair = true;
+					posOfStair = object->x;
 					stairDirection = -2;
 					break;
 				}
@@ -316,7 +317,7 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// reset untouchable timer if untouchable time has passed
 	// No collision occured, proceed normally
-
+	
 	if (coEvents.size() == 0)
 	{
 		x += dx;
@@ -324,13 +325,21 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	else
 	{
+
 		// block 
 		float min_tx, min_ty, nx = 0, ny;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f;
-
+		if (!IsOnStair)
+		{
+			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+			y += min_ty * dy + ny * 0.4f;
+		}
+		else
+		{
+			x += dx; 
+			y += dy;
+		}
 		IsJumping = false;
 
 		if (nx != 0) vx = 0;
