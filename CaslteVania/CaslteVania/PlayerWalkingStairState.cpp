@@ -6,12 +6,13 @@
 
 PlayerWalkingStairState::PlayerWalkingStairState()
 {
+	player->allow[JUMPING] = false;
 	switch (player->stairDirection)
 	{
 	case 1:
 		StateName = WALKING_STAIR_UP_RIGHT;
-		player->vx = SIMON_WALKING_SPEED;
-		player->vy = -SIMON_WALKING_SPEED;
+		player->vx = SIMON_WALKING_SPEED/2;
+		player->vy = -SIMON_WALKING_SPEED/2;
 		player->nx = 1;
 		break;
 	case 2: 
@@ -33,8 +34,8 @@ PlayerWalkingStairState::PlayerWalkingStairState()
 	case -2:
 	{
 		StateName = WALKING_STAIR_DOWN_LEFT;
-		player->vx = -SIMON_WALKING_SPEED;
-		player->vy = SIMON_WALKING_SPEED;
+		player->vx = -SIMON_WALKING_SPEED/2;
+		player->vy = SIMON_WALKING_SPEED/2;
 		player->nx = -1;
 		break;
 	}
@@ -66,11 +67,17 @@ void PlayerWalkingStairState::Update()
 		player->ChangeAnimation(new PlayerStandingState());
 		return;
 	}
-	this->HandleKeyBoard();
+	if (player->CurAnimation->isLastFrame)
+	{
+		player->CurAnimation->isLastFrame = false;
+		player->CurAnimation->currentFrame = -1;
+		this->HandleKeyBoard();
+	}
 }
 void PlayerWalkingStairState::HandleKeyBoard()
 {
-	if (keyCode[DIK_UP])
+	
+	if (keyCode[DIK_UP] )
 	{
 		if (player->stairDirection == -1)
 		{

@@ -10,7 +10,7 @@
 #include "Weapons.h"
 #include "CheckPoint.h"
 #include "Stair.h"
-
+#include "Enemys.h"
 class CBrick;
 vector<LPGAMEOBJECT> CannotTouchObjects;
 
@@ -89,9 +89,8 @@ void Stage1::LoadResources(int level)
 		checkpoint->SetPosition(0.0f, 235.0f);
 		PresentObjects.insert(checkpoint);
 
-
 		
-
+	
 
 		p = player;
 		p->Revival();
@@ -109,9 +108,17 @@ void Stage1::LoadResources(int level)
 		PresentObjects.insert(stair);
 
 		CStair * stair2 = new CStair(STAIR_TOP_LEFT);
-		stair2->SetPosition(1350.0f, 72.0f);
+		stair2->SetPosition(1347.0f, 72.0f);
 		PresentObjects.insert(stair2);
-		break;
+
+		auto ghost = CEnemys::CreateEnemy(1);
+		ghost->SetPosition(1500.0f, 0.0f);
+		PresentObjects.insert(ghost);
+	
+		auto Wakanda = CEnemys::CreateEnemy(2);
+		Wakanda->SetPosition(1600.0f,0.0f);
+		PresentObjects.insert(Wakanda);
+
 	}
 	default:
 		break;
@@ -144,7 +151,23 @@ void Stage1::UpdateObject(float dt)
 		auto obj = *it;
 		switch (obj->tag)
 		{
+		case ENEMY:
+			if (obj->isDead)
+			{
+				auto enemy = (CGhost*)obj;
+				it = PresentObjects.erase(it);
 
+				Effect *efc = new Effect();						// effect of enemy dead
+				efc->SetPosition(enemy->x, enemy->y);
+				PresentObjects.insert(efc);
+
+			}
+			else
+			{
+				
+				it++;
+			}
+			break;
 		case HOLDER:
 			if (obj->isDead)
 			{
@@ -223,7 +246,14 @@ void Stage1::Update(float dt)
 		coObjects.push_back(o);
 	}
 
-
+	for (auto o : PresentObjects)
+	{
+		if (o->tag == ENEMY)
+		{
+			auto enemy = (CGhost*)o;
+			enemy->CollisonGroundWall(dt, &CannotTouchObjects);
+		}
+	}
 	for (auto o : PresentObjects)
 	{
 		(o)->Update(dt, &coObjects);

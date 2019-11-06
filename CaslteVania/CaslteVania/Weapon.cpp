@@ -17,12 +17,7 @@ void CWeapon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		/*float l1, t1, r1, b1, l2, t2, r2, b2;
-
-		GetBoundingBox(l1, t1, r1, b1);
-
-		coObjects->at(i)->GetBoundingBox(l2, t2, r2, b2);
-		if (IsCollision(l1, t1, r1, b1, l2, t2, r2, b2))*/
+	
 		if (IsCollisionAABB(GetRect(),coObjects->at(i)->GetRect()))
 		{
 			coEvents.push_back(coObjects->at(i));
@@ -31,11 +26,12 @@ void CWeapon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
-		
-		if (coEvents.at(i)->tag == HOLDER) 
+		switch (coEvents.at(i)->tag)
 		{
+		case HOLDER: case ENEMY:
 			coEvents.at(i)->isDead = true;
 			isDead = true;
+			break;
 		}
 	}
 

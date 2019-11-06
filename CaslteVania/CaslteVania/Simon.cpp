@@ -5,6 +5,7 @@
 #include "PlayerHittingState.h"
 #include "PlayerJumpingState.h"
 #include "PlayerReciveItemState.h"
+#include "PlayerHurtingState.h"
 #include "Brick.h"
 #include "Whip.h"
 CSimon * CSimon::_instance = NULL;
@@ -45,6 +46,14 @@ CSimon::CSimon() :CGameObject()
 	AddAnimation(524, WALKING_STAIR_DOWN_RIGHT);
 	AddAnimation(525, WALKING_STAIR_DOWN_LEFT);
 
+	AddAnimation(526, HITTING_STAIR_UP_RIGHT);
+	AddAnimation(527, HITTING_STAIR_UP_LEFT);
+	AddAnimation(528, HITTING_STAIR_DOWN_RIGHT);
+	AddAnimation(529, HITTING_STAIR_DOWN_LEFT);
+
+	AddAnimation(530, HURTING_RIGHT);
+	AddAnimation(531, HURTING_LEFT);
+
 	tag = PLAYER;
 
 }
@@ -75,7 +84,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	CalcPotentialCollisions(coObjects, coEvents);
 
-
+	if (GetTickCount() - untouchTime > SIMON_UNTOUCHABLE_TIME)
+	{
+		untouchTime = 0;
+	}
 	if (!IsOnStair)		
 	{
 		IsOnFootStair = false;
@@ -174,7 +186,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				case CHECKPOINT:
 					object->isDead = true;
 					break;
-				
+
 				case STAIR_BOTTOM_RIGHT:
 					IsOnFootStair = true;
 					posOfStair = object->x;
@@ -196,7 +208,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					stairDirection = -2;
 					break;
 				}
-				
+
+			}
+			else if (object->tag == ENEMY)
+			{
+				if (untouchTime == 0)
+				{
+					ChangeAnimation(new PlayerHurtingState());
+					IsJumping = true;
+				}
 			}
 
 			// clean up collision events
@@ -227,7 +247,7 @@ void CSimon::Revival()
 	allow[WALKING] = true;
 	allow[THROWING] = true;
 	allow[HITTING] = true;
-	
+	untouchTime = 0;
 	SetPosition(0.0f, 0);
 	nx = 1;
 	whipType = 1;
@@ -264,7 +284,7 @@ void CSimon::OnKeyDown(int key)
 	}
 	case DIK_C:
 
-		if (keyCode[DIK_UP] && bullet != 0 && allow[THROWING] && weaponTypeCarry != NOTHING)
+		if (keyCode[DIK_UP] && bullet != 0 && allow[THROWING] && weaponTypeCarry != NOTHING && !IsOnStair)
 		{
 			bullet--;
 			ChangeAnimation(new PlayerHittingState());
@@ -304,7 +324,6 @@ void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	}
 
 }
-
 void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -318,10 +337,15 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// reset untouchable timer if untouchable time has passed
 	// No collision occured, proceed normally
 	
+
 	if (coEvents.size() == 0)
 	{
+		//if (CurAnimation->isLastFrame )
+		//	GAMELOG("%f %f", x, y);
 		x += dx;
 		y += dy;
+		
+
 	}
 	else
 	{
@@ -332,18 +356,23 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 		if (!IsOnStair)
 		{
+			IsJumping = false;
+			
 			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 			y += min_ty * dy + ny * 0.4f;
+			if (ny == 1)
+			{
+ 				y += dy;
+			}
+			if (nx != 0) vx = 0;
+			if (ny == -1) vy = 0;
 		}
 		else
 		{
 			x += dx; 
 			y += dy;
 		}
-		IsJumping = false;
-
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		
 
 	}
 	// clean up collision events

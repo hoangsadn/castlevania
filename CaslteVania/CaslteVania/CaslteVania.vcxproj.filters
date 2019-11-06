@@ -40,6 +40,9 @@
     <Filter Include="Source Files\GameObjects\Player\stair">
       <UniqueIdentifier>{ccf20489-a3a4-494d-89fc-e2b9f5307683}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameObjects\enemy">
+      <UniqueIdentifier>{bc60db8a-e5c5-45a1-b7e1-70cac40091da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="PlayerWalkingStairState.cpp">
       <Filter>Source Files\GameObjects\Player\stair</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\GameObjects\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +256,21 @@
     </ClInclude>
     <ClInclude Include="PlayerWalkingStairState.h">
       <Filter>Source Files\GameObjects\Player\stair</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Source Files\GameObjects\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>Source Files\GameObjects\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemys.h">
+      <Filter>Source Files\GameObjects\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackPanter.h">
+      <Filter>Source Files\GameObjects\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHurtingState.h">
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

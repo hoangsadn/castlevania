@@ -25,6 +25,7 @@ public:
 	bool IsFinishWalking;
 	float posOfStair;
 	int stairDirection;
+	DWORD untouchTime;
 	TYPE weaponTypeCarry;
 	int whipType;
 	int bullet;

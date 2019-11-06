@@ -162,6 +162,7 @@
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="CheckPoint.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GlobalConfig.cpp" />
@@ -188,8 +189,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
+    <ClInclude Include="BlackPanter.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enemys.h" />
+    <ClInclude Include="Ghost.h" />
+    <ClInclude Include="PlayerHurtingState.h" />
     <ClInclude Include="PlayerStandingStairState.h" />
     <ClInclude Include="PlayerWalkingStairState.h" />
     <ClInclude Include="Stair.h" />

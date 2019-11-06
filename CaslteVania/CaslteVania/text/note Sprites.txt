@@ -13,7 +13,25 @@
 10039 -10004 walk stair down right 524
 10040 -10014 walk stair down left 525
 
+10041-10043 hit stair up right 526
+10044-10046 hit stair up left 527
+10047-10049 hit stair down right 528
+10050-10052 hit stair down left 529
+
+10053 hurt right 530
+10054 hurt left  531
+10055 dead	 532
+
 30000 OJ - 
  + 30001,2 : fire_pillar
 40000 Item
 50000 effects
+60000 enemy
++60000 ghost
++60004 panther
+ - 60004 - sit left 903 
+ - 60008 - sit right 904 
+ - 60005 -> 60007 run left 905 
+ - 60009 -> 60011 run right 906
+ - 60007 jump left 907
+ - 60011 jump right 908

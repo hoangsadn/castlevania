@@ -21,19 +21,19 @@ PlayerStandingStairState::PlayerStandingStairState()
 	switch (PrevState)
 	{
 	
-	case WALKING_STAIR_UP_RIGHT:
+	case WALKING_STAIR_UP_RIGHT: case HITTING_STAIR_UP_RIGHT:
 		StateName = STANDING_STAIR_UP_RIGHT;
 		player->nx = 1;
 		break;
-	case WALKING_STAIR_UP_LEFT:
+	case WALKING_STAIR_UP_LEFT: case HITTING_STAIR_UP_LEFT:
 		StateName = STANDING_STAIR_UP_LEFT;
 		player->nx = -1;
 		break;
-	case WALKING_STAIR_DOWN_RIGHT:
+	case WALKING_STAIR_DOWN_RIGHT: case HITTING_STAIR_DOWN_RIGHT:
 		StateName = STANDING_STAIR_DOWN_RIGHT;
 		player->nx = 1;
 		break;
-	case WALKING_STAIR_DOWN_LEFT:
+	case WALKING_STAIR_DOWN_LEFT: case HITTING_STAIR_DOWN_LEFT:
 		StateName = STANDING_STAIR_DOWN_LEFT;
 		player->nx = -1;
 		break;

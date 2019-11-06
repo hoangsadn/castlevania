@@ -2,8 +2,8 @@
 #include "PlayerStandingState.h"
 #include "PlayerFallingState.h"
 #include "PlayerJumpingState.h"
-
-
+#include "PlayerWalkingStairState.h"
+#include "PlayerStandingStairState.h"
 PlayerHittingState::PlayerHittingState()
 {
 	player->allow[JUMPING] = false;
@@ -11,6 +11,7 @@ PlayerHittingState::PlayerHittingState()
 	player->allow[HITTING] = false;
 	
 	PrevState = player->state->StateName;
+	
 	if (player->nx > 0)
 	{
 		if (player->ny < 0)
@@ -24,6 +25,36 @@ PlayerHittingState::PlayerHittingState()
 			StateName = HITTING_DOWN_LEFT;
 		else
 			StateName = HITTING_STAND_LEFT;
+	}
+	if (player->IsOnStair)
+	{
+		player->vy = 0;
+		switch (player->stairDirection)
+		{
+
+		case 1:
+			StateName = HITTING_STAIR_UP_RIGHT;
+			player->nx = 1;
+			break;
+		case 2:
+		{
+			StateName = HITTING_STAIR_UP_LEFT;
+			player->nx = -1;
+			break;
+		}
+		case -1:
+		{
+			StateName = HITTING_STAIR_DOWN_RIGHT;
+			player->nx = 1;
+			break;
+		}
+		case -2:
+		{
+			StateName = HITTING_STAIR_DOWN_LEFT;
+			player->nx = -1;
+			break;
+		}
+		}
 	}
 	player->vx = 0;
 	player->stateBoundingBox = SIMON_BIG_BOUNDING_BOX;
@@ -66,6 +97,12 @@ void PlayerHittingState::Update()
 
 		case FALLING_LEFT: case FALLING_RIGHT:
 			player->ChangeAnimation(new PlayerFallingState());
+			return;
+		case WALKING_STAIR_DOWN_LEFT: case WALKING_STAIR_DOWN_RIGHT: case WALKING_STAIR_UP_LEFT: case WALKING_STAIR_UP_RIGHT:
+			player->ChangeAnimation(new PlayerWalkingStairState());
+			return;
+		case STANDING_STAIR_DOWN_LEFT: case STANDING_STAIR_DOWN_RIGHT: case STANDING_STAIR_UP_LEFT: case STANDING_STAIR_UP_RIGHT:
+			player->ChangeAnimation(new PlayerStandingStairState());
 			return;
 		}
 
