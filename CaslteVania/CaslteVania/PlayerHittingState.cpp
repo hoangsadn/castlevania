@@ -102,7 +102,12 @@ void PlayerHittingState::Update()
 			player->ChangeAnimation(new PlayerWalkingStairState());
 			return;
 		case STANDING_STAIR_DOWN_LEFT: case STANDING_STAIR_DOWN_RIGHT: case STANDING_STAIR_UP_LEFT: case STANDING_STAIR_UP_RIGHT:
+		{
 			player->ChangeAnimation(new PlayerStandingStairState());
+			return;
+		}
+		default:
+			player->ChangeAnimation(new PlayerStandingState());
 			return;
 		}
 

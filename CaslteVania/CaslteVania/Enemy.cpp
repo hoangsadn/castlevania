@@ -46,19 +46,24 @@ void CEnemy::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				
 				
 
-				x += min_tx * dx + nx * 0.2f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-				y += min_ty * dy + ny * 0.2;
+				
 	
-				if (ny == 1)
+				if (ny == 1 || nx != 0)
 				{
 					y += dy;
+					x += dx;
+				}
+				else
+				{
+					x += min_tx * dx + nx * 0.2f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+					y += min_ty * dy + ny * 0.2f;
+					IsJumping = false;
 				}
 			
-				if (nx != 0) vx = 0;
-				vy = 0;
-				IsJumping = false;
-				//IsEndGround = false;
-				if ((object->x + 8 > x) || ((object->x+ object->width) - 8 < x ) )
+				if (ny == -1) vy = 0;
+				
+				IsEndGround = false;
+				if ((object->x + 4 > x) || ((object->x+ object->width) - 4 < x ) )
 				{
 					IsEndGround = true;
 				}

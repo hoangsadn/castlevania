@@ -6,6 +6,7 @@
 #include "PlayerJumpingState.h"
 #include "PlayerReciveItemState.h"
 #include "PlayerHurtingState.h"
+#include "PlayerDeadState.h"
 #include "Brick.h"
 #include "Whip.h"
 CSimon * CSimon::_instance = NULL;
@@ -54,6 +55,8 @@ CSimon::CSimon() :CGameObject()
 	AddAnimation(530, HURTING_RIGHT);
 	AddAnimation(531, HURTING_LEFT);
 
+	AddAnimation(532, DEAD_LEFT);
+	AddAnimation(533, DEAD_RIGHT);
 	tag = PLAYER;
 
 }
@@ -143,6 +146,28 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						break;
 					}
 				}
+				else if (coObjects->at(i)->tag == ENEMY)
+				{
+					if (untouchTime == 0 && !IsDead )
+					{
+
+						if (health == 1)
+						{
+							GAMELOG("chet lan 2");
+							ChangeAnimation(new PlayerDeadState());
+							IsDead = true;
+						}
+
+						else if (!IsOnStair)
+						{
+							GAMELOG("an chuong lan 1");
+							ChangeAnimation(new PlayerHurtingState());
+
+						}					
+						else untouchTime = GetTickCount();
+						health--;
+					}
+				}
 				
 			}
 
@@ -212,10 +237,22 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			else if (object->tag == ENEMY)
 			{
-				if (untouchTime == 0)
+				if (untouchTime == 0 && !IsDead)
 				{
-					ChangeAnimation(new PlayerHurtingState());
-					IsJumping = true;
+
+					if (health == 1)
+					{
+						GAMELOG("chet lan 2");
+						IsDead = true;
+						ChangeAnimation(new PlayerDeadState());
+					}
+					else if (!IsOnStair)
+					{
+						GAMELOG("an chuong lan 2");
+						ChangeAnimation(new PlayerHurtingState());
+					}
+					else untouchTime = GetTickCount();
+					health--;
 				}
 			}
 
@@ -228,7 +265,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 }
 void CSimon::Render()
 {
-	int alpha = 255;
+
+	if (untouchTime != 0)
+		alpha = alpha == 255 ? 115 : 255;
+	else 
+		alpha = 255;
 	CurAnimation->Render(x, y, alpha);
 	RenderBoundingBox();
 }
@@ -248,11 +289,13 @@ void CSimon::Revival()
 	allow[THROWING] = true;
 	allow[HITTING] = true;
 	untouchTime = 0;
+	IsDead = false;
 	SetPosition(0.0f, 0);
 	nx = 1;
 	whipType = 1;
 	bullet = 5;
 	weaponTypeCarry = KNIFE;
+	health = 2;
 	ChangeAnimation(new PlayerStandingState());
 }
 void CSimon::OnKeyDown(int key)
@@ -356,7 +399,6 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 		if (!IsOnStair)
 		{
-			IsJumping = false;
 			
 			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 			y += min_ty * dy + ny * 0.4f;
@@ -366,6 +408,7 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			if (nx != 0) vx = 0;
 			if (ny == -1) vy = 0;
+			IsJumping = false;
 		}
 		else
 		{

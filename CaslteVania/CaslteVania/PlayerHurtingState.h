@@ -4,11 +4,13 @@
 class PlayerHurtingState : public PlayerState
 {
 public:
-	PlayerHurtingState() 
+	PlayerHurtingState()
 	{
 		player->vy = -SIMON_JUMP_SPEED_Y;
-		player->untouchTime = GetTickCount();
-		if (player->nx > 0) 
+
+		player->IsJumping = true;
+
+		if (player->nx > 0)
 		{
 			player->vx = -SIMON_WALKING_SPEED;
 			StateName = HURTING_RIGHT;
@@ -18,20 +20,23 @@ public:
 			player->vx = SIMON_WALKING_SPEED;
 			StateName = HURTING_LEFT;
 		}
+
+		player->untouchTime = GetTickCount();
 	}
-	void Update() 
+	void Update()
 	{
 		this->HandleKeyBoard();
-		/*if (!player->IsJumping)
+		if (!player->IsJumping)
 		{
 			player->ChangeAnimation(new PlayerStandingState());
-		}*/
+			return;
+		}
 	}
-	void HandleKeyBoard() 
+	void HandleKeyBoard()
 	{
 
 	}
-	
+
 	~PlayerHurtingState() {};
 };
 

@@ -18,7 +18,7 @@ public:
 		AddAnimation(907, BLACKPANTHER_JUMP_LEFT);
 		AddAnimation(908, BLACKPANTHER_JUMP_RIGHT);
 		CurAnimation = animations[BLACKPANTHER_STAND_LEFT];
-		nx = -1;
+		nx = 1;
 		vy = 0.0f;
 		vx = 0.0f;
 		IsEndGround = false;
@@ -47,7 +47,7 @@ public:
 			CurAnimation = nx < 0 ? animations[BLACKPANTHER_RUN_LEFT] : animations[BLACKPANTHER_RUN_RIGHT];
 			isRun = false;
 		}
-		if (IsEndGround)
+		if (IsEndGround && !IsJumping)
 		{
 
 			CurAnimation = nx < 0 ? animations[BLACKPANTHER_JUMP_LEFT] : animations[BLACKPANTHER_JUMP_RIGHT];

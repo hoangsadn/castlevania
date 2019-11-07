@@ -22,13 +22,15 @@ public:
 	bool IsHitting, IsThrowing;
 	bool IsOnStair, IsOutStair;
 	bool IsOnFootStair, IsOnTopStair;
-	bool IsFinishWalking;
+	bool IsDead;
 	float posOfStair;
 	int stairDirection;
-	DWORD untouchTime;
-	TYPE weaponTypeCarry;
-	int whipType;
+	DWORD untouchTime;	//time hurting and enemy cant hurt more in this time 
+	TYPE weaponTypeCarry;	
+	int whipType;	// type of whip 1,2,3 
 	int bullet;
+	int alpha;		//for render
+	int health;
 	CSimon();
 	void Revival();
 

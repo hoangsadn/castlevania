@@ -233,7 +233,6 @@ void Stage1::UpdatePlayer(float dt)
 		else it++;
 	};
 	this->UpdateObject(dt);
-	p->CollisonGroundWall(dt, &CannotTouchObjects);
 }
 void Stage1::Update(float dt)
 {
@@ -245,7 +244,10 @@ void Stage1::Update(float dt)
 	{
 		coObjects.push_back(o);
 	}
-
+	for (auto o : PresentObjects)
+	{
+		(o)->Update(dt, &coObjects);
+	}
 	for (auto o : PresentObjects)
 	{
 		if (o->tag == ENEMY)
@@ -253,11 +255,11 @@ void Stage1::Update(float dt)
 			auto enemy = (CGhost*)o;
 			enemy->CollisonGroundWall(dt, &CannotTouchObjects);
 		}
+		else if (o->tag == PLAYER)
+			p->CollisonGroundWall(dt, &CannotTouchObjects);
+
 	}
-	for (auto o : PresentObjects)
-	{
-		(o)->Update(dt, &coObjects);
-	}
+	
 
 	map->Update(dt);
 	float cx, cy;

@@ -195,6 +195,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemys.h" />
     <ClInclude Include="Ghost.h" />
+    <ClInclude Include="PlayerDeadState.h" />
     <ClInclude Include="PlayerHurtingState.h" />
     <ClInclude Include="PlayerStandingStairState.h" />
     <ClInclude Include="PlayerWalkingStairState.h" />
