@@ -23,6 +23,8 @@ public:
 	bool IsOnStair, IsOutStair;
 	bool IsOnFootStair, IsOnTopStair;
 	bool IsDead;
+	bool IsTouchDoor;
+	bool IsWalkingComplete;
 	float posOfStair;
 	int stairDirection;
 	DWORD untouchTime;	//time hurting and enemy cant hurt more in this time 

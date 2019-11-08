@@ -8,6 +8,7 @@
 #include "PlayerHurtingState.h"
 #include "PlayerDeadState.h"
 #include "Brick.h"
+#include "CheckPoint.h"
 #include "Whip.h"
 CSimon * CSimon::_instance = NULL;
 CSimon::CSimon() :CGameObject()
@@ -68,7 +69,7 @@ CSimon * CSimon::GetInstance()
 }
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-
+	
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 	// Simple fall down
@@ -209,9 +210,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				switch (object->type)
 				{
 				case CHECKPOINT:
+					{
+					auto checkpoint = (CCheckPoint*)object;
 					object->isDead = true;
+					if (checkpoint->id == 2)
+						IsTouchDoor = true;
 					break;
-
+					}
 				case STAIR_BOTTOM_RIGHT:
 					IsOnFootStair = true;
 					posOfStair = object->x;
@@ -242,13 +247,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 					if (health == 1)
 					{
-						GAMELOG("chet lan 2");
+						
 						IsDead = true;
 						ChangeAnimation(new PlayerDeadState());
 					}
 					else if (!IsOnStair)
 					{
-						GAMELOG("an chuong lan 2");
+						
 						ChangeAnimation(new PlayerHurtingState());
 					}
 					else untouchTime = GetTickCount();
@@ -288,6 +293,8 @@ void CSimon::Revival()
 	allow[WALKING] = true;
 	allow[THROWING] = true;
 	allow[HITTING] = true;
+	IsTouchDoor = false;
+	IsWalkingComplete = false;
 	untouchTime = 0;
 	IsDead = false;
 	SetPosition(0.0f, 0);
@@ -295,7 +302,7 @@ void CSimon::Revival()
 	whipType = 1;
 	bullet = 5;
 	weaponTypeCarry = KNIFE;
-	health = 2;
+	health = 3;
 	ChangeAnimation(new PlayerStandingState());
 }
 void CSimon::OnKeyDown(int key)
@@ -383,8 +390,7 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (coEvents.size() == 0)
 	{
-		//if (CurAnimation->isLastFrame )
-		//	GAMELOG("%f %f", x, y);
+		
 		x += dx;
 		y += dy;
 		

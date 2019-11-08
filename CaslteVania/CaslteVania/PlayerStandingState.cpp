@@ -14,7 +14,6 @@ PlayerStandingState::PlayerStandingState()
 	player->ny = 1;
 	player->IsJumping = false;
 	player->IsHitting = false;
-	
 	player->IsOnStair = false;
 	
 	if (player->nx > 0)

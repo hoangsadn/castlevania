@@ -8,6 +8,9 @@ class CCheckPoint : public CGameObject
 private:
 	static CCheckPoint* _instance;
 public:
+	int id;
+	bool IsChangingMap;
+	CAnimation* CurAnimation;
 	CCheckPoint();
 	void GetBoundingBox(float &l, float &t, float &r, float &b);	
 	void Render();

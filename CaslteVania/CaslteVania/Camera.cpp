@@ -12,12 +12,43 @@ Camera * Camera::GetInstance()
 }
 Camera::Camera()
 {
+	IsChangeMap = false;
 }
 void Camera::Update()
 {
-	if (this->x < 0)
+	if (!IsChangeMap)
 	{
-		this->x = 0;
+		switch (map)
+		{
+		case 2:
+		{
+			if (this->x < 0)
+			{
+				this->x = 0;
+
+			}
+			else if (this->x > 3084 - mWidth)
+			{
+				this->x = 3084 - mWidth;
+			}
+			break;
+		}
+		case 3: 
+		{
+			if (this->x < 3090)
+			{
+				this->x = 3090;
+
+			}
+			break;
+		}
+		default:
+			break;
+		}
+		
+	}
+	else
+	{
 
 	}
 }

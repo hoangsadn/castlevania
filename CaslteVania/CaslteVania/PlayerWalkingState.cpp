@@ -29,21 +29,34 @@ PlayerWalkingState::~PlayerWalkingState()
 }
 void PlayerWalkingState::walking(DWORD dt)
 {
+	GAMELOG("x %f", player->x);
 	if (player->x < dt)
 	{
-		player->nx = 1;
-		player->ChangeAnimation(new PlayerWalkingState(dt));
-		if (player->x > dt - 3)
+		
+		if (player->x > dt - 10)
 		{
 			//get in the position
 			player->allow[STAIRING] = true;
+			player->IsWalkingComplete = true;
 			player->ChangeAnimation(new PlayerStandingState());
+			return;
 		}
+		player->nx = 1;
+		player->ChangeAnimation(new PlayerWalkingState(dt));
 	}
 	else
 	{
+		if (player->x < dt + 10)
+		{
+			//get in the position
+			player->allow[STAIRING] = true;
+			player->IsWalkingComplete = true;
+			player->ChangeAnimation(new PlayerStandingState());
+			return;
+		}
 		player->nx = -1;
 		player->ChangeAnimation(new PlayerWalkingState(dt));
+		
 		
 	}
 }

@@ -4,13 +4,13 @@
 #include "Simon.h"
 #include "HolderFirePillar.h"
 #include "HolderCandle.h"
-#include "Item.h"
 #include "Effect.h"
 #include "Items.h"
 #include "Weapons.h"
 #include "CheckPoint.h"
 #include "Stair.h"
 #include "Enemys.h"
+#include "PlayerWalkingState.h"
 class CBrick;
 vector<LPGAMEOBJECT> CannotTouchObjects;
 
@@ -21,6 +21,7 @@ Stage1::Stage1()
 	camera->SetRect(SCREEN_WIDTH, SCREEN_HEIGHT);
 	map = map->GetInstance();
 	level = 1;
+	ChangeMapProc = 0;
 
 }
 void Stage1::LoadObjects(LPCWSTR filePath)
@@ -81,6 +82,8 @@ void Stage1::LoadResources(int level)
 		sprites->LoadResources();
 		CAnimations * animations = CAnimations::GetInstance();
 		animations->LoadResources();
+		
+		camera->map = 2;
 
 		map->LoadResources(L"text\\Level1.txt");
 		LoadObjects(L"text\\obj\\Scene1_Object.txt");
@@ -90,7 +93,6 @@ void Stage1::LoadResources(int level)
 		PresentObjects.insert(checkpoint);
 
 		
-	
 
 		p = player;
 		p->Revival();
@@ -101,7 +103,7 @@ void Stage1::LoadResources(int level)
 	{
 		map->LoadResources(L"text\\Level2.txt");
 		LoadObjects(L"text\\obj\\Scene2_Object.txt");
-		p->SetPosition(1200.0f, 235.0f);
+		p->SetPosition(2900.0f, 0.0f);
 
 		CStair * stair = new CStair(STAIR_BOTTOM_RIGHT);
 		stair->SetPosition(1220.0f, 315.0f);
@@ -111,13 +113,21 @@ void Stage1::LoadResources(int level)
 		stair2->SetPosition(1347.0f, 72.0f);
 		PresentObjects.insert(stair2);
 
-		auto ghost = CEnemys::CreateEnemy(1);
+		/*auto ghost = CEnemys::CreateEnemy(1);
 		ghost->SetPosition(1500.0f, 0.0f);
 		PresentObjects.insert(ghost);
+
+		auto ghost2 = CEnemys::CreateEnemy(1);
+		ghost2->SetPosition(3000.0f, 0.0f);
+		PresentObjects.insert(ghost2);
 	
 		auto Wakanda = CEnemys::CreateEnemy(2);
 		Wakanda->SetPosition(1600.0f,0.0f);
-		PresentObjects.insert(Wakanda);
+		PresentObjects.insert(Wakanda);*/
+		CCheckPoint * checkpoint2 = new CCheckPoint();
+		checkpoint2->SetPosition(3050.0f, 50.0f);
+		checkpoint2->id = 2;
+		PresentObjects.insert(checkpoint2);
 
 	}
 	default:
@@ -206,17 +216,65 @@ void Stage1::UpdateObject(float dt)
 		{
 			if (obj->type == CHECKPOINT && obj->isDead)
 			{
-				it = PresentObjects.erase(it);
+				auto door = (CCheckPoint*)obj;
+				if (ChangeMapProc == 2)
+				{
+					door->IsChangingMap = true;
+					door->CurAnimation = door->animations[DOOR_OPEN];
+					if (door->CurAnimation->isLastFrame)
+					{
+						ChangeMapProc = 3;
+						door->CurAnimation = door->animations[DOOR_OPENING];
+						if (!p->IsWalkingComplete)
+							p->ChangeAnimation(new PlayerWalkingState(3100));
+					}
+				}
+				else if (ChangeMapProc == 4)
+				{
+					door->CurAnimation = door->animations[DOOR_CLOSE];
+					if (door->CurAnimation->isLastFrame)
+					{
+						door->IsChangingMap = false;
+						ChangeMapProc = 5;
+					}
+				}
 				level++;
 				loadDone = false;
 			}
-			else it++;
+			it++;
 			break;
 		}
 		default:
 			it++;
 
 		}
+	}
+}
+void Stage1::ChangeMap(float dt)
+{
+	camera->IsChangeMap = true;
+
+	if (camera->x + SCREEN_WIDTH / 2 < p->x)
+	{
+		camera->SetCamPos(camera->x + 0.1 * dt, camera->y);
+		ChangeMapProc = 1;
+	}
+	else
+	{
+		ChangeMapProc = 2;
+		if (p->IsWalkingComplete)
+		{
+			if (camera->x < (3084))
+				camera->SetCamPos(camera->x + 0.1 * dt, camera->y);
+			else
+				ChangeMapProc = 4;
+		}
+	}
+	if (ChangeMapProc == 4)
+	{
+		p->IsTouchDoor = false;
+		camera->IsChangeMap = false;
+		camera->map = 3;
 	}
 }
 void Stage1::UpdatePlayer(float dt)
@@ -229,7 +287,6 @@ void Stage1::UpdatePlayer(float dt)
 		{
 			it = PresentObjects.erase(it);
 		}
-
 		else it++;
 	};
 	this->UpdateObject(dt);
@@ -259,15 +316,17 @@ void Stage1::Update(float dt)
 			p->CollisonGroundWall(dt, &CannotTouchObjects);
 
 	}
-	
-
+	if (p->IsTouchDoor)
+		ChangeMap(dt);
+	else 
+	{
+		float cx, cy;
+		p->GetPosition(cx, cy);
+		cx -= SCREEN_WIDTH / 2;
+		cy -= SCREEN_HEIGHT / 2;
+		camera->SetCamPos(cx, 0);
+	}
 	map->Update(dt);
-	float cx, cy;
-	p->GetPosition(cx, cy);
-
-	cx -= SCREEN_WIDTH / 2;
-	cy -= SCREEN_HEIGHT / 2;
-	camera->SetCamPos(cx, 0);
 	camera->Update();
 };
 

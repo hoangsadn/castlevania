@@ -4,8 +4,13 @@ CCheckPoint * CCheckPoint::_instance = NULL;
 
 CCheckPoint::CCheckPoint()
 {
+	AddAnimation(303, DOOR_OPEN);
+	AddAnimation(304, DOOR_CLOSE);
+	AddAnimation(305, DOOR_OPENING);
+
 	tag = BOX;
 	type = CHECKPOINT;
+	IsChangingMap = false;
 }
 void CCheckPoint::GetBoundingBox(float &l, float &t, float &r, float &b)
 {
@@ -16,6 +21,11 @@ void CCheckPoint::GetBoundingBox(float &l, float &t, float &r, float &b)
 }
 void CCheckPoint::Render()
 {
+	if (IsChangingMap)
+	{
+		int alpha = 255;
+		CurAnimation->Render(x, y, alpha);
+	}
 	RenderBoundingBox();
 }
 CCheckPoint* CCheckPoint::GetInstance()

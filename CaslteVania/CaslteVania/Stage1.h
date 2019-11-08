@@ -11,9 +11,10 @@ class Stage1 : public Scene
 {
 public:
 	Stage1();
-
+	int ChangeMapProc;
 	void LoadResources(int level);
 	void LoadObjects(LPCWSTR filePath);
+	void ChangeMap(float dt);
 	void Update(float dt);
 	void UpdateObject(float dt);
 	void UpdatePlayer(float dt);

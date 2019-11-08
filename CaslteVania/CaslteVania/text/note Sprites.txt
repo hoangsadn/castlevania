@@ -23,7 +23,8 @@
 10055 dead	 532
 
 30000 OJ - 
- + 30001,2 : fire_pillar
+ + 30001,2 : fire_pillar 
+ + 30005,5 : door 303 304
 40000 Item
 50000 effects
 60000 enemy
