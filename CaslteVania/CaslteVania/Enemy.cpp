@@ -7,9 +7,7 @@ void CEnemy::Render()
 }
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-//	;
 	CGameObject::Update(dt);
-	//CollisonGroundWall(dt, coObjects);
 }
 void CEnemy::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -43,11 +41,6 @@ void CEnemy::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			auto object = e->obj;
 			if (object->tag == GROUND)
 			{
-				
-				
-
-				
-	
 				if (ny == 1 || nx != 0)
 				{
 					y += dy;

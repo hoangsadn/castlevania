@@ -149,19 +149,28 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 				else if (coObjects->at(i)->tag == ENEMY)
 				{
+					switch (coObjects->at(i)->type)
+					{
+					case BAT:
+					{
+						coObjects->at(i)->isDead = true;
+						break;
+					}
+					default:
+						break;
+					}
 					if (untouchTime == 0 && !IsDead )
 					{
 
 						if (health == 1)
 						{
-							GAMELOG("chet lan 2");
+							
 							ChangeAnimation(new PlayerDeadState());
 							IsDead = true;
 						}
 
 						else if (!IsOnStair)
 						{
-							GAMELOG("an chuong lan 1");
 							ChangeAnimation(new PlayerHurtingState());
 
 						}					
@@ -242,23 +251,32 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			else if (object->tag == ENEMY)
 			{
+				switch (object->type)
+				{
+				case BAT:
+				{
+					object->isDead = true;
+					break;
+				}
+				default:
+					break;
+				}
 				if (untouchTime == 0 && !IsDead)
 				{
 
 					if (health == 1)
 					{
-						
 						IsDead = true;
 						ChangeAnimation(new PlayerDeadState());
 					}
 					else if (!IsOnStair)
 					{
-						
 						ChangeAnimation(new PlayerHurtingState());
 					}
 					else untouchTime = GetTickCount();
 					health--;
 				}
+				
 			}
 
 			// clean up collision events

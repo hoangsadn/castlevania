@@ -32,7 +32,8 @@ PlayerStandingState::~PlayerStandingState()
 
 void PlayerStandingState::Update()
 {
-	this->HandleKeyBoard();
+	if (!player->IsTouchDoor)
+		this->HandleKeyBoard();
 }
 
 void PlayerStandingState::HandleKeyBoard()

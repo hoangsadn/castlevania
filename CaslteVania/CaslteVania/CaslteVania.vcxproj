@@ -189,6 +189,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
+    <ClInclude Include="Aquaman.h" />
+    <ClInclude Include="Bat.h" />
     <ClInclude Include="BlackPanter.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Brick.h" />

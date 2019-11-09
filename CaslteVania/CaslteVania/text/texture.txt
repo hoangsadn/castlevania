@@ -13,3 +13,5 @@
 70 textures\\Effect\\DEAD.png 255 0 255
 80 textures\\Enemies\\ZOMBIE.png 255 0 255
 81 textures\\Enemies\\PANTHER.png 255 0 255
+82 textures\\Enemies\\BAT.png 255 0 255
+83 textures\\Enemies\\MERMAN.png 255 0 255

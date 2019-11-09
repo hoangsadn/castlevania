@@ -36,3 +36,13 @@
  - 60009 -> 60011 run right 906
  - 60007 jump left 907
  - 60011 jump right 908
++ 60012 BAT
+ - 60012->60014 bat left 909
+ - 60014->60017 bat right 910 
++ 60018 MERMAN
+ - 60018 stand left 911
+ - 60018 60019 walk left 913
+ - 60020 fire left 915
++ 60021 stand right 912
+ - 60021 60022 walk right 914
+ - 60023 fire right 916

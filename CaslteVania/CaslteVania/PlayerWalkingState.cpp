@@ -20,6 +20,7 @@ PlayerWalkingState::PlayerWalkingState(DWORD timeFinish)
 		player->vx = -SIMON_WALKING_SPEED;
 	}
 	player->stateBoundingBox = SIMON_BIG_BOUNDING_BOX;
+	
 }
 
 
@@ -29,10 +30,9 @@ PlayerWalkingState::~PlayerWalkingState()
 }
 void PlayerWalkingState::walking(DWORD dt)
 {
-	GAMELOG("x %f", player->x);
+
 	if (player->x < dt)
 	{
-		
 		if (player->x > dt - 10)
 		{
 			//get in the position
@@ -62,10 +62,12 @@ void PlayerWalkingState::walking(DWORD dt)
 }
 void PlayerWalkingState::Update()
 {
+	
 	if (timeFinish != 0)
 		walking(timeFinish);
 	else 
 		this->HandleKeyBoard();
+
 }
 void PlayerWalkingState::HandleKeyBoard()
 {
@@ -78,15 +80,16 @@ void PlayerWalkingState::HandleKeyBoard()
 	{
 		player->ChangeAnimation(new PlayerStandingState());
 	}
+	else if (player->IsTouchDoor)
+		player->ChangeAnimation(new PlayerStandingState());
 	else if (keyCode[DIK_LEFT])
 	{
-		
 		player->nx = -1;
 		player->ChangeAnimation(new PlayerWalkingState());
 	}
 	else if (keyCode[DIK_RIGHT])
 	{
-		
+
 		player->nx = 1;
 		player->ChangeAnimation(new PlayerWalkingState());
 	}

@@ -275,6 +275,12 @@
     <ClInclude Include="PlayerDeadState.h">
       <Filter>Source Files\GameObjects\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>Source Files\GameObjects\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Aquaman.h">
+      <Filter>Source Files\GameObjects\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\bbox.png">

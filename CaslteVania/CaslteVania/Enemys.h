@@ -2,6 +2,8 @@
 
 #include "Ghost.h"
 #include "BlackPanter.h"
+#include "Bat.h"
+#include "Aquaman.h"
 class CEnemys
 {
 public:
@@ -16,7 +18,10 @@ public:
 			return new CGhost();
 		case 2: 
 			return new CBlackPanther();
-	
+		case 3: 
+			return new CBat();
+		case 4:
+			return new CAquaman();
 		default: return NULL;
 		}
 	}

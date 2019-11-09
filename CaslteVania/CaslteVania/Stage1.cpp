@@ -124,6 +124,14 @@ void Stage1::LoadResources(int level)
 		auto Wakanda = CEnemys::CreateEnemy(2);
 		Wakanda->SetPosition(1600.0f,0.0f);
 		PresentObjects.insert(Wakanda);*/
+		/*CBat * bat = new CBat();
+		bat->SetPosition(2700.0f, 40.0f);
+		PresentObjects.insert(bat);*/
+
+		CAquaman * aqua = new CAquaman();
+		aqua->SetPosition(2700.0f, 250.0f);
+		PresentObjects.insert(aqua);
+		
 		CCheckPoint * checkpoint2 = new CCheckPoint();
 		checkpoint2->SetPosition(3050.0f, 50.0f);
 		checkpoint2->id = 2;
@@ -229,13 +237,13 @@ void Stage1::UpdateObject(float dt)
 							p->ChangeAnimation(new PlayerWalkingState(3100));
 					}
 				}
-				else if (ChangeMapProc == 4)
+				else if (p->IsWalkingComplete)
 				{
 					door->CurAnimation = door->animations[DOOR_CLOSE];
 					if (door->CurAnimation->isLastFrame)
 					{
 						door->IsChangingMap = false;
-						ChangeMapProc = 5;
+						ChangeMapProc = 4;
 					}
 				}
 				level++;
@@ -261,16 +269,16 @@ void Stage1::ChangeMap(float dt)
 	}
 	else
 	{
-		ChangeMapProc = 2;
-		if (p->IsWalkingComplete)
+		if (ChangeMapProc == 1) ChangeMapProc = 2;
+		if (ChangeMapProc == 4)
 		{
 			if (camera->x < (3084))
 				camera->SetCamPos(camera->x + 0.1 * dt, camera->y);
 			else
-				ChangeMapProc = 4;
+				ChangeMapProc = 5;
 		}
 	}
-	if (ChangeMapProc == 4)
+	if (ChangeMapProc == 5)
 	{
 		p->IsTouchDoor = false;
 		camera->IsChangeMap = false;
@@ -339,7 +347,8 @@ void Stage1::Render()
 void Stage1::OnKeyDown(int Key)
 {
 	keyCode[Key] = true;
-	p->OnKeyDown(Key);
+	if (!camera->IsChangeMap)
+		p->OnKeyDown(Key);
 
 };
 void Stage1::OnKeyUp(int Key)
