@@ -8,7 +8,8 @@ public:
 		type = BAT;
 		AddAnimation(909, BAT_LEFT);
 		AddAnimation(910, BAT_RIGHT);
-		CurAnimation = animations[BAT_RIGHT];
+		nx = 1;
+		CurAnimation = nx > 0 ? animations[BAT_RIGHT] : animations[BAT_LEFT]; 
 	}
 	void CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{

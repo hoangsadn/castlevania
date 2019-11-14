@@ -42,7 +42,7 @@ public:
 
 	int nx;
 	int ny;
-
+	bool selected;
 	TYPE type;
 	TAG tag;
 	DWORD dt;

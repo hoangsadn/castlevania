@@ -1,6 +1,7 @@
 #pragma once 
 #include "Scene.h"
 #include "Map.h"
+
 class CGameObject;
 class CSimon;
 class CWhip;
@@ -26,6 +27,7 @@ private:
 	CWhip *whip;
 	Map *map;
 	Camera *camera;
+	//Grid * grid;
 	int level;
 	bool loadDone;
 

@@ -11,8 +11,11 @@
 #include "Stair.h"
 #include "Enemys.h"
 #include "PlayerWalkingState.h"
+#include "Grid.h"
+Grid * grid;
 class CBrick;
 vector<LPGAMEOBJECT> CannotTouchObjects;
+std::unordered_set<LPGAMEOBJECT> Objlist;
 
 
 Stage1::Stage1()
@@ -22,7 +25,7 @@ Stage1::Stage1()
 	map = map->GetInstance();
 	level = 1;
 	ChangeMapProc = 0;
-
+	grid = new Grid();
 }
 void Stage1::LoadObjects(LPCWSTR filePath)
 {
@@ -93,7 +96,7 @@ void Stage1::LoadResources(int level)
 		PresentObjects.insert(checkpoint);
 
 		
-
+		grid->CreateFileGird(L"text\\obj\\Scene2_Object.txt");
 		p = player;
 		p->Revival();
 		break;
@@ -104,7 +107,7 @@ void Stage1::LoadResources(int level)
 		map->LoadResources(L"text\\Level2.txt");
 		LoadObjects(L"text\\obj\\Scene2_Object.txt");
 		p->SetPosition(2900.0f, 0.0f);
-
+		
 		CStair * stair = new CStair(STAIR_BOTTOM_RIGHT);
 		stair->SetPosition(1220.0f, 315.0f);
 		PresentObjects.insert(stair);
@@ -112,6 +115,10 @@ void Stage1::LoadResources(int level)
 		CStair * stair2 = new CStair(STAIR_TOP_LEFT);
 		stair2->SetPosition(1347.0f, 72.0f);
 		PresentObjects.insert(stair2);
+
+
+		
+		
 
 		/*auto ghost = CEnemys::CreateEnemy(1);
 		ghost->SetPosition(1500.0f, 0.0f);
@@ -303,6 +310,7 @@ void Stage1::Update(float dt)
 {
 	if (level == 2 && !loadDone)
 		LoadResources(level);
+
 	Stage1::UpdatePlayer(dt);
 	vector<LPGAMEOBJECT> coObjects;
 	for (auto o : PresentObjects)
@@ -336,6 +344,8 @@ void Stage1::Update(float dt)
 	}
 	map->Update(dt);
 	camera->Update();
+	grid->Update();
+	Objlist = grid->GetObj();
 };
 
 void Stage1::Render()

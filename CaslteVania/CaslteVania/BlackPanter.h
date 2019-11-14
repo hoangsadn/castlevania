@@ -17,8 +17,8 @@ public:
 		AddAnimation(906, BLACKPANTHER_RUN_RIGHT);
 		AddAnimation(907, BLACKPANTHER_JUMP_LEFT);
 		AddAnimation(908, BLACKPANTHER_JUMP_RIGHT);
-		CurAnimation = animations[BLACKPANTHER_STAND_LEFT];
 		nx = 1;
+		CurAnimation = nx > 0 ? animations[BLACKPANTHER_STAND_RIGHT]:animations[BLACKPANTHER_STAND_LEFT];
 		vy = 0.0f;
 		vx = 0.0f;
 		IsEndGround = false;
