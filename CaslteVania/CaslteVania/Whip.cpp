@@ -12,7 +12,7 @@ CWhip::CWhip()
 	AddAnimation(605, WHIP_THREE_RIGHT);
 	tag = WEAPON;
 	typeWhip = 1;
-	
+
 
 }
 
@@ -67,26 +67,26 @@ void CWhip::ChangeAnimations(TYPE type)
 
 void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b)
 {
-	if (CurAnimation->isLastFrame)
-	{
-		switch (typeWhip)
-		{
-		case 1:case 2:
-			l = player->nx > 0 ? x + 76 : x + 35;
-			t = y + 14;
-			r = l + 56;
-			b = t + 18;
-			break;
-		case 3:
-			l = player->nx > 0 ? x + 72 : x + 3;
-			t = y + 14;
-			r = l + 88;
-			b = t + 12;
-			break;
 
-		}
+	switch (typeWhip)
+	{
+	case 1:case 2:
+		l = player->nx > 0 ? x + 76 : x + 35;
+		t = y + 14;
+		r = l + 56;
+		b = t + 18;
+		break;
+	case 3:
+		l = player->nx > 0 ? x + 72 : x + 3;
+		t = y + 14;
+		r = l + 88;
+		b = t + 12;
+		break;
 
 	}
+	if (CurAnimation->isLastFrame)
+		allowHit = true;
+	else allowHit = false;
 }
 CWhip* CWhip::GetInstance()
 {

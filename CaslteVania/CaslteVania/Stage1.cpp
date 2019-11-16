@@ -96,7 +96,7 @@ void Stage1::LoadResources(int level)
 		PresentObjects.insert(checkpoint);
 
 		
-		grid->CreateFileGird(L"text\\obj\\Scene2_Object.txt");
+		grid->CreateFileGird(L"text\\obj\\Scene1_Object.txt");
 		p = player;
 		p->Revival();
 		break;
@@ -105,7 +105,7 @@ void Stage1::LoadResources(int level)
 	case 2:
 	{
 		map->LoadResources(L"text\\Level2.txt");
-		LoadObjects(L"text\\obj\\Scene2_Object.txt");
+		//LoadObjects(L"text\\obj\\Scene2_Object.txt");
 		p->SetPosition(2900.0f, 0.0f);
 		
 		CStair * stair = new CStair(STAIR_BOTTOM_RIGHT);
@@ -159,7 +159,8 @@ void Stage1::UpdateObject(float dt)
 	{
 		whip = whip->GetInstance();
 		whip->Init(p->whipType);
-		PresentObjects.insert(whip);
+		grid->AddObject(whip);
+		//PresentObjects.insert(whip);
 		p->IsHitting = false;
 
 	}
@@ -197,36 +198,28 @@ void Stage1::UpdateObject(float dt)
 			if (obj->isDead)
 			{
 				auto holder = (CHolder*)obj;
+				grid->RemoveObject(*obj);
 				it = PresentObjects.erase(it);
-
-				Effect *efc = new Effect();						// effect of holder dead
-				efc->SetPosition(holder->x, holder->y);
-				PresentObjects.insert(efc);
-
+			
 				auto itemdrop = CItems::CreateIteam(holder->stored);
 				itemdrop->SetPosition(holder->x, holder->y);
-				PresentObjects.insert(itemdrop);
-
+				//PresentObjects.insert(itemdrop);
+				grid->AddObject(itemdrop);
+				it++;
 			}
 			else it++;
 			break;
 		case ITEM:
 			if (obj->isDead)
+			{
+				grid->RemoveObject(*obj);
 				it = PresentObjects.erase(it);
+			}
 			else
 			{
-				obj->Update(dt, &CannotTouchObjects);
 				it++;
 			}
 			break;
-		case EFFECT:
-		{
-			auto effect = (Effect*)obj;
-			if (effect->CurAnimation->isLastFrame)
-				it = PresentObjects.erase(it);
-			else it++;
-			break;
-		}
 		case BOX:
 		{
 			if (obj->type == CHECKPOINT && obj->isDead)
@@ -301,6 +294,8 @@ void Stage1::UpdatePlayer(float dt)
 		if (obj->tag == WEAPON && obj->isDead)
 		{
 			it = PresentObjects.erase(it);
+			grid->RemoveObject(*obj);
+			//it++;
 		}
 		else it++;
 	};
@@ -308,6 +303,9 @@ void Stage1::UpdatePlayer(float dt)
 }
 void Stage1::Update(float dt)
 {
+	PresentObjects.clear();
+	PresentObjects = grid->GetObj();
+	PresentObjects.insert(p);
 	if (level == 2 && !loadDone)
 		LoadResources(level);
 
@@ -319,7 +317,8 @@ void Stage1::Update(float dt)
 	}
 	for (auto o : PresentObjects)
 	{
-		(o)->Update(dt, &coObjects);
+		if (o->tag != ITEM)
+			(o)->Update(dt, &coObjects);
 	}
 	for (auto o : PresentObjects)
 	{
@@ -330,6 +329,10 @@ void Stage1::Update(float dt)
 		}
 		else if (o->tag == PLAYER)
 			p->CollisonGroundWall(dt, &CannotTouchObjects);
+		else if (o->tag == ITEM)
+		{
+			o->Update(dt, &CannotTouchObjects);
+		}
 
 	}
 	if (p->IsTouchDoor)
@@ -345,7 +348,7 @@ void Stage1::Update(float dt)
 	map->Update(dt);
 	camera->Update();
 	grid->Update();
-	Objlist = grid->GetObj();
+	
 };
 
 void Stage1::Render()

@@ -133,24 +133,48 @@ std::unordered_set<LPGAMEOBJECT> Grid::GetObj()
 		{
 			if (!g->selected)
 			{
-				//g->selected = true;
+				g->selected = true;
 				Objlist.insert(g);
 			}
 		}
 	}
+
+	//unselect obj
+	for (auto c : PresentCell)
+		for (auto g : c->objects)
+			g->selected = false;
+	GAMELOG("sl ob %d", Objlist.size());
 	return Objlist;
 }
+void Grid::AddObject(CGameObject * obj)
+{
+	auto o = new GAMEOBJECT();
+	FindCell(obj->GetRect(), *o);
+	loop(r, o->TopCell, o->BottomCell)
+		loop(c, o->LeftCell, o->RightCell)
+		cells[r][c]->objects.insert(obj);
+}
+void Grid::RemoveObject(CGameObject & obj)
+{
+	auto o = new GAMEOBJECT();
+
+	FindCell(obj.GetRect(),*o);
+	loop(r, o->TopCell, o->BottomCell)
+		loop(c, o->LeftCell, o->RightCell)
+			cells[r][c]->objects.erase(&obj);
+}
+
 void Grid::UpdatePresentCell()
 {
 	PresentCell.clear();
 	auto obj = new GAMEOBJECT();
 	FindCell(cam, *obj);
-	for (int r =obj->TopCell; r <= obj->BottomCell; ++r)
+	loop(r,obj->TopCell,obj->BottomCell)
 	{
-		if (r < 0 || r >= rows) continue;
-		for (int c = obj->LeftCell; c <= obj->RightCell; ++c)
+		//if (r < 0 || r >= rows) continue;
+		loop(c, obj->LeftCell, obj->RightCell)
 		{
-			if (c < 0 || c >= cols) continue;
+		//	if (c < 0 || c >= cols) continue;
 			PresentCell.push_back(cells[r][c]);
 		}
 	}

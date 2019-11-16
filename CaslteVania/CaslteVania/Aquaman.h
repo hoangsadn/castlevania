@@ -26,9 +26,6 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		CGameObject::Update(dt);
-		GAMELOG("pre %f", prePos);
-		GAMELOG("x %f", x);
-
 		if (!IsJumping && state == AQUAMAN_STAND)
 		{
 			prePos = x;

@@ -1,6 +1,7 @@
 #include "Knife.h"
 CKnife::CKnife()
 {
+	allowHit = true;
 	AddAnimation(803, KNIFE_RIGHT);
 	AddAnimation(804, KNIFE_LEFT);
 	if (player->nx > 0)

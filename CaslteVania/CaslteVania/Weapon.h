@@ -4,7 +4,7 @@
 class CWeapon : public CGameObject
 {
 public:
-
+	bool allowHit;
 	CWeapon() : CGameObject()
 	{
 		tag = WEAPON;

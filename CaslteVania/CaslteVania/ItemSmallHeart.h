@@ -12,7 +12,7 @@ public:
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
-		y += SIMON_WALKING_SPEED;
+		y += 0.4;
 		x += 1.2*sin(y);
 		
 		if (GetTickCount() - timeDead > 4000)

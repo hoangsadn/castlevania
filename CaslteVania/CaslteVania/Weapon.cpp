@@ -17,7 +17,7 @@ void CWeapon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-	
+		if (allowHit) 
 		if (IsCollisionAABB(GetRect(),coObjects->at(i)->GetRect()))
 		{
 			coEvents.push_back(coObjects->at(i));
