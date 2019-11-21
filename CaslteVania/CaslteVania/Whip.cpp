@@ -12,15 +12,19 @@ CWhip::CWhip()
 	AddAnimation(605, WHIP_THREE_RIGHT);
 	tag = WEAPON;
 	typeWhip = 1;
-
-
+	type = WHIP;
 }
 
 
 void CWhip::Init(int typeWhip)
 {
+
 	this->typeWhip = typeWhip;
 	isDead = false;
+	int posX = player->nx > 0 ? player->x - 22 : player->x - 80;
+	int	posY = player->nx > 0 ? player->y + 1 : player->y;
+	SetPosition(posX, posY);
+
 	switch (typeWhip)
 	{
 	case 1:

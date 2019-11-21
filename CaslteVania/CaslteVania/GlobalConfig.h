@@ -121,6 +121,7 @@ extern enum TAG
 
 extern enum TYPE
 {
+	WHIP,
 	WHIP_ONE,
 	WHIP_ONE_RIGHT,
 	WHIP_ONE_LEFT,

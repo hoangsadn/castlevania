@@ -146,6 +146,29 @@ std::unordered_set<LPGAMEOBJECT> Grid::GetObj()
 	GAMELOG("sl ob %d", Objlist.size());
 	return Objlist;
 }
+void Grid::UpdateObject(CGameObject & obj, int posX, int posY)
+{
+	auto oldObj = new GAMEOBJECT();
+	oldObj->LeftCell = posX / WidthCell;
+	oldObj->TopCell = posY / HeightCell;
+	oldObj->RightCell = (posX +obj.width) / WidthCell;
+	oldObj->BottomCell = (posY + obj.height) / HeightCell;
+
+	auto newObj = new GAMEOBJECT();
+	FindCell(obj.GetRect(), *newObj);
+	if (oldObj->LeftCell != newObj->LeftCell || oldObj->TopCell != newObj->TopCell)
+	{
+		
+		loop(r, oldObj->TopCell, oldObj->BottomCell)
+			loop(c, oldObj->LeftCell, oldObj->RightCell)
+			cells[r][c]->objects.erase(&obj);
+		loop(r, newObj->TopCell, newObj->BottomCell)
+			loop(c, newObj->LeftCell, newObj->RightCell)
+			cells[r][c]->objects.insert(&obj);
+		
+	}
+	else GAMELOG("NOT REmove");
+}
 void Grid::AddObject(CGameObject * obj)
 {
 	auto o = new GAMEOBJECT();

@@ -159,7 +159,7 @@ void Stage1::UpdateObject(float dt)
 	{
 		whip = whip->GetInstance();
 		whip->Init(p->whipType);
-		grid->AddObject(whip);
+ 		grid->AddObject(whip);
 		//PresentObjects.insert(whip);
 		p->IsHitting = false;
 
@@ -168,6 +168,7 @@ void Stage1::UpdateObject(float dt)
 	{
 		auto w = CWeapons::CreateWeapon(p->weaponTypeCarry);
 		w->SetPosition(player->x, player->y);
+		grid->AddObject(w);
 		PresentObjects.insert(w);
 		p->IsThrowing = false;
 	}
@@ -186,11 +187,9 @@ void Stage1::UpdateObject(float dt)
 				Effect *efc = new Effect();						// effect of enemy dead
 				efc->SetPosition(enemy->x, enemy->y);
 				PresentObjects.insert(efc);
-
 			}
 			else
 			{
-				
 				it++;
 			}
 			break;
@@ -317,8 +316,15 @@ void Stage1::Update(float dt)
 	}
 	for (auto o : PresentObjects)
 	{
+		float posPrevUpdateX = o->x;
+		float posPrevUpdateY = o->y;
+
 		if (o->tag != ITEM)
 			(o)->Update(dt, &coObjects);
+		if (o->tag == WEAPON && o->type != WHIP)
+		{
+			grid->UpdateObject(*o, posPrevUpdateX, posPrevUpdateY);
+		}
 	}
 	for (auto o : PresentObjects)
 	{

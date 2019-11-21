@@ -20,7 +20,7 @@ public:
 	void Init();
 	void RemoveObject(CGameObject & obj);
 	void AddObject(CGameObject * obj);
-	void UpdateObject(CGameObject* obj, int posX, int posY);
+	void UpdateObject(CGameObject & obj, int posX, int posY);
 	void CreateFileGird(LPCWSTR filePath);
 	void Update();
 	
