@@ -6,6 +6,11 @@
 CHolder::~CHolder()
 {
 }
+void CHolder::DeadState()
+{
+	CurAnimation = animations[EFFECT_DEAD];
+
+}
 void CHolder::Render() 
 {
 	CurAnimation->Render(x, y, 255);

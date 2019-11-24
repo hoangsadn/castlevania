@@ -36,8 +36,6 @@ void CAnimation::Render(float x, float y, int alpha)
 			isLastFrame = false;
 			t += now - lastFrameTime;
 		}
-
-
 	}
 
 	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
@@ -75,8 +73,6 @@ void CAnimations::LoadResources()
 			Add(*it, ani);
 			ParaAni.clear();
 		}
-		
-	
 	}
 	File.close();
 }

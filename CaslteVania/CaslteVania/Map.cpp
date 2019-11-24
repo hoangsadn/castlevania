@@ -8,10 +8,12 @@ Camera * cam = CAMERA;
 Map::Map()
 {
 }
-void Map::LoadResources(LPCWSTR filePath)
+void Map::LoadResources(int level)
 {
 	ifstream File;
-	File.open(filePath);
+	char gridFileName[30];
+	sprintf_s(gridFileName,"text\\Level%d.txt", level);
+	File.open(gridFileName,level);
 	File >> col >> row;
 	mapTiles = new int*[row];
 	for (int r = 0; r < row; ++r)

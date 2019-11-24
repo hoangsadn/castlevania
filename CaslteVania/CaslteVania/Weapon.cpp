@@ -30,7 +30,8 @@ void CWeapon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 		case HOLDER: case ENEMY:
 			coEvents.at(i)->isDead = true;
-			isDead = true;
+			if (type == KNIFE)
+				isDead = true;
 			break;
 		}
 	}

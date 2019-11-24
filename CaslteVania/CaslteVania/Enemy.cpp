@@ -7,6 +7,11 @@ void CEnemy::Render()
 }
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	if (x < CAMERA->x || x > CAMERA->x + CAMERA->mWidth)
+	{
+		isDead = true;
+		//GAMELOG("OK");
+	}
 	CGameObject::Update(dt);
 }
 void CEnemy::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

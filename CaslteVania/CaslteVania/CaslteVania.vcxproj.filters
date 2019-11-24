@@ -290,6 +290,18 @@
     <ClInclude Include="Cell.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Axe.h">
+      <Filter>Source Files\GameObjects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemAxe.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HollyWater.h">
+      <Filter>Source Files\GameObjects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemHollyWater.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\bbox.png">

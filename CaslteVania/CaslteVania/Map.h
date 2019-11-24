@@ -16,7 +16,7 @@ public:
 	~Map();
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
-	void LoadResources(LPCWSTR filePath);
+	void LoadResources(int level);
 	void Render(int level);
 	void Update(float dt);
 	static Map* GetInstance();

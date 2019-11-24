@@ -191,6 +191,7 @@
   <ItemGroup>
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Aquaman.h" />
+    <ClInclude Include="Axe.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="BlackPanter.h" />
     <ClInclude Include="Camera.h" />
@@ -200,6 +201,9 @@
     <ClInclude Include="Enemys.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="HollyWater.h" />
+    <ClInclude Include="ItemAxe.h" />
+    <ClInclude Include="ItemHollyWater.h" />
     <ClInclude Include="PlayerDeadState.h" />
     <ClInclude Include="PlayerHurtingState.h" />
     <ClInclude Include="PlayerStandingStairState.h" />

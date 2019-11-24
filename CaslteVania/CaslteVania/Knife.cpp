@@ -16,6 +16,8 @@ CKnife::CKnife()
 		CurAnimation = animations[KNIFE_LEFT];
 		vx = -0.2;
 	}
+	x = player->x;
+	y = player->y;
 	type = KNIFE;
 
 }
@@ -23,11 +25,11 @@ void CKnife::UpdatePosititon(DWORD dt)
 {
 	CGameObject::Update(dt);
 	x += dx;
-	GAMELOG("RUNNING");
+	//GAMELOG("RUNNING");
 	if (x < CAMERA->x || x > CAMERA->x + CAMERA->mWidth)
 	{
 		isDead = true;
-		GAMELOG("OK");
+		//GAMELOG("OK");
 	}
 
 }

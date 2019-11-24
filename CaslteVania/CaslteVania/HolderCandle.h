@@ -7,6 +7,7 @@ public:
 	CHolderCandle(TYPE stored)
 	{
 		AddAnimation(302, CANDLE);
+		AddAnimation(306, CONNER_WALL);
 		CurAnimation = animations[CANDLE];
 		isDead = false;
 		this->stored = stored;

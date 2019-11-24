@@ -7,6 +7,7 @@ class CEnemy : public CGameObject
 public:
 	CEnemy()
 	{
+		AddAnimation(701, EFFECT_DEAD);
 		tag = ENEMY;
 		isDead = false;
 

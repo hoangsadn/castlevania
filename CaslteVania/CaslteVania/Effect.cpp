@@ -7,6 +7,8 @@ Effect::Effect()
 {
 	AddAnimation(701, EFFECT_DEAD);
 	CurAnimation = animations[EFFECT_DEAD];
+	CurAnimation->currentFrame = -1;
+	CurAnimation->isLastFrame = false;
 	tag = EFFECT;
 }
 void Effect::ChangeAnimations(TYPE type)

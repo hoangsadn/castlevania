@@ -25,7 +25,13 @@
 30000 OJ - 
  + 30001,2 : fire_pillar 
  + 30005,5 : door 303 304
+ + 30007 : conner wall map 1 306
 40000 Item
+ + 40006 : AXE Item 806
+ + 40007-40010 : axe move 807
+ + 40011 : fire bottle item 808
+ + 40012 : bottle throw 809 
+ + 40013 -40014 : fire 810
 50000 effects
 60000 enemy
 +60000 ghost

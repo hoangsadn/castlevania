@@ -2,6 +2,7 @@
 #include "Items.h"
 #include "HolderCandle.h"
 #include "HolderFirePillar.h"
+#include "CheckPoint.h"
 #include "Weapons.h"
 #include "Enemys.h"
 #include "Brick.h"
@@ -34,15 +35,20 @@ void Grid::Init()
 	}
 	
 }
-void Grid::CreateFileGird(LPCWSTR filePath)
+void Grid::CreateFileGird(int level)
 {
 	// w map:2816 ,height map : 368 , w cell = 176 , h cell = 92;
 	Init();
 	ifstream File;
 	ofstream wFile;
+	
+	char gridFileName[30];
+	sprintf_s(gridFileName, "text\\obj\\Scene%d_Object.txt", level);
+	File.open(gridFileName);
 
-	File.open(filePath);
-	wFile.open(L"text\\Grid.txt");
+	sprintf_s(gridFileName, "text\\Grid%d.txt", level);
+	wFile.open(gridFileName);
+
 	float posX, posY, width, height;
 	string str;
 
@@ -112,6 +118,14 @@ void Grid::CreateFileGird(LPCWSTR filePath)
 			}
 			break;
 		}
+		case CHECKPOINT:
+			File >> posX >> posY;
+			CCheckPoint * checkpoint = new CCheckPoint();
+			checkpoint->SetPosition(posX, posY);
+			checkpoint->type = CHECKPOINT;
+			AddObject(checkpoint);
+			
+
 		}
 	}
 	File.close();
@@ -143,7 +157,29 @@ std::unordered_set<LPGAMEOBJECT> Grid::GetObj()
 	for (auto c : PresentCell)
 		for (auto g : c->objects)
 			g->selected = false;
-	GAMELOG("sl ob %d", Objlist.size());
+//	GAMELOG("sl ob %d", Objlist.size());
+	return Objlist;
+}
+std::vector<LPGAMEOBJECT> Grid::GetWall()
+{
+	std::vector<LPGAMEOBJECT> Objlist;
+	for (auto c : PresentCell)
+	{
+		for (auto g : c->CannotTouchObjects)
+		{
+			if (!g->selected)
+			{
+				g->selected = true;
+				Objlist.push_back(g);
+			}
+		}
+	}
+
+	//unselect obj
+	for (auto c : PresentCell)
+		for (auto g : c->CannotTouchObjects)
+			g->selected = false;
+	//	GAMELOG("sl ob %d", Objlist.size());
 	return Objlist;
 }
 void Grid::UpdateObject(CGameObject & obj, int posX, int posY)
@@ -156,18 +192,36 @@ void Grid::UpdateObject(CGameObject & obj, int posX, int posY)
 
 	auto newObj = new GAMEOBJECT();
 	FindCell(obj.GetRect(), *newObj);
+	//GAMELOG("old pos %d %d %d %d", oldObj->LeftCell, oldObj->TopCell, oldObj->RightCell, oldObj->BottomCell);
+	//GAMELOG("new pos %d %d %d %d", newObj->LeftCell, newObj->TopCell, newObj->RightCell, newObj->BottomCell);
+
+
 	if (oldObj->LeftCell != newObj->LeftCell || oldObj->TopCell != newObj->TopCell)
 	{
-		
-		loop(r, oldObj->TopCell, oldObj->BottomCell)
-			loop(c, oldObj->LeftCell, oldObj->RightCell)
-			cells[r][c]->objects.erase(&obj);
-		loop(r, newObj->TopCell, newObj->BottomCell)
-			loop(c, newObj->LeftCell, newObj->RightCell)
-			cells[r][c]->objects.insert(&obj);
-		
+		//if obj move to the right to left . the newObj in two cells . 
+		if (oldObj->LeftCell == oldObj->RightCell && oldObj->TopCell == oldObj->BottomCell)
+		{
+			loop(r, newObj->TopCell, newObj->BottomCell)
+				loop(c, newObj->LeftCell, newObj->RightCell)
+				cells[r][c]->objects.insert(&obj);
+
+			loop(r, oldObj->TopCell, oldObj->BottomCell)
+				loop(c, oldObj->LeftCell, oldObj->RightCell)
+				cells[r][c]->objects.erase(&obj);
+		}
+		// the Old obj in two cells
+		else if (newObj->LeftCell == newObj->RightCell && newObj->TopCell == newObj->BottomCell)
+		{
+			loop(r, oldObj->TopCell, oldObj->BottomCell)
+				loop(c, oldObj->LeftCell, oldObj->RightCell)
+				cells[r][c]->objects.erase(&obj);
+
+			loop(r, newObj->TopCell, newObj->BottomCell)
+				loop(c, newObj->LeftCell, newObj->RightCell)
+				cells[r][c]->objects.insert(&obj);
+
+		}
 	}
-	else GAMELOG("NOT REmove");
 }
 void Grid::AddObject(CGameObject * obj)
 {

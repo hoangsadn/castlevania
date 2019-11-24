@@ -27,48 +27,6 @@ Stage1::Stage1()
 	ChangeMapProc = 0;
 	grid = new Grid();
 }
-void Stage1::LoadObjects(LPCWSTR filePath)
-{
-	ifstream File;
-	File.open(filePath);
-	float posX, posY, width, height;
-	string str;
-
-	while (!File.eof())
-	{
-		File >> str;		// read type of obj
-		switch (TYPEString[str])
-		{
-		case FIRE_PILLAR:
-		{
-			File >> posX >> posY >> str;
-			CHolderFirePillar * holder = new CHolderFirePillar(TYPEString[str]);
-			holder->SetPosition(posX, posY);
-			PresentObjects.insert(holder);
-			break;
-		}
-		case BRICK:
-		{
-			File >> posX >> posY >> width >> height;
-			CBrick * brick = new CBrick();
-			brick->SetPosition(posX, posY);
-			brick->SetWidthHeight(width, height);
-			CannotTouchObjects.push_back(brick);
-			break;
-		}
-		case CANDLE:
-		{
-			File >> posX >> posY >> str;
-			CHolderCandle * holder = new CHolderCandle(TYPEString[str]);
-			holder->SetPosition(posX, posY);
-			PresentObjects.insert(holder);
-			break;
-		}
-		}
-	}
-	File.close();
-
-}
 void Stage1::LoadResources(int level)
 {
 	PresentObjects.clear();
@@ -86,26 +44,27 @@ void Stage1::LoadResources(int level)
 		CAnimations * animations = CAnimations::GetInstance();
 		animations->LoadResources();
 		
+		
+
 		camera->map = 2;
 
-		map->LoadResources(L"text\\Level1.txt");
-		LoadObjects(L"text\\obj\\Scene1_Object.txt");
-
-		CCheckPoint * checkpoint = new CCheckPoint();
-		checkpoint->SetPosition(0.0f, 235.0f);
-		PresentObjects.insert(checkpoint);
-
+		map->LoadResources(level);
 		
-		grid->CreateFileGird(L"text\\obj\\Scene1_Object.txt");
+		
+		grid->CreateFileGird(level);
 		p = player;
 		p->Revival();
+
+		
 		break;
 
 	}
 	case 2:
 	{
-		map->LoadResources(L"text\\Level2.txt");
-		//LoadObjects(L"text\\obj\\Scene2_Object.txt");
+
+		map->LoadResources(level);
+		grid->CreateFileGird(level);
+	
 		p->SetPosition(2900.0f, 0.0f);
 		
 		CStair * stair = new CStair(STAIR_BOTTOM_RIGHT);
@@ -117,10 +76,7 @@ void Stage1::LoadResources(int level)
 		PresentObjects.insert(stair2);
 
 
-		
-		
-
-		/*auto ghost = CEnemys::CreateEnemy(1);
+		auto ghost = CEnemys::CreateEnemy(1);
 		ghost->SetPosition(1500.0f, 0.0f);
 		PresentObjects.insert(ghost);
 
@@ -130,19 +86,21 @@ void Stage1::LoadResources(int level)
 	
 		auto Wakanda = CEnemys::CreateEnemy(2);
 		Wakanda->SetPosition(1600.0f,0.0f);
-		PresentObjects.insert(Wakanda);*/
-		/*CBat * bat = new CBat();
+		PresentObjects.insert(Wakanda);
+		CBat * bat = new CBat();
 		bat->SetPosition(2700.0f, 40.0f);
-		PresentObjects.insert(bat);*/
+		grid->AddObject(bat);
 
 		CAquaman * aqua = new CAquaman();
 		aqua->SetPosition(2700.0f, 250.0f);
-		PresentObjects.insert(aqua);
+		grid->AddObject(aqua);
 		
 		CCheckPoint * checkpoint2 = new CCheckPoint();
+
 		checkpoint2->SetPosition(3050.0f, 50.0f);
 		checkpoint2->id = 2;
-		PresentObjects.insert(checkpoint2);
+		checkpoint2->type = DOOR;
+		grid->AddObject(checkpoint2);
 
 	}
 	default:
@@ -160,14 +118,13 @@ void Stage1::UpdateObject(float dt)
 		whip = whip->GetInstance();
 		whip->Init(p->whipType);
  		grid->AddObject(whip);
-		//PresentObjects.insert(whip);
 		p->IsHitting = false;
 
 	}
 	else if (p->IsThrowing)
 	{
 		auto w = CWeapons::CreateWeapon(p->weaponTypeCarry);
-		w->SetPosition(player->x, player->y);
+		
 		grid->AddObject(w);
 		PresentObjects.insert(w);
 		p->IsThrowing = false;
@@ -182,28 +139,37 @@ void Stage1::UpdateObject(float dt)
 			if (obj->isDead)
 			{
 				auto enemy = (CGhost*)obj;
-				it = PresentObjects.erase(it);
-
-				Effect *efc = new Effect();						// effect of enemy dead
-				efc->SetPosition(enemy->x, enemy->y);
-				PresentObjects.insert(efc);
-			}
-			else
-			{
+				enemy->CurAnimation = enemy->animations[EFFECT_DEAD];
+				GAMELOG("CURFRAME%d", enemy->CurAnimation->currentFrame);
+				if (enemy->CurAnimation->isLastFrame)
+				{
+					//enemy->CurAnimation->isLastFrame = false;
+					//enemy->CurAnimation->currentFrame = -1;
+					grid->RemoveObject(*enemy);
+					it = PresentObjects.erase(it);
+				}
 				it++;
 			}
+			else it++;
 			break;
 		case HOLDER:
 			if (obj->isDead)
 			{
 				auto holder = (CHolder*)obj;
-				grid->RemoveObject(*obj);
-				it = PresentObjects.erase(it);
-			
-				auto itemdrop = CItems::CreateIteam(holder->stored);
-				itemdrop->SetPosition(holder->x, holder->y);
-				//PresentObjects.insert(itemdrop);
-				grid->AddObject(itemdrop);
+				holder->DeadState();
+				GAMELOG("CURFRAME HOLDER %d", holder->CurAnimation->currentFrame);
+				if (holder->CurAnimation->isLastFrame)
+				{
+					grid->RemoveObject(*obj);
+					it = PresentObjects.erase(it);
+					//holder->CurAnimation->isLastFrame = false;
+					//holder->CurAnimation->currentFrame = -1;
+
+					auto itemdrop = CItems::CreateIteam(holder->stored);
+					itemdrop->SetPosition(holder->x, holder->y);
+					grid->AddObject(itemdrop);
+				}
+
 				it++;
 			}
 			else it++;
@@ -214,14 +180,11 @@ void Stage1::UpdateObject(float dt)
 				grid->RemoveObject(*obj);
 				it = PresentObjects.erase(it);
 			}
-			else
-			{
-				it++;
-			}
+			else it++;
 			break;
 		case BOX:
 		{
-			if (obj->type == CHECKPOINT && obj->isDead)
+			if (obj->type == DOOR && obj->isDead)
 			{
 				auto door = (CCheckPoint*)obj;
 				if (ChangeMapProc == 2)
@@ -245,15 +208,29 @@ void Stage1::UpdateObject(float dt)
 						ChangeMapProc = 4;
 					}
 				}
-				level++;
-				loadDone = false;
+				it++;
 			}
+			else if (obj->type == CHECKPOINT && obj->isDead)
+			{
+				if (!p->IsWalkingComplete)
+				{
+					p->ChangeAnimation(new PlayerWalkingState(1500));
+					
+				}
+				else 
+				{
+					level++;
+					loadDone = false;
+					p->IsWalkingComplete = false;
+				}
+				it++;
+			}
+			else 
 			it++;
 			break;
 		}
 		default:
 			it++;
-
 		}
 	}
 }
@@ -280,6 +257,7 @@ void Stage1::ChangeMap(float dt)
 	if (ChangeMapProc == 5)
 	{
 		p->IsTouchDoor = false;
+		p->IsWalkingComplete = false;
 		camera->IsChangeMap = false;
 		camera->map = 3;
 	}
@@ -294,7 +272,6 @@ void Stage1::UpdatePlayer(float dt)
 		{
 			it = PresentObjects.erase(it);
 			grid->RemoveObject(*obj);
-			//it++;
 		}
 		else it++;
 	};
@@ -302,18 +279,31 @@ void Stage1::UpdatePlayer(float dt)
 }
 void Stage1::Update(float dt)
 {
+	vector<LPGAMEOBJECT> coObjects;
+	
 	PresentObjects.clear();
+	
 	PresentObjects = grid->GetObj();
 	PresentObjects.insert(p);
+	CannotTouchObjects.clear();
+	CannotTouchObjects = grid->GetWall();
+	
+	CHolderCandle * connerwall = new CHolderCandle(SMALL_HEART);
+	connerwall->CurAnimation = connerwall->animations[CONNER_WALL];
+	connerwall->SetPosition(1400.0f, 180.0f);
+	PresentObjects.insert(connerwall);
+	
+
 	if (level == 2 && !loadDone)
 		LoadResources(level);
 
-	Stage1::UpdatePlayer(dt);
-	vector<LPGAMEOBJECT> coObjects;
+	UpdatePlayer(dt);
+	
 	for (auto o : PresentObjects)
 	{
 		coObjects.push_back(o);
 	}
+
 	for (auto o : PresentObjects)
 	{
 		float posPrevUpdateX = o->x;
@@ -321,7 +311,7 @@ void Stage1::Update(float dt)
 
 		if (o->tag != ITEM)
 			(o)->Update(dt, &coObjects);
-		if (o->tag == WEAPON && o->type != WHIP)
+		if ((o->tag == WEAPON && o->type != WHIP) || o->tag ==ENEMY)
 		{
 			grid->UpdateObject(*o, posPrevUpdateX, posPrevUpdateY);
 		}
@@ -335,6 +325,11 @@ void Stage1::Update(float dt)
 		}
 		else if (o->tag == PLAYER)
 			p->CollisonGroundWall(dt, &CannotTouchObjects);
+		else if (o->type == HOLLY_WATER && o->tag == WEAPON)
+		{
+			auto w = (CHollyWater*)o;
+			w->CollisonGroundWall(dt, &CannotTouchObjects);
+		}
 		else if (o->tag == ITEM)
 		{
 			o->Update(dt, &CannotTouchObjects);
@@ -351,6 +346,7 @@ void Stage1::Update(float dt)
 		cy -= SCREEN_HEIGHT / 2;
 		camera->SetCamPos(cx, 0);
 	}
+
 	map->Update(dt);
 	camera->Update();
 	grid->Update();

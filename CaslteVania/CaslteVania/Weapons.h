@@ -1,6 +1,7 @@
 #pragma once
 #include "Knife.h"
-
+#include "Axe.h"
+#include "HollyWater.h"
 class CWeapons
 {
 public:
@@ -13,6 +14,10 @@ public:
 		case KNIFE:
 			return new CKnife();
 			break;
+		case AXE:
+			return new CAxe();
+		case HOLLY_WATER:
+			return new CHollyWater();
 		default:
 			return NULL;
 		}

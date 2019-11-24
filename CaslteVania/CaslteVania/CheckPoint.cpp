@@ -7,11 +7,13 @@ CCheckPoint::CCheckPoint()
 	AddAnimation(303, DOOR_OPEN);
 	AddAnimation(304, DOOR_CLOSE);
 	AddAnimation(305, DOOR_OPENING);
-
+	
 	tag = BOX;
-	type = CHECKPOINT;
+
+	this->type = CHECKPOINT;
 	IsChangingMap = false;
 }
+
 void CCheckPoint::GetBoundingBox(float &l, float &t, float &r, float &b)
 {
 	l = x;

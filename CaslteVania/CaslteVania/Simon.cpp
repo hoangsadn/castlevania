@@ -123,6 +123,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					case KNIFE:
 						weaponTypeCarry = KNIFE;
 						break;
+					case AXE: 
+						weaponTypeCarry = AXE;
+						break;
+					case HOLLY_WATER:
+						weaponTypeCarry = HOLLY_WATER;
+						break;
 					}
 				}
 				else if (coObjects->at(i)->tag == BOX)
@@ -212,20 +218,26 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				case KNIFE:
 					weaponTypeCarry = KNIFE;
 					break;
+				case AXE:
+					weaponTypeCarry = AXE;
+					break;
+				case HOLLY_WATER:
+					weaponTypeCarry = HOLLY_WATER;
+					break;
 				}
 			}
 			else if (object->tag == BOX)
 			{
 				switch (object->type)
 				{
-				case CHECKPOINT:
-					{
+				case CHECKPOINT: case DOOR:
+				{
 					auto checkpoint = (CCheckPoint*)object;
 					object->isDead = true;
 					if (checkpoint->id == 2)
 						IsTouchDoor = true;
 					break;
-					}
+				}
 				case STAIR_BOTTOM_RIGHT:
 					IsOnFootStair = true;
 					posOfStair = object->x;
@@ -315,7 +327,7 @@ void CSimon::Revival()
 	IsWalkingComplete = false;
 	untouchTime = 0;
 	IsDead = false;
-	SetPosition(0.0f, 0);
+	SetPosition(1333.0f, 0);
 	nx = 1;
 	whipType = 1;
 	bullet = 5;

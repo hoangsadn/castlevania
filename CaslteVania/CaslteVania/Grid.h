@@ -21,12 +21,13 @@ public:
 	void RemoveObject(CGameObject & obj);
 	void AddObject(CGameObject * obj);
 	void UpdateObject(CGameObject & obj, int posX, int posY);
-	void CreateFileGird(LPCWSTR filePath);
+	void CreateFileGird(int level);
 	void Update();
 	
 	void UpdatePresentCell();
 
 	std::unordered_set<LPGAMEOBJECT> GetObj();
+	std::vector<LPGAMEOBJECT> GetWall();
 
 	void FindCell(RECT r, GAMEOBJECT &obj);
 	~Grid();
