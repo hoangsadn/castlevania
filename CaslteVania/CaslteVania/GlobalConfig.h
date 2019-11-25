@@ -15,6 +15,9 @@
 /////define /////////
 using namespace std;
 ////SIMON//////////////
+#define BACKGROUND_COLOR_WHITE D3DCOLOR_XRGB(255, 255, 255)
+
+
 #define SIMON_WALKING_SPEED		0.1f 
 
 #define SIMON_JUMP_SPEED_Y		0.5f

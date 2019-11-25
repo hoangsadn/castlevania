@@ -161,7 +161,6 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="CheckPoint.cpp" />
-    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -219,7 +218,6 @@
     <ClInclude Include="HolderCandle.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="CheckPoint.h" />
-    <ClInclude Include="Effect.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GlobalConfig.h" />

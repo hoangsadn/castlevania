@@ -8,7 +8,6 @@ public:
 	{
 		AddAnimation(301, FIRE_PILLAR);
 		CurAnimation = animations[FIRE_PILLAR];
-		isDead = false;
 		this->stored = stored;
 		type = FIRE_PILLAR;
 	}

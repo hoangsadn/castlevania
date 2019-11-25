@@ -109,6 +109,10 @@ void CSimon::HandleObject(LPGAMEOBJECT object)
 			Invincibility = true;
 			untouchTime = GetTickCount();
 			break;
+		case ROSARY:
+			flashtime = GetTickCount();
+			beta = 0;
+			break;
 		}
 	}
 	else if (object->tag == BOX)
@@ -196,16 +200,23 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 	CalcPotentialCollisions(coObjects, coEvents);
+
 	if (Invincibility)
 	{
+		//get Invincibility items , untouch 10s
 		if (GetTickCount() - untouchTime > SIMON_INVINCIBILITY_TIME)
 		{
 			untouchTime = 0;
 			Invincibility = false;
 		}
 	} 
+		// hurting time
 	else if (GetTickCount() - untouchTime > SIMON_UNTOUCHABLE_TIME)
 		untouchTime = 0;
+	if (GetTickCount() - flashtime > 400)
+		flashtime = 0;
+
+
 	if (!IsOnStair)		
 	{
 		IsOnFootStair = false;
@@ -234,9 +245,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			HandleObject(e->obj);
-			// clean up collision events
 
+			HandleObject(e->obj);
+
+			// clean up collision events
 			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 		}
 	}
@@ -244,6 +256,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CSimon::Render()
 {
 
+	if (flashtime != 0)
+	{
+		beta = beta == 255 ? 0 : 255;
+		LPDIRECT3DDEVICE9 d3ddv = GAME->GetDirect3DDevice();
+		LPDIRECT3DSURFACE9 bb = GAME->GetBackBuffer();
+		d3ddv->ColorFill(bb, NULL, D3DCOLOR_XRGB(beta, beta, beta));
+		GAMELOG("alpha %d", alpha);
+	}
+		
 	if (untouchTime != 0)
 		alpha = alpha == 255 ? 115 : 255;
 	else 

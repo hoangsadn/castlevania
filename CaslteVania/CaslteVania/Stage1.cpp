@@ -4,7 +4,6 @@
 #include "Simon.h"
 #include "HolderFirePillar.h"
 #include "HolderCandle.h"
-#include "Effect.h"
 #include "Items.h"
 #include "Weapons.h"
 #include "CheckPoint.h"
@@ -43,8 +42,6 @@ void Stage1::LoadResources(int level)
 		sprites->LoadResources();
 		CAnimations * animations = CAnimations::GetInstance();
 		animations->LoadResources();
-		
-		
 
 		camera->map = 2;
 
@@ -66,7 +63,13 @@ void Stage1::LoadResources(int level)
 		grid->CreateFileGird(level);
 	
 		p->SetPosition(2900.0f, 0.0f);
-		
+
+
+		GhostAreaEnd = 1000;
+		GhostAreaBegin = 0;
+		GhostCount = 3;
+		timeRepawnGhost = 10000;
+
 		CStair * stair = new CStair(STAIR_BOTTOM_RIGHT);
 		stair->SetPosition(1220.0f, 315.0f);
 		PresentObjects.insert(stair);
@@ -138,17 +141,9 @@ void Stage1::UpdateObject(float dt)
 		case ENEMY:
 			if (obj->isDead)
 			{
-				auto enemy = (CGhost*)obj;
-				enemy->CurAnimation = enemy->animations[EFFECT_DEAD];
-				
-				if (enemy->CurAnimation->isLastFrame)
-				{
-					//enemy->CurAnimation->isLastFrame = false;
-					//enemy->CurAnimation->currentFrame = -1;
-					grid->RemoveObject(*enemy);
-					it = PresentObjects.erase(it);
-				}
-				it++;
+				auto enemy = (CGhost*)obj;				
+				grid->RemoveObject(*enemy);
+				it = PresentObjects.erase(it);
 			}
 			else it++;
 			break;
@@ -156,21 +151,14 @@ void Stage1::UpdateObject(float dt)
 			if (obj->isDead)
 			{
 				auto holder = (CHolder*)obj;
-				holder->DeadState();
+				grid->RemoveObject(*obj);
+				it = PresentObjects.erase(it);
+
+				auto itemdrop = CItems::CreateIteam(holder->stored);
+				itemdrop->SetPosition(holder->x, holder->y);
+				grid->AddObject(itemdrop);
+			
 				
-				if (holder->CurAnimation->isLastFrame)
-				{
-					grid->RemoveObject(*obj);
-					it = PresentObjects.erase(it);
-					//holder->CurAnimation->isLastFrame = false;
-					//holder->CurAnimation->currentFrame = -1;
-
-					auto itemdrop = CItems::CreateIteam(holder->stored);
-					itemdrop->SetPosition(holder->x, holder->y);
-					grid->AddObject(itemdrop);
-				}
-
-				it++;
 			}
 			else it++;
 			break;
@@ -277,6 +265,22 @@ void Stage1::UpdatePlayer(float dt)
 	};
 	this->UpdateObject(dt);
 }
+void Stage1::RepawnEnemy()
+{
+	if (GetTickCount() - timeRepawnGhost > 10000)
+	if (camera->x > GhostAreaBegin && (camera->x + camera->mWidth) < GhostAreaEnd)
+	{
+		timeRepawnGhost = GetTickCount();
+		for (int i = 0; i < GhostCount; i++)
+		{
+			GAMELOG("OOOO");
+			auto ghost = CEnemys::CreateEnemy(1);
+			ghost->SetPosition(camera->x + camera->mWidth - i*40, 244.0f);
+			ghost->nx = -1;
+			grid->AddObject(ghost);
+		}
+	}
+}
 void Stage1::Update(float dt)
 {
 	vector<LPGAMEOBJECT> coObjects;
@@ -302,6 +306,9 @@ void Stage1::Update(float dt)
 	for (auto o : PresentObjects)
 	{
 		coObjects.push_back(o);
+		if (p->flashtime != 0  && o->tag == ENEMY)
+			o->isDead = true;
+
 	}
 
 	for (auto o : PresentObjects)
@@ -342,6 +349,7 @@ void Stage1::Update(float dt)
 		}
 
 	}
+	RepawnEnemy();
 	if (p->IsTouchDoor)
 		ChangeMap(dt);
 	else 
@@ -361,6 +369,8 @@ void Stage1::Update(float dt)
 
 void Stage1::Render()
 {
+
+	
 	map->Render(level);
 	for (auto it : PresentObjects)
 		(it)->Render();

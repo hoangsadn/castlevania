@@ -34,7 +34,7 @@ public:
 		right = left + 64;
 		bottom = top + 30;
 	}
-	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+	void UpdatePosition(float dt)
 	{
 		CGameObject::Update(dt);
 		if (abs(abs(player->x) - abs(x)) < 10)

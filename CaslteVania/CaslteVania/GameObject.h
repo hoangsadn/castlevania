@@ -47,6 +47,7 @@ public:
 	TAG tag;
 	DWORD dt;
 	bool isDead;
+	bool isBuring;
 	std::unordered_map<int, CAnimation*> animations;
 
 public:

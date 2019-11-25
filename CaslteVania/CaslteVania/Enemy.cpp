@@ -5,17 +5,38 @@ void CEnemy::Render()
 	CurAnimation->Render(x, y, 255);
 	RenderBoundingBox();
 }
+
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	UpdatePosition(dt);
 	if (x < CAMERA->x || x > CAMERA->x + CAMERA->mWidth)
 	{
 		isDead = true;
 		//GAMELOG("OK");
 	}
-	CGameObject::Update(dt);
+	if (isBuring)
+	{
+		LPANIMATION ani = new CAnimation(50);	
+		ani->Add(50001);
+		ani->Add(50002);
+		ani->Add(50003);
+		CurAnimation = ani;
+		isBuring = false;
+		ishitting = true;
+	}
+	if (ishitting && CurAnimation->isLastFrame)
+	{
+		CurAnimation->isLastFrame = false;
+		CurAnimation->currentFrame = -1;
+		isDead = true;
+		ishitting = false;
+		vy = 0;
+		vx = 0;
+	}
 }
 void CEnemy::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	CGameObject::Update(dt);
 	vy += SIMON_GRAVITY * dt;
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;

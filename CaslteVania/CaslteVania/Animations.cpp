@@ -1,4 +1,5 @@
 #include "Animations.h"
+#include <cmath>
 void CAnimation::Add(int spriteId, DWORD time)
 {
 	int t = time;
@@ -37,7 +38,7 @@ void CAnimation::Render(float x, float y, int alpha)
 			t += now - lastFrameTime;
 		}
 	}
-
+	
 	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
 }
 
@@ -56,17 +57,21 @@ void CAnimations::LoadResources()
 	ParaAni.clear();
 	vector<int>::iterator it;
 	int reader;
+	int time;
 	while (!File.eof())
 	{
 		File >> reader;
-		if (reader != -1)
+		if (reader > -1)
 		{
 			ParaAni.push_back(reader);
 		}
 		else
 		{
-			LPANIMATION ani = new CAnimation(100);
-			
+			LPANIMATION ani;
+			if (reader < -1)
+				ani = new CAnimation(abs(reader));
+			else 
+				ani = new CAnimation(100);
 			for (auto it = ParaAni.begin(); it != ParaAni.end()-1; ++it)
 				ani->Add(*it);
 			it = ParaAni.end() - 1;

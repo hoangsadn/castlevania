@@ -11,6 +11,9 @@ class CBrick;
 class Stage1 : public Scene
 {
 public:
+	int GhostCount, GhostAreaBegin, GhostAreaEnd;
+	DWORD timeRepawnGhost;
+
 	Stage1();
 	int ChangeMapProc;
 	void LoadResources(int level);
@@ -19,6 +22,7 @@ public:
 	void Update(float dt);
 	void UpdateObject(float dt);
 	void UpdatePlayer(float dt);
+	void RepawnEnemy();
 	void Render();
 	void OnKeyDown(int Key) ;
 	void OnKeyUp(int Key) ;

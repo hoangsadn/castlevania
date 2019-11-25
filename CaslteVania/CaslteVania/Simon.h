@@ -26,14 +26,15 @@ public:
 	bool IsTouchDoor;
 	bool IsWalkingComplete;
 	bool Invincibility;
+	
 	float posOfStair;
 	int stairDirection;
-	DWORD untouchTime;	//time hurting and enemy cant hurt more in this time 
+	DWORD untouchTime, flashtime;	//time hurting and enemy cant hurt more in this time 
 	TYPE weaponTypeCarry;	
 	int whipType;	// type of whip 1,2,3 
 	int bullet;
 	int point;
-	int alpha;		//for render
+	int alpha,beta;		//for render
 	int health;
 	bool freeze;
 	CSimon();

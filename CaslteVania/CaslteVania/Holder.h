@@ -6,12 +6,15 @@ class CHolder : public CGameObject
 {
 public:
 	CAnimation* CurAnimation;
-
+	bool ishitting;
 	TYPE stored;
 	CHolder() : CGameObject()
 	{
 		AddAnimation(701, EFFECT_DEAD);
 		tag = HOLDER;
+		ishitting = false;
+		isBuring = false;
+		isDead = false;
 	}
 	void DeadState();
 

@@ -23,7 +23,7 @@ public:
 		vy = -SIMON_JUMP_SPEED_Y;
 		vx = 0;
 	}
-	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+	void UpdatePosition(float dt)
 	{
 		CGameObject::Update(dt);
 		if (!IsJumping && state == AQUAMAN_STAND)

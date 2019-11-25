@@ -16,7 +16,7 @@ public:
 		//Bat doesnt touch the wall 
 	}
 
-	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+	void UpdatePosition(float dt)
 	{
 		x += 0.1f*dt;
 		y += 1.2 * sin(x*0.03f) ;
