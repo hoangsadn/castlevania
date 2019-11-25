@@ -140,7 +140,7 @@ void Stage1::UpdateObject(float dt)
 			{
 				auto enemy = (CGhost*)obj;
 				enemy->CurAnimation = enemy->animations[EFFECT_DEAD];
-				GAMELOG("CURFRAME%d", enemy->CurAnimation->currentFrame);
+				
 				if (enemy->CurAnimation->isLastFrame)
 				{
 					//enemy->CurAnimation->isLastFrame = false;
@@ -157,7 +157,7 @@ void Stage1::UpdateObject(float dt)
 			{
 				auto holder = (CHolder*)obj;
 				holder->DeadState();
-				GAMELOG("CURFRAME HOLDER %d", holder->CurAnimation->currentFrame);
+				
 				if (holder->CurAnimation->isLastFrame)
 				{
 					grid->RemoveObject(*obj);
@@ -308,9 +308,14 @@ void Stage1::Update(float dt)
 	{
 		float posPrevUpdateX = o->x;
 		float posPrevUpdateY = o->y;
-
 		if (o->tag != ITEM)
-			(o)->Update(dt, &coObjects);
+		{
+			if (o->tag == ENEMY && !p->freeze)
+				(o)->Update(dt, &coObjects);
+			else if(o->tag != ENEMY)
+				(o)->Update(dt, &coObjects);
+		}
+
 		if ((o->tag == WEAPON && o->type != WHIP) || o->tag ==ENEMY)
 		{
 			grid->UpdateObject(*o, posPrevUpdateX, posPrevUpdateY);
@@ -321,7 +326,8 @@ void Stage1::Update(float dt)
 		if (o->tag == ENEMY)
 		{
 			auto enemy = (CGhost*)o;
-			enemy->CollisonGroundWall(dt, &CannotTouchObjects);
+			if (!p->freeze)
+				enemy->CollisonGroundWall(dt, &CannotTouchObjects);
 		}
 		else if (o->tag == PLAYER)
 			p->CollisonGroundWall(dt, &CannotTouchObjects);

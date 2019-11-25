@@ -9,12 +9,14 @@ public:
 		CurAnimation = animations[BIG_HEART];
 		isDead = false;
 		type = BIG_HEART;
+		width = 24;
+		height = 20;
 	}
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{
 		left = x;
 		top = y;
-		right = left + 24;
-		bottom = top + 20;
+		right = left + width;
+		bottom = top + height;
 	}
 };

@@ -302,6 +302,30 @@
     <ClInclude Include="ItemHollyWater.h">
       <Filter>Source Files\GameObjects\Item</Filter>
     </ClInclude>
+    <ClInclude Include="ItemMoneyBlue.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemMoneyWhite.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemMoneyRed.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemInvincibility.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemStopWatch.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRosary.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemDoubleShot.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="StopWatch.h">
+      <Filter>Source Files\GameObjects\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\bbox.png">

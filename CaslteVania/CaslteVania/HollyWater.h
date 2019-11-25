@@ -36,7 +36,7 @@ public:
 			isDead = true;
 			//GAMELOG("OK");
 		}
-		if (GetTickCount() - timeDead > 10000)
+		if (GetTickCount() - timeDead > 3000)
 			isDead = true;
 		vy += 0.004;
 		CGameObject::Update(dt);

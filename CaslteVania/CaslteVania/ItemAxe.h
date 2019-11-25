@@ -9,12 +9,14 @@ public:
 		CurAnimation = animations[AXE];
 		isDead = false;
 		type = AXE;
+		width = 30;
+		height = 28;
 	}
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{
 		left = x;
 		top = y;
-		right = left + 30;
-		bottom = top + 28;
+		right = left + width;
+		bottom = top + height;
 	}
 };

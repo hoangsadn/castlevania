@@ -9,12 +9,14 @@ public:
 		CurAnimation = animations[MORNING_STAR];
 		isDead = false;
 		type = MORNING_STAR;
+		width = 32;
+		height = 32;
 	}
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{
 		left = x;
 		top = y;
-		right = left + 32;
-		bottom = top + 32;
+		right = left + width;
+		bottom = top + height;
 	}
 };

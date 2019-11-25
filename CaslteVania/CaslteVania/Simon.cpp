@@ -67,6 +67,115 @@ CSimon * CSimon::GetInstance()
 		_instance = new CSimon();
 	return _instance;
 }
+void CSimon::HandleObject(LPGAMEOBJECT object)
+{
+	if (object->tag == ITEM)
+	{
+		object->isDead = true;
+		switch (object->type)
+		{
+		case MORNING_STAR:
+			whipType = whipType != 3 ? whipType + 1 : 3;
+			ChangeAnimation(new PlayerReciveItemState());
+			break;
+		case BIG_HEART:
+			bullet += 5;
+			break;
+		case SMALL_HEART:
+			bullet++;
+			break;
+		case KNIFE:
+			weaponTypeCarry = KNIFE;
+			break;
+		case AXE:
+			weaponTypeCarry = AXE;
+			break;
+		case HOLLY_WATER:
+			weaponTypeCarry = HOLLY_WATER;
+			break;
+		case STOP_WATCH:
+			weaponTypeCarry = STOP_WATCH;
+			break;
+		case MONEY_BLUE:
+			point += 400;
+			break;
+		case MONEY_RED:
+			point += 1000;
+			break;
+		case MONEY_WHITE:
+			point += 700;
+			break;
+		case INVINCIBILITY:
+			Invincibility = true;
+			untouchTime = GetTickCount();
+			break;
+		}
+	}
+	else if (object->tag == BOX)
+	{
+		switch (object->type)
+		{
+		case CHECKPOINT: case DOOR:
+		{
+			auto checkpoint = (CCheckPoint*)object;
+			object->isDead = true;
+			if (checkpoint->id == 2)
+				IsTouchDoor = true;
+			break;
+		}
+		case STAIR_BOTTOM_RIGHT:
+			IsOnFootStair = true;
+			posOfStair = object->x;
+			stairDirection = 1;
+			break;
+		case STAIR_BOTTOM_LEFT:
+			IsOnFootStair = true;
+			posOfStair = object->x;
+			stairDirection = 2;
+			break;
+		case STAIR_TOP_RIGHT:
+			IsOnTopStair = true;
+			posOfStair = object->x;
+			stairDirection = -1;
+			break;
+		case STAIR_TOP_LEFT:
+			IsOnTopStair = true;
+			posOfStair = object->x;
+			stairDirection = -2;
+			break;
+		}
+
+	}
+	else if (object->tag == ENEMY)
+	{
+		switch (object->type)
+		{
+		case BAT:
+		{
+			object->isDead = true;
+			break;
+		}
+		default:
+			break;
+		}
+		if (untouchTime == 0 && !IsDead)
+		{
+
+			if (health == 1)
+			{
+				IsDead = true;
+				ChangeAnimation(new PlayerDeadState());
+			}
+			else if (!IsOnStair)
+			{
+				ChangeAnimation(new PlayerHurtingState());
+			}
+			else untouchTime = GetTickCount();
+			health--;
+		}
+
+	}
+}
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	
@@ -87,11 +196,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 	CalcPotentialCollisions(coObjects, coEvents);
-
-	if (GetTickCount() - untouchTime > SIMON_UNTOUCHABLE_TIME)
+	if (Invincibility)
 	{
+		if (GetTickCount() - untouchTime > SIMON_INVINCIBILITY_TIME)
+		{
+			untouchTime = 0;
+			Invincibility = false;
+		}
+	} 
+	else if (GetTickCount() - untouchTime > SIMON_UNTOUCHABLE_TIME)
 		untouchTime = 0;
-	}
 	if (!IsOnStair)		
 	{
 		IsOnFootStair = false;
@@ -105,86 +219,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			if (IsCollisionAABB(GetRect(), coObjects->at(i)->GetRect()))
 			{
-				if (coObjects->at(i)->tag == ITEM)
-				{
-					coObjects->at(i)->isDead = true;
-					switch (coObjects->at(i)->type)
-					{
-					case MORNING_STAR:
-						whipType = whipType != 3 ? whipType + 1 : 3;
-						ChangeAnimation(new PlayerReciveItemState());
-						break;
-					case BIG_HEART:
-						bullet += 5;
-						break;
-					case SMALL_HEART:
-						bullet++;
-						break;
-					case KNIFE:
-						weaponTypeCarry = KNIFE;
-						break;
-					case AXE: 
-						weaponTypeCarry = AXE;
-						break;
-					case HOLLY_WATER:
-						weaponTypeCarry = HOLLY_WATER;
-						break;
-					}
-				}
-				else if (coObjects->at(i)->tag == BOX)
-				{
-					switch (coObjects->at(i)->type)
-					{
-					case STAIR_BOTTOM_RIGHT:
-						IsOnFootStair = true;
-						stairDirection = 1;
-						break;
-					case STAIR_BOTTOM_LEFT:
-						IsOnFootStair = true;
-						stairDirection = 2;
-						break;
-					case STAIR_TOP_RIGHT:
-						IsOnTopStair = true;
-						stairDirection = -1;
-						break;
-					case STAIR_TOP_LEFT:
-						IsOnTopStair = true;
-						stairDirection = -2;
-						break;
-					}
-				}
-				else if (coObjects->at(i)->tag == ENEMY)
-				{
-					switch (coObjects->at(i)->type)
-					{
-					case BAT:
-					{
-						coObjects->at(i)->isDead = true;
-						break;
-					}
-					default:
-						break;
-					}
-					if (untouchTime == 0 && !IsDead )
-					{
-
-						if (health == 1)
-						{
-							
-							ChangeAnimation(new PlayerDeadState());
-							IsDead = true;
-						}
-
-						else if (!IsOnStair)
-						{
-							ChangeAnimation(new PlayerHurtingState());
-
-						}					
-						else untouchTime = GetTickCount();
-						health--;
-					}
-				}
-				
+				HandleObject(coObjects->at(i));
 			}
 
 		}
@@ -199,102 +234,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			auto object = e->obj;
-			if (object->tag == ITEM)
-			{
-				object->isDead = true;
-				switch (object->type)
-				{
-				case MORNING_STAR:
-					whipType = whipType != 3 ? whipType + 1 : 3;
-					ChangeAnimation(new PlayerReciveItemState());
-					break;
-				case BIG_HEART:
-					bullet += 5;
-					break;
-				case SMALL_HEART:
-					bullet++;
-					break;
-				case KNIFE:
-					weaponTypeCarry = KNIFE;
-					break;
-				case AXE:
-					weaponTypeCarry = AXE;
-					break;
-				case HOLLY_WATER:
-					weaponTypeCarry = HOLLY_WATER;
-					break;
-				}
-			}
-			else if (object->tag == BOX)
-			{
-				switch (object->type)
-				{
-				case CHECKPOINT: case DOOR:
-				{
-					auto checkpoint = (CCheckPoint*)object;
-					object->isDead = true;
-					if (checkpoint->id == 2)
-						IsTouchDoor = true;
-					break;
-				}
-				case STAIR_BOTTOM_RIGHT:
-					IsOnFootStair = true;
-					posOfStair = object->x;
-					stairDirection = 1;
-					break;
-				case STAIR_BOTTOM_LEFT:
-					IsOnFootStair = true;
-					posOfStair = object->x;
-					stairDirection = 2;
-					break;
-				case STAIR_TOP_RIGHT:
-					IsOnTopStair = true;
-					posOfStair = object->x;
-					stairDirection = -1;
-					break;
-				case STAIR_TOP_LEFT:
-					IsOnTopStair = true;
-					posOfStair = object->x;
-					stairDirection = -2;
-					break;
-				}
-
-			}
-			else if (object->tag == ENEMY)
-			{
-				switch (object->type)
-				{
-				case BAT:
-				{
-					object->isDead = true;
-					break;
-				}
-				default:
-					break;
-				}
-				if (untouchTime == 0 && !IsDead)
-				{
-
-					if (health == 1)
-					{
-						IsDead = true;
-						ChangeAnimation(new PlayerDeadState());
-					}
-					else if (!IsOnStair)
-					{
-						ChangeAnimation(new PlayerHurtingState());
-					}
-					else untouchTime = GetTickCount();
-					health--;
-				}
-				
-			}
-
+			HandleObject(e->obj);
 			// clean up collision events
 
 			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-
 		}
 	}
 }
@@ -331,8 +274,10 @@ void CSimon::Revival()
 	nx = 1;
 	whipType = 1;
 	bullet = 5;
-	weaponTypeCarry = KNIFE;
-	health = 3;
+	weaponTypeCarry = STOP_WATCH;
+	Invincibility = false;
+	freeze = false;
+	health = 10;
 	ChangeAnimation(new PlayerStandingState());
 }
 void CSimon::OnKeyDown(int key)
@@ -435,16 +380,17 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 		if (!IsOnStair)
 		{
-			
+			IsJumping = false;
 			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 			y += min_ty * dy + ny * 0.4f;
 			if (ny == 1)
 			{
  				y += dy;
+				IsJumping = true;
 			}
 			if (nx != 0) vx = 0;
 			if (ny == -1) vy = 0;
-			IsJumping = false;
+			
 		}
 		else
 		{

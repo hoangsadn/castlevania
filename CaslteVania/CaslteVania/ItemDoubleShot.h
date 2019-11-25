@@ -1,16 +1,16 @@
 #pragma once
 #include "Item.h"
-class CItemKnife : public CItem
+class CItemDoubleShot : public CItem
 {
 public:
-	CItemKnife() :CItem()
+	CItemDoubleShot() :CItem()
 	{
-		AddAnimation(803, KNIFE);
-		CurAnimation = animations[KNIFE];
+		AddAnimation(815, DOUBLE_SHOT);
+		CurAnimation = animations[DOUBLE_SHOT];
 		isDead = false;
-		type = KNIFE;
-		width = 32;
-		height = 18;
+		type = DOUBLE_SHOT;
+		width = 28;
+		height = 28;
 	}
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{

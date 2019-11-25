@@ -9,13 +9,15 @@ public:
 		CurAnimation = animations[HOLLY_WATER];
 		isDead = false;
 		type = HOLLY_WATER;
+		width = 32;
+		height = 26;
 	}
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{
 		left = x;
 		top = y;
-		right = left + 32;
-		bottom = top + 26;
+		right = left + width;
+		bottom = top + height;
 	}
 	
 };

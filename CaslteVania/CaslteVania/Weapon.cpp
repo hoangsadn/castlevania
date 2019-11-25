@@ -4,8 +4,11 @@
 void CWeapon::Render()
 {
 	int alpha = 255;
-	CurAnimation->Render(x, y, alpha);
-	RenderBoundingBox();
+	if (type != STOP_WATCH)
+	{
+		CurAnimation->Render(x, y, alpha);
+		RenderBoundingBox();
+	}
 }
 
 void CWeapon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

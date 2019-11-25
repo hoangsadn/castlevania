@@ -25,14 +25,17 @@ public:
 	bool IsDead;
 	bool IsTouchDoor;
 	bool IsWalkingComplete;
+	bool Invincibility;
 	float posOfStair;
 	int stairDirection;
 	DWORD untouchTime;	//time hurting and enemy cant hurt more in this time 
 	TYPE weaponTypeCarry;	
 	int whipType;	// type of whip 1,2,3 
 	int bullet;
+	int point;
 	int alpha;		//for render
 	int health;
+	bool freeze;
 	CSimon();
 	void Revival();
 
@@ -43,6 +46,8 @@ public:
 	void CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects);
 	virtual void Render();
 	void ChangeAnimation(PlayerState* newState);
+
+	void HandleObject(LPGAMEOBJECT object);
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void OnKeyUp(int key);

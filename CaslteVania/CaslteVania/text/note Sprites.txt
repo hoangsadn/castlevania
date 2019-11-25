@@ -32,6 +32,13 @@
  + 40011 : fire bottle item 808
  + 40012 : bottle throw 809 
  + 40013 -40014 : fire 810
+ + 40015 : money blue 811
+ + 40016 : money red 812
+ + 40017 : money white 813 
+ + 40018 : invisible 814
+ + 40019 : double buff 815
+ + 40020 : clock 816
+ + 40021 : cross 817
 50000 effects
 60000 enemy
 +60000 ghost

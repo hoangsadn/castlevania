@@ -9,6 +9,8 @@ public:
 		CurAnimation = animations[SMALL_HEART];
 		isDead = false;
 		type = SMALL_HEART;
+		width = 16;
+		height = 16;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
@@ -24,7 +26,7 @@ public:
 	{
 		left = x;
 		top = y;
-		right = left + 16;
-		bottom = top + 16;
+		right = left + width;
+		bottom = top + height;
 	}
 };
