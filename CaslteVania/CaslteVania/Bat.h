@@ -9,7 +9,9 @@ public:
 		AddAnimation(909, BAT_LEFT);
 		AddAnimation(910, BAT_RIGHT);
 		nx = 1;
-		CurAnimation = nx > 0 ? animations[BAT_RIGHT] : animations[BAT_LEFT]; 
+		CurAnimation = nx > 0 ? animations[BAT_RIGHT] : animations[BAT_LEFT];
+		width = 34;
+		height = 64;
 	}
 	void CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
@@ -27,8 +29,8 @@ public:
 	{
 		left = x;
 		top = y;
-		right = left + 32;
-		bottom = top + 32;
+		right = left + width;
+		bottom = top + height;
 	}
 
 };

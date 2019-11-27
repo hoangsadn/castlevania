@@ -295,7 +295,7 @@ void CSimon::Revival()
 	nx = 1;
 	whipType = 1;
 	bullet = 5;
-	weaponTypeCarry = STOP_WATCH;
+	weaponTypeCarry = KNIFE;
 	Invincibility = false;
 	freeze = false;
 	health = 10;

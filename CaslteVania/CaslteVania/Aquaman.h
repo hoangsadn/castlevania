@@ -22,6 +22,8 @@ public:
 		CurAnimation = nx < 0 ? animations[AQUAMAN_STAND_LEFT] : animations[AQUAMAN_STAND_RIGHT];
 		vy = -SIMON_JUMP_SPEED_Y;
 		vx = 0;
+		width = 32;
+		height = 64;
 	}
 	void UpdatePosition(float dt)
 	{
@@ -41,14 +43,15 @@ public:
 			prePos = x;
 			state = AQUAMAN_FIRE;
 			CurAnimation = nx < 0 ? animations[AQUAMAN_FIRE_LEFT] : animations[AQUAMAN_FIRE_RIGHT];
+		
 
 		}
 		else if (state ==  AQUAMAN_FIRE && CurAnimation->isLastFrame)
 		{
 			CurAnimation->isLastFrame = false;
 			CurAnimation->currentFrame = -1;
-			nx = nx > 0 ? -1 : 1;
 			fire = false;
+			nx = nx > 0 ? -1 : 1;
 			vx = nx < 0 ? -SIMON_WALKING_SPEED : SIMON_WALKING_SPEED;
 			state = AQUAMAN_WALK;
 			CurAnimation = nx < 0 ? animations[AQUAMAN_WALK_LEFT] : animations[AQUAMAN_WALK_RIGHT];
@@ -60,8 +63,8 @@ public:
 	{
 		left = x;
 		top = y;
-		right = left + 32;
-		bottom = top + 64;
+		right = left + width;
+		bottom = top + height;
 	}
 
 };

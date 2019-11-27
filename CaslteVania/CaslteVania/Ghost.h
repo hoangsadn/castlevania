@@ -10,15 +10,17 @@ public:
 		AddAnimation(902, GHOST_RIGHT);
 		CurAnimation = animations[GHOST_LEFT];
 		vy = 0.0f;
-		vx = -0.08f;
+		vx = -SIMON_WALKING_SPEED;
+		width = 34;
+		height = 64;
 	}
 	
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{
 		left = x;
 		top = y;
-		right = left + 34;
-		bottom = top + 64;
+		right = left + width;
+		bottom = top + height;
 	}
 	
 };

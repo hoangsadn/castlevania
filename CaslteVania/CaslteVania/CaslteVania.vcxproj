@@ -198,6 +198,7 @@
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemys.h" />
+    <ClInclude Include="FireBall.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="HollyWater.h" />

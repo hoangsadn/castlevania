@@ -59,3 +59,5 @@
 + 60021 stand right 912
  - 60021 60022 walk right 914
  - 60023 fire right 916
+ - 60024 fireball left 917 
+ - 60025 fireball right 918

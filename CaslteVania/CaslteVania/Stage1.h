@@ -7,7 +7,12 @@ class CSimon;
 class CWhip;
 class Map;
 class CBrick;
-
+struct RegionEnemy
+{
+	TYPE type;
+	float Begin, End;
+	int Num, Limit;
+};
 class Stage1 : public Scene
 {
 public:
@@ -17,7 +22,6 @@ public:
 	Stage1();
 	int ChangeMapProc;
 	void LoadResources(int level);
-	
 	void ChangeMap(float dt);
 	void Update(float dt);
 	void UpdateObject(float dt);
@@ -37,5 +41,5 @@ private:
 
 	//std::unordered_set <CGameObject*> objects;
 	std::unordered_set <CGameObject*> PresentObjects;
-
+	std::vector <RegionEnemy> RegionEnemys;
 };

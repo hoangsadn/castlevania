@@ -320,6 +320,9 @@
     <ClInclude Include="StopWatch.h">
       <Filter>Source Files\GameObjects\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="FireBall.h">
+      <Filter>Source Files\GameObjects\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\bbox.png">

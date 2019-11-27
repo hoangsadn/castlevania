@@ -25,14 +25,16 @@ public:
 		isRun = true; 
 		isSleep = true;
 		JUMP = true;
+		width = 64;
+		height = 30;
 	}
 	
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{
 		left = x;
 		top = y;
-		right = left + 64;
-		bottom = top + 30;
+		right = left + width;
+		bottom = top + height;
 	}
 	void UpdatePosition(float dt)
 	{

@@ -9,12 +9,12 @@ CKnife::CKnife()
 	if (player->nx > 0)
 	{
 		CurAnimation = animations[KNIFE_RIGHT];
-		vx = 0.2;
+		vx = SIMON_WALKING_SPEED;
 	}
 	else
 	{
 		CurAnimation = animations[KNIFE_LEFT];
-		vx = -0.2;
+		vx = -SIMON_WALKING_SPEED;
 	}
 	x = player->x;
 	y = player->y;

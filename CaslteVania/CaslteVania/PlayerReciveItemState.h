@@ -12,6 +12,7 @@ public:
 		{
 			player->CurAnimation->currentFrame = -1;
 			player->CurAnimation->isLastFrame = false;
+			player->freeze = false;
 			player->ChangeAnimation(new PlayerStandingState());
 		}
 	}
@@ -28,6 +29,7 @@ public:
 			StateName = RECIVE_RIGHT;
 		}
 		else StateName = RECIVE_LEFT;
+		player->freeze = true;
 	}
 	~PlayerReciveItemState();
 };

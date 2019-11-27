@@ -11,6 +11,8 @@
 #include "Enemys.h"
 #include "PlayerWalkingState.h"
 #include "Grid.h"
+#include "FireBall.h"
+
 Grid * grid;
 class CBrick;
 vector<LPGAMEOBJECT> CannotTouchObjects;
@@ -62,7 +64,7 @@ void Stage1::LoadResources(int level)
 		map->LoadResources(level);
 		grid->CreateFileGird(level);
 	
-		p->SetPosition(2900.0f, 0.0f);
+		p->SetPosition(0.0f, 0.0f);
 
 
 		GhostAreaEnd = 1000;
@@ -78,14 +80,6 @@ void Stage1::LoadResources(int level)
 		stair2->SetPosition(1347.0f, 72.0f);
 		PresentObjects.insert(stair2);
 
-
-		auto ghost = CEnemys::CreateEnemy(1);
-		ghost->SetPosition(1500.0f, 0.0f);
-		PresentObjects.insert(ghost);
-
-		auto ghost2 = CEnemys::CreateEnemy(1);
-		ghost2->SetPosition(3000.0f, 0.0f);
-		PresentObjects.insert(ghost2);
 	
 		auto Wakanda = CEnemys::CreateEnemy(2);
 		Wakanda->SetPosition(1600.0f,0.0f);
@@ -114,6 +108,7 @@ void Stage1::LoadResources(int level)
 	loadDone = true;
 
 };
+
 void Stage1::UpdateObject(float dt)
 {
 	if (p->IsHitting)
@@ -141,11 +136,39 @@ void Stage1::UpdateObject(float dt)
 		case ENEMY:
 			if (obj->isDead)
 			{
-				auto enemy = (CGhost*)obj;				
-				grid->RemoveObject(*enemy);
+				switch (obj->type)
+				{
+				case GHOST:
+				{
+					
+					break;
+				}
+				default:
+					break;
+				}
+				//auto enemy = (CGhost*)obj;				
+				grid->RemoveObject(*obj);
 				it = PresentObjects.erase(it);
+
 			}
-			else it++;
+			else
+			{
+				if (obj->type == AQUAMAN)
+				{
+					auto enemy = (CAquaman*)obj;
+					if (enemy->state == AQUAMAN_FIRE && !enemy->fire)
+					{
+						auto we = new CFireBall(enemy->nx);
+						we->SetPosition(obj->x, obj->y + 10);
+						grid->AddObject(we);
+						enemy->fire = true;
+					}
+				}
+				it++;
+			}
+			
+			
+			
 			break;
 		case HOLDER:
 			if (obj->isDead)
@@ -267,19 +290,18 @@ void Stage1::UpdatePlayer(float dt)
 }
 void Stage1::RepawnEnemy()
 {
-	if (GetTickCount() - timeRepawnGhost > 10000)
+	/*if (GetTickCount() - timeRepawnGhost > 10000)
 	if (camera->x > GhostAreaBegin && (camera->x + camera->mWidth) < GhostAreaEnd)
 	{
 		timeRepawnGhost = GetTickCount();
 		for (int i = 0; i < GhostCount; i++)
 		{
-			GAMELOG("OOOO");
 			auto ghost = CEnemys::CreateEnemy(1);
-			ghost->SetPosition(camera->x + camera->mWidth - i*40, 244.0f);
+			ghost->SetPosition(camera->x + camera->mWidth - i*42, 244.0f);
 			ghost->nx = -1;
 			grid->AddObject(ghost);
 		}
-	}
+	}*/
 }
 void Stage1::Update(float dt)
 {
@@ -317,7 +339,7 @@ void Stage1::Update(float dt)
 		float posPrevUpdateY = o->y;
 		if (o->tag != ITEM)
 		{
-			if (o->tag == ENEMY && !p->freeze)
+			if (o->tag == ENEMY && (!p->freeze || o->isBuring) )
 				(o)->Update(dt, &coObjects);
 			else if(o->tag != ENEMY)
 				(o)->Update(dt, &coObjects);
@@ -334,7 +356,17 @@ void Stage1::Update(float dt)
 		{
 			auto enemy = (CGhost*)o;
 			if (!p->freeze)
+			{
+				float posPrevUpdateX = o->x;
+				float posPrevUpdateY = o->y;
 				enemy->CollisonGroundWall(dt, &CannotTouchObjects);
+				grid->UpdateObject(*enemy, posPrevUpdateX, posPrevUpdateY);
+			}
+			else
+			{
+				if (!enemy->ishitting)
+					enemy->CurAnimation->currentFrame--;
+			}
 		}
 		else if (o->tag == PLAYER)
 			p->CollisonGroundWall(dt, &CannotTouchObjects);
