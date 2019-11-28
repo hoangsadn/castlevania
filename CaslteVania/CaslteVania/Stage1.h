@@ -7,17 +7,10 @@ class CSimon;
 class CWhip;
 class Map;
 class CBrick;
-struct RegionEnemy
-{
-	TYPE type;
-	float Begin, End;
-	int Num, Limit;
-};
+
 class Stage1 : public Scene
 {
 public:
-	int GhostCount, GhostAreaBegin, GhostAreaEnd;
-	DWORD timeRepawnGhost;
 
 	Stage1();
 	int ChangeMapProc;
@@ -41,5 +34,5 @@ private:
 
 	//std::unordered_set <CGameObject*> objects;
 	std::unordered_set <CGameObject*> PresentObjects;
-	std::vector <RegionEnemy> RegionEnemys;
+	std::unordered_set <CGameObject*> RepawnObjects;
 };

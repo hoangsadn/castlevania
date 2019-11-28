@@ -57,6 +57,10 @@ PlayerHittingState::PlayerHittingState()
 		}
 	}
 	player->vx = 0;
+	if (PrevState == DOWNING_LEFT || PrevState == DOWNING_RIGHT)
+	{
+		player->stateBoundingBox = SIMON_SMALL_BOUNDING_BOX;
+	}else
 	player->stateBoundingBox = SIMON_BIG_BOUNDING_BOX;
 
 }

@@ -18,6 +18,7 @@ public:
 		AddAnimation(915, AQUAMAN_FIRE_LEFT);
 		AddAnimation(916, AQUAMAN_FIRE_RIGHT);
 		state = AQUAMAN_STAND;
+		timeDelay = 2000;
 		nx = 1;
 		CurAnimation = nx < 0 ? animations[AQUAMAN_STAND_LEFT] : animations[AQUAMAN_STAND_RIGHT];
 		vy = -SIMON_JUMP_SPEED_Y;

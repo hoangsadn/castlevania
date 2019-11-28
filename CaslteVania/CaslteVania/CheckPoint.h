@@ -9,9 +9,12 @@ private:
 	static CCheckPoint* _instance;
 public:
 	int id;
+	float posTarX, posTarY;
+	float posMoveSimonX, posMoveSimonY;
 	bool IsChangingMap;
 	CAnimation* CurAnimation;
 	CCheckPoint();
+	void Init();
 	void GetBoundingBox(float &l, float &t, float &r, float &b);	
 	void Render();
 	CCheckPoint *GetInstance();

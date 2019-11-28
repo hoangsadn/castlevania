@@ -42,6 +42,15 @@ void Camera::Update()
 			}
 			break;
 		}
+		case 4:
+		{
+			if (this->x < 3090)
+			{
+				this->x = 3090;
+			}
+			this->y = 360;
+			break;
+		}
 		default:
 			break;
 		}

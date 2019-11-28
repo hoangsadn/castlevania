@@ -9,7 +9,7 @@ void CEnemy::Render()
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	UpdatePosition(dt);
-	if (x < CAMERA->x - 176 || x > CAMERA->x + CAMERA->mWidth+176)
+	if (x < CAMERA->x  || x > CAMERA->x + CAMERA->mWidth)
 	{
 		isDead = true;
 		//GAMELOG("OK");
@@ -23,6 +23,8 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		CurAnimation = ani;
 		isBuring = false;
 		ishitting = true;
+		vy = 0;
+		vx = 0;
 	}
 	if (ishitting && CurAnimation->isLastFrame)
 	{
@@ -30,8 +32,7 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		CurAnimation->currentFrame = -1;
 		isDead = true;
 		ishitting = false;
-		vy = 0;
-		vx = 0;
+		
 	}
 }
 void CEnemy::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

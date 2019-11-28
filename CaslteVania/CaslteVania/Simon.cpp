@@ -156,7 +156,7 @@ void CSimon::HandleObject(LPGAMEOBJECT object)
 		{
 		case BAT:
 		{
-			object->isDead = true;
+			object->isBuring = true;
 			break;
 		}
 		default:

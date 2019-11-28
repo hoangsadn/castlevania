@@ -12,13 +12,15 @@ public:
 	{
 		tag = BOX;
 		this->type = type;
+		width = STAIR_BBOX_WIDTH;
+		height = STAIR_BBOX_HEIGHT;
 	}
 	void GetBoundingBox(float &l, float &t, float &r, float &b)
 	{
 		l = x;
 		t = y;
-		r = l + STAIR_BBOX_WIDTH;
-		b = t + STAIR_BBOX_HEIGHT;
+		r = l + width;
+		b = t + height;
 	}
 	void Render() 
 	{

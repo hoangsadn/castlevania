@@ -5,6 +5,9 @@ class CAnimation;
 class CEnemy : public CGameObject
 {
 public:
+	float repawnPosX, repawnPosY;
+	DWORD timeRepawn;
+	DWORD timeDelay;
 	CEnemy()
 	{
 		AddAnimation(701, EFFECT_DEAD);

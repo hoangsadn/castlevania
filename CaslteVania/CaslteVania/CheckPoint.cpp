@@ -7,19 +7,19 @@ CCheckPoint::CCheckPoint()
 	AddAnimation(303, DOOR_OPEN);
 	AddAnimation(304, DOOR_CLOSE);
 	AddAnimation(305, DOOR_OPENING);
-	
 	tag = BOX;
-
 	this->type = CHECKPOINT;
 	IsChangingMap = false;
+	height = CHECKPOINT_BBOX_HEIGHT;
+	width = CHECKPOINT_BBOX_WIDTH;
 }
 
 void CCheckPoint::GetBoundingBox(float &l, float &t, float &r, float &b)
 {
 	l = x;
 	t = y;
-	r = l + CHECKPOINT_BBOX_WIDTH;
-	b = t + CHECKPOINT_BBOX_HEIGHT;
+	r = l + width;
+	b = t + height;
 }
 void CCheckPoint::Render()
 {
@@ -29,6 +29,45 @@ void CCheckPoint::Render()
 		CurAnimation->Render(x, y, alpha);
 	}
 	RenderBoundingBox();
+	
+}
+void CCheckPoint::Init()
+{
+	switch (id)
+	{
+	case 1:
+		posTarX = 1500;
+		break;
+	case 2:
+		posTarX = 3100;
+		break;
+	case 3:
+
+		posMoveSimonX = 3167;
+		posMoveSimonY = 350;
+		height = 2;
+		break;
+	case 4:
+		
+		posMoveSimonX = 3167;
+		posMoveSimonY = 280;
+		height = 2;
+		break;
+	case 5:
+		
+		posMoveSimonX = 3800;
+		posMoveSimonY = 280;
+		height = 2;
+		break;
+	case 6:
+
+		posMoveSimonX = 3800;
+		posMoveSimonY = 350;
+		height = 2;
+		break;
+	default:
+		break;
+	}
 }
 CCheckPoint* CCheckPoint::GetInstance()
 {

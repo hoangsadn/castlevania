@@ -6,6 +6,7 @@
 #include "Weapons.h"
 #include "Enemys.h"
 #include "Brick.h"
+#include "Stair.h"
 void Grid::FindCell(RECT r, GAMEOBJECT &object)
 {
 	object.LeftCell = r.left / WidthCell;
@@ -15,7 +16,7 @@ void Grid::FindCell(RECT r, GAMEOBJECT &object)
 }
 void Grid::Init()
 {
-	rows = 8;
+	rows = 15;
 	cols = 32;
 	HeightCell = 92;
 	WidthCell = 176;
@@ -49,8 +50,9 @@ void Grid::CreateFileGird(int level)
 	sprintf_s(gridFileName, "text\\Grid%d.txt", level);
 	wFile.open(gridFileName);
 
-	float posX, posY, width, height;
-	string str;
+	float posX, posY, width, height, id;
+
+	string str, type;
 
 	while (!File.eof())
 	{
@@ -121,10 +123,12 @@ void Grid::CreateFileGird(int level)
 		}
 		case CHECKPOINT:
 		{
-			File >> posX >> posY;
+			File >> posX >> posY >> id >> type;
 			CCheckPoint * checkpoint = new CCheckPoint();
+			checkpoint->id = id;
+			checkpoint->type = TYPEString[type];
 			checkpoint->SetPosition(posX, posY);
-			checkpoint->type = CHECKPOINT;
+			checkpoint->Init();
 			AddObject(checkpoint);
 
 			break;
@@ -134,7 +138,47 @@ void Grid::CreateFileGird(int level)
 			File >> posX >> posY;
 			auto ghost = CEnemys::CreateEnemy(1);
 			ghost->SetPosition(posX, posY);
+			ghost->repawnPosX = posX;
+			ghost->repawnPosY = posY;
 			AddObject(ghost);
+		}
+		case BLACKPANTHER:
+		{
+			File >> posX >> posY;
+			auto panther = CEnemys::CreateEnemy(2);
+			panther->SetPosition(posX, posY);
+			panther->repawnPosX = posX;
+			panther->repawnPosY = posY;
+			AddObject(panther);
+			break;
+		}
+		case BAT:
+		{
+			File >> posX >> posY;
+			auto bat = CEnemys::CreateEnemy(3);
+			bat->SetPosition(posX, posY);
+			bat->repawnPosX = posX;
+			bat->repawnPosY = posY;
+			AddObject(bat);
+			break;
+		}
+		case AQUAMAN:
+		{
+			File >> posX >> posY;
+			auto aqua = CEnemys::CreateEnemy(4);
+			aqua->SetPosition(posX, posY);
+			aqua->repawnPosX = posX;
+			aqua->repawnPosY = posY;
+			AddObject(aqua);
+			break;
+		}
+		case STAIR:
+		{
+			File >> posX >> posY >> type;
+			auto stair = new CStair(TYPEString[type]);
+			stair->SetPosition(posX, posY);
+			AddObject(stair);
+			break;
 		}
 		}
 		
@@ -160,6 +204,8 @@ std::unordered_set<LPGAMEOBJECT> Grid::GetObj()
 			{
 				g->selected = true;
 				Objlist.insert(g);
+				
+				
 			}
 		}
 	}
@@ -167,8 +213,11 @@ std::unordered_set<LPGAMEOBJECT> Grid::GetObj()
 	//unselect obj
 	for (auto c : PresentCell)
 		for (auto g : c->objects)
+		{
 			g->selected = false;
-	//GAMELOG("sl ob %d", Objlist.size());
+		}
+	
+	GAMELOG("sl ob %d", Objlist.size());
 	return Objlist;
 }
 std::vector<LPGAMEOBJECT> Grid::GetWall()
@@ -190,7 +239,9 @@ std::vector<LPGAMEOBJECT> Grid::GetWall()
 	for (auto c : PresentCell)
 		for (auto g : c->CannotTouchObjects)
 			g->selected = false;
+
 	//	GAMELOG("sl ob %d", Objlist.size());
+
 	return Objlist;
 }
 void Grid::UpdateObject(CGameObject & obj, int posX, int posY)
@@ -203,43 +254,55 @@ void Grid::UpdateObject(CGameObject & obj, int posX, int posY)
 
 	auto newObj = new GAMEOBJECT();
 	FindCell(obj.GetRect(), *newObj);
-	GAMELOG("old pos %d %d %d %d", oldObj->LeftCell, oldObj->TopCell, oldObj->RightCell, oldObj->BottomCell);
-	GAMELOG("new pos %d %d %d %d", newObj->LeftCell, newObj->TopCell, newObj->RightCell, newObj->BottomCell);
-	GAMELOG("MOVE");
-	if (oldObj->LeftCell != newObj->LeftCell || oldObj->TopCell != newObj->TopCell)
+	
+	//GAMELOG("MOVE");
+	if (oldObj->LeftCell != newObj->LeftCell || oldObj->TopCell != newObj->TopCell|| oldObj->RightCell != newObj->RightCell || oldObj->BottomCell != newObj->BottomCell)
 	{
-		GAMELOG("CHANGE");
+		//GAMELOG("CHANGE");
+	//	GAMELOG("old pos %d %d %d %d", oldObj->LeftCell, oldObj->TopCell, oldObj->RightCell, oldObj->BottomCell);
+		//GAMELOG("new pos %d %d %d %d", newObj->LeftCell, newObj->TopCell, newObj->RightCell, newObj->BottomCell);
 		//if obj move to the right to left . the newObj in two cells . 
-		if (oldObj->LeftCell == oldObj->RightCell && oldObj->TopCell == oldObj->BottomCell)
+		//if (oldObj->LeftCell != oldObj->RightCell || oldObj->TopCell != oldObj->BottomCell)
+		if ((oldObj->RightCell-oldObj->LeftCell+oldObj->BottomCell-oldObj->TopCell)> (newObj->RightCell - newObj->LeftCell + newObj->BottomCell - newObj->TopCell))
 		{
+			loop(r, oldObj->TopCell, oldObj->BottomCell)
+				loop(c, oldObj->LeftCell, oldObj->RightCell)
+				cells[r][c]->objects.erase(&obj);
+
 			loop(r, newObj->TopCell, newObj->BottomCell)
 				loop(c, newObj->LeftCell, newObj->RightCell)
 				cells[r][c]->objects.insert(&obj);
 
-			loop(r, oldObj->TopCell, oldObj->BottomCell)
-				loop(c, oldObj->LeftCell, oldObj->RightCell)
-				cells[r][c]->objects.erase(&obj);
+		
 			GAMELOG("Xoa 1");
 		}
 		// the Old obj in two cells
-		else if (newObj->LeftCell == newObj->RightCell && newObj->TopCell == newObj->BottomCell)
+		//else if (newObj->LeftCell != newObj->RightCell || newObj->TopCell != newObj->BottomCell)
+		else if ((oldObj->RightCell - oldObj->LeftCell + oldObj->BottomCell - oldObj->TopCell) < (newObj->RightCell - newObj->LeftCell + newObj->BottomCell - newObj->TopCell))
 		{
-			loop(r, oldObj->TopCell, oldObj->BottomCell)
-				loop(c, oldObj->LeftCell, oldObj->RightCell)
-				cells[r][c]->objects.erase(&obj);
+			
 
 			loop(r, newObj->TopCell, newObj->BottomCell)
 				loop(c, newObj->LeftCell, newObj->RightCell)
 				cells[r][c]->objects.insert(&obj);
+
+			loop(r, oldObj->TopCell, oldObj->BottomCell)
+				loop(c, oldObj->LeftCell, oldObj->RightCell)
+				cells[r][c]->objects.erase(&obj);
 			GAMELOG("Xoa 2");
 		}
+		else
+		{
+			loop(r, oldObj->TopCell, oldObj->BottomCell)
+				loop(c, oldObj->LeftCell, oldObj->RightCell)
+				cells[r][c]->objects.erase(&obj);
+			loop(r, newObj->TopCell, newObj->BottomCell)
+				loop(c, newObj->LeftCell, newObj->RightCell)
+				cells[r][c]->objects.insert(&obj);
+			GAMELOG("Xoa 3");
+			
+		}
 		
-	}
-	else
-	{
-		loop(r, newObj->TopCell, newObj->BottomCell)
-			loop(c, newObj->LeftCell, newObj->RightCell)
-			cells[r][c]->objects.insert(&obj);
 	}
 }
 void Grid::AddObject(CGameObject * obj)
@@ -249,15 +312,17 @@ void Grid::AddObject(CGameObject * obj)
 	loop(r, o->TopCell, o->BottomCell)
 		loop(c, o->LeftCell, o->RightCell)
 		cells[r][c]->objects.insert(obj);
+	GAMELOG("add %d %d %d %d", o->LeftCell, o->TopCell, o->RightCell, o->BottomCell);
 }
 void Grid::RemoveObject(CGameObject & obj)
 {
 	auto o = new GAMEOBJECT();
-
+	
 	FindCell(obj.GetRect(),*o);
 	loop(r, o->TopCell, o->BottomCell)
 		loop(c, o->LeftCell, o->RightCell)
 			cells[r][c]->objects.erase(&obj);
+	GAMELOG("removes %d %d %d %d", o->LeftCell, o->TopCell, o->RightCell, o->BottomCell);
 }
 
 void Grid::UpdatePresentCell()
