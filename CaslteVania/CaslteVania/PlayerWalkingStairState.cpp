@@ -7,6 +7,7 @@
 PlayerWalkingStairState::PlayerWalkingStairState()
 {
 	player->allow[JUMPING] = false;
+	player->IsWalkingComplete = false;
 	switch (player->stairDirection)
 	{
 	case 1:

@@ -26,7 +26,9 @@
  + 30001,2 : fire_pillar 
  + 30005,5 : door 303 304
  + 30007 : conner wall map 1 306
-40000 Item
+ + 30008 : brick 307
+ + 30009 : small brick 308
+40000 Item 
  + 40006 : AXE Item 806
  + 40007-40010 : axe move 807
  + 40011 : fire bottle item 808
@@ -39,7 +41,13 @@
  + 40019 : double buff 815
  + 40020 : clock 816
  + 40021 : cross 817
+ + 40022 : roast 818
 50000 effects
++ 50001-> 50003 : dead effect
++ 50004 : water effect
++ 50005 : brick effect
+
+
 60000 enemy
 +60000 ghost
 +60004 panther

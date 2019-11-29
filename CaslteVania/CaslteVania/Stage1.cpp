@@ -12,7 +12,8 @@
 #include "PlayerWalkingState.h"
 #include "Grid.h"
 #include "FireBall.h"
-
+#include "HolderHiddenBrick.h"
+#include "BrokenBrickEffect.h"
 Grid * grid;
 class CBrick;
 vector<LPGAMEOBJECT> CannotTouchObjects;
@@ -68,29 +69,7 @@ void Stage1::LoadResources(int level)
 		camera->map = 3;
 		
 		RepawnObjects.clear();
-
-
-		CStair * stair = new CStair(STAIR_BOTTOM_RIGHT);
-		stair->SetPosition(1220.0f, 315.0f);
-		PresentObjects.insert(stair);
-
-		CStair * stair2 = new CStair(STAIR_TOP_LEFT);
-		stair2->SetPosition(1347.0f, 72.0f);
-		PresentObjects.insert(stair2);
-
-	
-		auto Wakanda = CEnemys::CreateEnemy(2);
-		Wakanda->SetPosition(1600.0f,0.0f);
-		PresentObjects.insert(Wakanda);
-		CBat * bat = new CBat();
-		bat->SetPosition(2700.0f, 40.0f);
-		grid->AddObject(bat);
-
-		CAquaman * aqua = new CAquaman();
-		aqua->SetPosition(2700.0f, 250.0f);
-		grid->AddObject(aqua);
 		
-
 	}
 	default:
 		break;
@@ -141,8 +120,8 @@ void Stage1::UpdateObject(float dt)
 				default:
 					break;
 				}
-				
-				RepawnObjects.insert(obj);
+				if (obj->type != WATER || obj->type !=FIRE_BALL)
+					RepawnObjects.insert(obj);
 				grid->RemoveObject(*obj);
 				it = PresentObjects.erase(it);
 				//it++;
@@ -159,6 +138,18 @@ void Stage1::UpdateObject(float dt)
 						grid->AddObject(we);
 						enemy->fire = true;
 					}
+					if (enemy->y > enemy->repawnPosY - 20 &&enemy->y < enemy->repawnPosY && enemy->water < 3)
+					{
+						for (int i = 1; i < 4; i++)
+						{
+							auto water = new CWater(i);
+							water->SetPosition(enemy->x, enemy->y);
+							grid->AddObject(water);
+						}
+						enemy->water++;
+
+						
+					}
 				}
 				it++;
 			}
@@ -173,10 +164,25 @@ void Stage1::UpdateObject(float dt)
 				grid->RemoveObject(*obj);
 				it = PresentObjects.erase(it);
 
-				auto itemdrop = CItems::CreateIteam(holder->stored);
-				itemdrop->SetPosition(holder->x, holder->y);
-				grid->AddObject(itemdrop);
-			
+				if (obj->type == HIDDEN_BRICK)
+				{
+					auto holder = (CHolderHiddenBrick*)obj;
+
+					grid->RemoveStaticObject(*obj);
+					for (int i = 1; i < 5; i++)
+					{
+						auto brokebrick = new CBrokenBrickEffect(i);
+						brokebrick->SetPosition(obj->x, obj->y);
+						brokebrick->posRepawnY = obj->y;
+						grid->AddObject(brokebrick);
+					}
+				}
+				if (holder->stored != NOTHING)
+				{
+					auto itemdrop = CItems::CreateIteam(holder->stored);
+					itemdrop->SetPosition(holder->x, holder->y);
+					grid->AddObject(itemdrop);
+				}
 				
 			}
 			else it++;
@@ -192,7 +198,7 @@ void Stage1::UpdateObject(float dt)
 		case BOX:
 		{
 			auto door = (CCheckPoint*)obj;
-			if (obj->type == DOOR && obj->isDead && (door->id ==2))
+			if (obj->type == DOOR && obj->isDead && ((door->id ==2) || (door->id == 7)))
 			{
 				
 				if (ChangeMapProc == 2)
@@ -274,7 +280,11 @@ void Stage1::ChangeMap(float dt)
 		if (ChangeMapProc == 1) ChangeMapProc = 2;
 		if (ChangeMapProc == 4)
 		{
-			if (camera->x < (3084))
+			if (camera->map == 2 && camera->x < 3084)
+			{
+				camera->SetCamPos(camera->x + 0.1 * dt, camera->y);
+			}
+			else if(camera->map == 3 && camera->x < 4084)
 				camera->SetCamPos(camera->x + 0.1 * dt, camera->y);
 			else
 				ChangeMapProc = 5;
@@ -282,10 +292,11 @@ void Stage1::ChangeMap(float dt)
 	}
 	if (ChangeMapProc == 5)
 	{
+		ChangeMapProc = 1;
 		p->IsTouchDoor = false;
 		p->IsWalkingComplete = false;
 		camera->IsChangeMap = false;
-		camera->map = 3;
+		camera->map = camera->map == 2 ? 3 : 5;
 	}
 }
 void Stage1::UpdatePlayer(float dt)
@@ -316,12 +327,9 @@ void Stage1::RepawnEnemy()
 			case GHOST: case BAT: case AQUAMAN:
 			{
 				auto enemy = (CGhost*)obj;
-				if (enemy->repawnPosX < CAMERA->x  || enemy->repawnPosX > CAMERA->x + CAMERA->mWidth)
+				if (enemy->repawnPosX > CAMERA->x  && enemy->repawnPosX < CAMERA->x + CAMERA->mWidth 
+						&& enemy->repawnPosY > CAMERA->y && enemy->repawnPosY < CAMERA->y + CAMERA->mHeight)
 				{
-					it++;
-				}
-				else
-				{				
 					if (GetTickCount() - enemy->timeRepawn > enemy->timeDelay)
 					{
 						switch (obj->type)
@@ -338,7 +346,17 @@ void Stage1::RepawnEnemy()
 						case BAT:
 						{
 							auto Repawn = CEnemys::CreateEnemy(3);
-							Repawn->SetPosition(CAMERA->x + CAMERA->mWidth - int(enemy->repawnPosX) % 100, enemy->repawnPosY);
+							if (p->nx > 0)
+							{
+								Repawn->SetPosition(CAMERA->x + CAMERA->mWidth - int(enemy->repawnPosX) % 100, p->y);
+								Repawn->nx = -1;
+							}
+							else
+							{
+								Repawn->SetPosition(CAMERA->x - int(enemy->repawnPosX) % 100, p->y);
+								Repawn->nx = 1;
+							}
+
 							Repawn->repawnPosX = enemy->repawnPosX;
 							Repawn->repawnPosY = enemy->repawnPosY;
 							grid->AddObject(Repawn);
@@ -354,11 +372,13 @@ void Stage1::RepawnEnemy()
 							break;
 						}
 						}
-					
+
 						it = RepawnObjects.erase(it);
 					}
 					else it++;
+				
 				}
+				else it++;
 				break;
 			}
 			case BLACKPANTHER:
@@ -382,6 +402,7 @@ void Stage1::RepawnEnemy()
 			}
 
 			default:
+				it++;
 				break;
 			}
 			

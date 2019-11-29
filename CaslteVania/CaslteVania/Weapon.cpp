@@ -37,7 +37,12 @@ void CWeapon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (type == KNIFE)
 					isDead = true;
 				if (coEvents.at(i)->type == FIRE_BALL)
-					isDead = true;
+					coEvents.at(i)->isDead = true;
+				if (coEvents.at(i)->type == HIDDEN_BRICK)
+				{
+					coEvents.at(i)->isDead = true;
+					
+				}
 			if (player->freeze && coEvents.at(i)->tag == ENEMY)
 				coEvents.at(i)->isDead = true;
 			break;

@@ -113,6 +113,9 @@ void CSimon::HandleObject(LPGAMEOBJECT object)
 			flashtime = GetTickCount();
 			beta = 0;
 			break;
+		case ROAST:
+			health += 5;
+			break;
 		}
 	}
 	else if (object->tag == BOX)
@@ -123,7 +126,7 @@ void CSimon::HandleObject(LPGAMEOBJECT object)
 		{
 			auto checkpoint = (CCheckPoint*)object;
 			object->isDead = true;
-			if (checkpoint->id == 2)
+			if (checkpoint->id == 2 || checkpoint->id == 7)
 				IsTouchDoor = true;
 			break;
 		}

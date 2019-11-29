@@ -33,12 +33,16 @@ void Camera::Update()
 			}
 			break;
 		}
-		case 3: 
+		case 3:
 		{
 			if (this->x < 3090)
 			{
 				this->x = 3090;
 
+			}
+			else if (this->x > 4084 - mWidth)
+			{
+				this->x = 4084 - mWidth;
 			}
 			break;
 		}
@@ -49,6 +53,14 @@ void Camera::Update()
 				this->x = 3090;
 			}
 			this->y = 360;
+			break;
+		}
+		case 5:
+		{
+			if (this->x < 4090)
+			{
+				this->x = 4090;
+			}
 			break;
 		}
 		default:

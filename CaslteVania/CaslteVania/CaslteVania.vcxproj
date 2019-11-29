@@ -193,6 +193,7 @@
     <ClInclude Include="Axe.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="BlackPanter.h" />
+    <ClInclude Include="BrokenBrickEffect.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Cell.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="HolderHiddenBrick.h" />
     <ClInclude Include="HollyWater.h" />
     <ClInclude Include="ItemAxe.h" />
     <ClInclude Include="ItemDoubleShot.h" />
@@ -209,6 +211,7 @@
     <ClInclude Include="ItemMoneyBlue.h" />
     <ClInclude Include="ItemMoneyRed.h" />
     <ClInclude Include="ItemMoneyWhite.h" />
+    <ClInclude Include="ItemRoast.h" />
     <ClInclude Include="ItemRosary.h" />
     <ClInclude Include="ItemStopWatch.h" />
     <ClInclude Include="PlayerDeadState.h" />
@@ -247,6 +250,7 @@
     <ClInclude Include="HolderFirePillar.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="Water.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="Weapons.h" />
     <ClInclude Include="Whip.h" />

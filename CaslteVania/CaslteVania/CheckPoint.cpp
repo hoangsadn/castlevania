@@ -65,6 +65,11 @@ void CCheckPoint::Init()
 		posMoveSimonY = 350;
 		height = 2;
 		break;
+	case 7: 
+	{
+		posTarX = 4140;
+		break;
+	}
 	default:
 		break;
 	}

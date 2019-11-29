@@ -12,6 +12,7 @@
 #include "ItemStopWatch.h"
 #include "ItemRosary.h"
 #include "ItemDoubleShot.h"
+#include "ItemRoast.h"
 class CItems
 {
 public:
@@ -47,6 +48,8 @@ public:
 			return new CItemStopWatch();
 		case INVINCIBILITY:
 			return new CItemInvincibility();
+		case ROAST:
+			return new CItemRoast();
 		default:
 			return NULL;
 		}

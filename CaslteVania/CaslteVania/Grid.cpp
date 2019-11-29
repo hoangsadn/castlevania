@@ -7,6 +7,7 @@
 #include "Enemys.h"
 #include "Brick.h"
 #include "Stair.h"
+#include "HolderHiddenBrick.h"
 void Grid::FindCell(RECT r, GAMEOBJECT &object)
 {
 	object.LeftCell = r.left / WidthCell;
@@ -121,16 +122,41 @@ void Grid::CreateFileGird(int level)
 			}*/
 			break;
 		}
+		case HIDDEN_BRICK: case HIDDEN_BRICK_SMALL:
+		{
+			File >> posX >> posY >> type;
+			CHolderHiddenBrick * hideBrick = new CHolderHiddenBrick(TYPEString[type]);
+			if (TYPEString[str] == HIDDEN_BRICK_SMALL)
+				hideBrick->CurAnimation = hideBrick->animations[HIDDEN_BRICK_SMALL];
+			hideBrick->SetPosition(posX, posY);
+			AddObject(hideBrick);
+			rect = hideBrick->GetRect();
+			FindCell(rect, *obj);
+
+			for (int r = obj->TopCell; r <= obj->BottomCell; ++r)
+			{
+				if (r < 0 || r >= rows) continue;
+				for (int c = obj->LeftCell; c <= obj->RightCell; ++c)
+				{
+					if (c < 0 || c >= cols) continue;
+					cells[r][c]->CannotTouchObjects.insert(hideBrick);
+				}
+			}
+			break;
+		}
 		case CHECKPOINT:
 		{
 			File >> posX >> posY >> id >> type;
+
 			CCheckPoint * checkpoint = new CCheckPoint();
 			checkpoint->id = id;
 			checkpoint->type = TYPEString[type];
 			checkpoint->SetPosition(posX, posY);
 			checkpoint->Init();
+
 			AddObject(checkpoint);
 
+			
 			break;
 		}
 		case GHOST:
@@ -324,7 +350,15 @@ void Grid::RemoveObject(CGameObject & obj)
 			cells[r][c]->objects.erase(&obj);
 	GAMELOG("removes %d %d %d %d", o->LeftCell, o->TopCell, o->RightCell, o->BottomCell);
 }
+void Grid::RemoveStaticObject(CGameObject & obj)
+{
+	auto o = new GAMEOBJECT();
 
+	FindCell(obj.GetRect(), *o);
+	loop(r, o->TopCell, o->BottomCell)
+		loop(c, o->LeftCell, o->RightCell)
+		cells[r][c]->CannotTouchObjects.erase(&obj);
+}
 void Grid::UpdatePresentCell()
 {
 	PresentCell.clear();

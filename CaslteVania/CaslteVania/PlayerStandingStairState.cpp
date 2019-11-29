@@ -11,7 +11,7 @@ PlayerStandingStairState::PlayerStandingStairState()
 	player->allow[WALKING] = false;
 	player->allow[HITTING] = true;
 	player->allow[THROWING] = true;
-
+	player->IsWalkingComplete = false;
 	player->vx = 0;
 	player->vy = 0;
 

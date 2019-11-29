@@ -1,11 +1,13 @@
 #pragma once
 #include "Enemy.h"
+#include "Water.h"
 class CAquaman : public CEnemy
 {
 public:
 	TYPE state;
 	bool fire;
 	float prePos;
+	int water = 0;
 	CAquaman() : CEnemy()
 	{
 		type = AQUAMAN;
@@ -18,16 +20,17 @@ public:
 		AddAnimation(915, AQUAMAN_FIRE_LEFT);
 		AddAnimation(916, AQUAMAN_FIRE_RIGHT);
 		state = AQUAMAN_STAND;
-		timeDelay = 2000;
+		timeDelay = 3000;
 		nx = 1;
 		CurAnimation = nx < 0 ? animations[AQUAMAN_STAND_LEFT] : animations[AQUAMAN_STAND_RIGHT];
-		vy = -SIMON_JUMP_SPEED_Y;
+		vy = -0.9;
 		vx = 0;
 		width = 32;
 		height = 64;
 	}
 	void UpdatePosition(float dt)
 	{
+		
 		CGameObject::Update(dt);
 		if (!IsJumping && state == AQUAMAN_STAND)
 		{
@@ -58,6 +61,10 @@ public:
 			CurAnimation = nx < 0 ? animations[AQUAMAN_WALK_LEFT] : animations[AQUAMAN_WALK_RIGHT];
 			
 		}
+		
+			
+		if (x < CAMERA->x || y > CAMERA->y + CAMERA->mHeight - 170 || x > CAMERA->x+ CAMERA->mHeight)
+			isDead = true;
 	}
 
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)

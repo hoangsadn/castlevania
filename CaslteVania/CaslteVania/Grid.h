@@ -19,6 +19,7 @@ public:
 
 	void Init();
 	void RemoveObject(CGameObject & obj);
+	void RemoveStaticObject(CGameObject & obj);
 	void AddObject(CGameObject * obj);
 	void UpdateObject(CGameObject & obj, int posX, int posY);
 	void CreateFileGird(int level);

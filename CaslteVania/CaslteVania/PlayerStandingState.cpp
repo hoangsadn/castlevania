@@ -9,7 +9,7 @@ PlayerStandingState::PlayerStandingState()
 	player->allow[WALKING] = true;
 	player->allow[HITTING] = true;
 	player->allow[THROWING] = true;
-
+	//player->IsWalkingComplete = false;
 	player->vx = 0;
 	player->ny = 1;
 	player->IsJumping = false;

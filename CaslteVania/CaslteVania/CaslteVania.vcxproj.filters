@@ -323,6 +323,18 @@
     <ClInclude Include="FireBall.h">
       <Filter>Source Files\GameObjects\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Water.h">
+      <Filter>Source Files\GameObjects\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="HolderHiddenBrick.h">
+      <Filter>Source Files\GameObjects\StoredItem</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenBrickEffect.h">
+      <Filter>Source Files\GameObjects\StoredItem</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRoast.h">
+      <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\bbox.png">
