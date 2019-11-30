@@ -1,5 +1,7 @@
 #pragma once
 #include "Item.h"
+#define WIDTH_ITEM_HOLLY_WATER  32
+#define HEIGHT_ITEM_HOLLY_WATER 26
 class CItemHollyWater : public CItem
 {
 public:
@@ -9,8 +11,8 @@ public:
 		CurAnimation = animations[HOLLY_WATER];
 		isDead = false;
 		type = HOLLY_WATER;
-		width = 32;
-		height = 26;
+		width = WIDTH_ITEM_HOLLY_WATER;
+		height = HEIGHT_ITEM_HOLLY_WATER;
 	}
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{

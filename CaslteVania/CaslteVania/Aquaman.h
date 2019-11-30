@@ -26,7 +26,7 @@ public:
 		vy = -0.9;
 		vx = 0;
 		width = 32;
-		height = 64;
+		height = 62;
 	}
 	void UpdatePosition(float dt)
 	{

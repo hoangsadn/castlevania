@@ -8,7 +8,7 @@ public:
 		AddAnimation(917, FIRE_BALL_LEFT);
 		AddAnimation(918, FIRE_BALL_RIGHT);
 		CurAnimation = nx > 0 ? animations[FIRE_BALL_RIGHT] : animations[FIRE_BALL_LEFT];
-		vx = nx > 0 ? 0.2 : -0.2;
+		vx = nx > 0 ? 0.02 : -0.02;
 		width = 14;
 		height = 12;
 		tag = ENEMY;

@@ -1,5 +1,7 @@
 #pragma once
 #include "Item.h"
+#define WIDTH_ITEM_KNIFE  32
+#define HEIGHT_ITEM_KNIFE 18
 class CItemKnife : public CItem
 {
 public:
@@ -9,8 +11,8 @@ public:
 		CurAnimation = animations[KNIFE];
 		isDead = false;
 		type = KNIFE;
-		width = 32;
-		height = 18;
+		width = WIDTH_ITEM_KNIFE;
+		height = HEIGHT_ITEM_KNIFE;
 	}
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{

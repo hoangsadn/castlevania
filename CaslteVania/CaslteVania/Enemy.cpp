@@ -9,7 +9,7 @@ void CEnemy::Render()
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	UpdatePosition(dt);
-	if (x < CAMERA->x  || x > CAMERA->x + CAMERA->mWidth)
+	if (x < CAMERA->x-20  || x > CAMERA->x + CAMERA->mWidth+20)
 	{
 		isDead = true;
 		//GAMELOG("OK");

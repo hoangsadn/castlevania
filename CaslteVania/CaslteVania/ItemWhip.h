@@ -1,5 +1,7 @@
 #pragma once
 #include "Item.h"
+#define WIDTH_ITEM_MORNING_STAR  32
+#define HEIGHT_ITEM_MORNING_STAR 32
 class CItemWhip : public CItem
 {
 public:
@@ -9,8 +11,8 @@ public:
 		CurAnimation = animations[MORNING_STAR];
 		isDead = false;
 		type = MORNING_STAR;
-		width = 32;
-		height = 32;
+		width = WIDTH_ITEM_MORNING_STAR;
+		height = HEIGHT_ITEM_MORNING_STAR;
 	}
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{

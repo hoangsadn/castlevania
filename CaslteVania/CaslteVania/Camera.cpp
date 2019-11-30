@@ -20,6 +20,17 @@ void Camera::Update()
 	{
 		switch (map)
 		{
+		case 1:
+			if (this->x < 0)
+			{
+				this->x = 0;
+
+			}
+			else if (this->x > 1500 - mWidth)
+			{
+				this->x = 1500 - mWidth;
+			}
+			break;
 		case 2:
 		{
 			if (this->x < 0)
@@ -35,31 +46,35 @@ void Camera::Update()
 		}
 		case 3:
 		{
-			if (this->x < 3090)
+			if (this->x < 3074)
 			{
-				this->x = 3090;
+				this->x = 3074;
 
 			}
-			else if (this->x > 4084 - mWidth)
+			else if (this->x > 4110 - mWidth)
 			{
-				this->x = 4084 - mWidth;
+				this->x = 4110 - mWidth;
 			}
 			break;
 		}
 		case 4:
 		{
-			if (this->x < 3090)
+			if (this->x < 3074)
 			{
-				this->x = 3090;
+				this->x = 3074;
+			}
+			else if (this->x > 4110 - mWidth)
+			{
+				this->x = 4110 - mWidth;
 			}
 			this->y = 360;
 			break;
 		}
 		case 5:
 		{
-			if (this->x < 4090)
+			if (this->x < 4095)
 			{
-				this->x = 4090;
+				this->x = 4095;
 			}
 			break;
 		}

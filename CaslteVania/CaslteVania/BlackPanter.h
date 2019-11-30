@@ -17,7 +17,7 @@ public:
 		AddAnimation(906, BLACKPANTHER_RUN_RIGHT);
 		AddAnimation(907, BLACKPANTHER_JUMP_LEFT);
 		AddAnimation(908, BLACKPANTHER_JUMP_RIGHT);
-		nx = 1;
+		nx = -1;
 		CurAnimation = nx > 0 ? animations[BLACKPANTHER_STAND_RIGHT]:animations[BLACKPANTHER_STAND_LEFT];
 		vy = 0.0f;
 		vx = 0.0f;
@@ -39,7 +39,7 @@ public:
 	void UpdatePosition(float dt)
 	{
 		CGameObject::Update(dt);
-		if (abs(abs(player->x) - abs(x)) < 10)
+		if (abs(abs(player->x) - abs(x)) < 100)
 		{
 			isSleep = false;
 		}

@@ -2,6 +2,9 @@
 #include "Scene.h"
 #include "Map.h"
 
+#define END_OF_MAP_2 3084
+#define END_OF_MAP_3 4084
+#define SPEED_CAMERA 0.1
 class CGameObject;
 class CSimon;
 class CWhip;

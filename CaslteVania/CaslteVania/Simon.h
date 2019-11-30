@@ -1,7 +1,9 @@
 #pragma once
 #include "GameObject.h"
 
-
+#define SIMON_EDIT_BBOX_X 15
+#define SIMON_EDIT_BBOX_Y 4
+#define TIME_FLASH_SCREEN 400
 
 class CAnimation;
 class CWhip;

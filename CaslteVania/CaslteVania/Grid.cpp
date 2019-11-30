@@ -167,6 +167,7 @@ void Grid::CreateFileGird(int level)
 			ghost->repawnPosX = posX;
 			ghost->repawnPosY = posY;
 			AddObject(ghost);
+			break;
 		}
 		case BLACKPANTHER:
 		{

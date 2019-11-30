@@ -46,7 +46,7 @@ void Stage1::LoadResources(int level)
 		CAnimations * animations = CAnimations::GetInstance();
 		animations->LoadResources();
 
-		camera->map = 2;
+		camera->map = 1;
 
 		map->LoadResources(level);
 		
@@ -65,8 +65,8 @@ void Stage1::LoadResources(int level)
 		map->LoadResources(level);
 		grid->CreateFileGird(level);
 	
-		p->SetPosition(3900.0f, 0.0f);
-		camera->map = 3;
+		p->SetPosition(0.0f, 0.0f);
+		camera->map = 2;
 		
 		RepawnObjects.clear();
 		
@@ -280,12 +280,12 @@ void Stage1::ChangeMap(float dt)
 		if (ChangeMapProc == 1) ChangeMapProc = 2;
 		if (ChangeMapProc == 4)
 		{
-			if (camera->map == 2 && camera->x < 3084)
+			if (camera->map == 2 && camera->x < END_OF_MAP_2)
 			{
-				camera->SetCamPos(camera->x + 0.1 * dt, camera->y);
+				camera->SetCamPos(camera->x + SPEED_CAMERA * dt, camera->y);
 			}
-			else if(camera->map == 3 && camera->x < 4084)
-				camera->SetCamPos(camera->x + 0.1 * dt, camera->y);
+			else if(camera->map == 3 && camera->x < END_OF_MAP_3)
+				camera->SetCamPos(camera->x + SPEED_CAMERA * dt, camera->y);
 			else
 				ChangeMapProc = 5;
 		}
@@ -384,7 +384,9 @@ void Stage1::RepawnEnemy()
 			case BLACKPANTHER:
 			{
 				auto panther = (CBlackPanther*)obj;
-				if (panther->repawnPosX > CAMERA->x +50 && panther->repawnPosX < CAMERA->x + CAMERA->mWidth -50)
+				if (panther->repawnPosX > CAMERA->x  && panther->repawnPosX < CAMERA->x + CAMERA->mWidth
+					&& panther->repawnPosY > CAMERA->y && panther->repawnPosY < CAMERA->y + CAMERA->mHeight)
+				
 				{
 					it++;
 				}

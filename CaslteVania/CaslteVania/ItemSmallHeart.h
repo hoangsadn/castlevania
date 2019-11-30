@@ -1,5 +1,7 @@
 #pragma once
 #include "Item.h"
+#define WIDTH_ITEM_SMALL_HEART  16
+#define HEIGHT_ITEM_SMALL_HEART 16
 class CItemSmallHeart : public CItem
 {
 public:
@@ -9,8 +11,8 @@ public:
 		CurAnimation = animations[SMALL_HEART];
 		isDead = false;
 		type = SMALL_HEART;
-		width = 16;
-		height = 16;
+		width = WIDTH_ITEM_SMALL_HEART;
+		height = HEIGHT_ITEM_SMALL_HEART;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{

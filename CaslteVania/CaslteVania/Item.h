@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#define GRAVITY_ITEM 0.04f
 class CAnimation;
 
 class CItem : public CGameObject
@@ -8,7 +9,7 @@ public:
 	CItem() 
 	{
 		tag = ITEM;
-		vy = 0.04f;
+		vy = GRAVITY_ITEM;
 		timeDead = GetTickCount();
 	};
 	CAnimation* CurAnimation;

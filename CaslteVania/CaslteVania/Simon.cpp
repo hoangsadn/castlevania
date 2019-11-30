@@ -150,6 +150,8 @@ void CSimon::HandleObject(LPGAMEOBJECT object)
 			posOfStair = object->x;
 			stairDirection = -2;
 			break;
+		default:
+			break;
 		}
 
 	}
@@ -216,7 +218,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		// hurting time
 	else if (GetTickCount() - untouchTime > SIMON_UNTOUCHABLE_TIME)
 		untouchTime = 0;
-	if (GetTickCount() - flashtime > 400)
+	if (GetTickCount() - flashtime > TIME_FLASH_SCREEN)
 		flashtime = 0;
 
 
@@ -359,15 +361,15 @@ void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom
 {
 	if (stateBoundingBox == SIMON_BIG_BOUNDING_BOX)
 	{
-		left = x + 15;
-		top = y + 4;
+		left = x + SIMON_EDIT_BBOX_X;
+		top = y + SIMON_EDIT_BBOX_Y;
 		right = x + SIMON_BIG_BBOX_WIDTH;
 		bottom = y + SIMON_BIG_BBOX_HEIGHT;
 	}
 	else
 	{
-		left = x + 15;
-		top = y + 4;
+		left = x + SIMON_EDIT_BBOX_X;
+		top = y + SIMON_EDIT_BBOX_Y;
 		right = x + SIMON_SMALL_BBOX_WIDTH;
 		bottom = y + SIMON_SMALL_BBOX_HEIGHT;
 	}
