@@ -69,3 +69,11 @@
  - 60023 fire right 916
  - 60024 fireball left 917 
  - 60025 fireball right 918
+
+90000 - scoreboard 
+90004 title screen 1000
+90005 - 90016 BATFLY 1001
+90017 - 90019 BATFLY_NOT_MOVE 1002
+90020 CASTLE 1003
+90021 helicopter 1004 
+90022 90023 bat 1005

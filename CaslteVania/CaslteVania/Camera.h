@@ -11,7 +11,7 @@
 #define END_MAP3 4110
 #define BEGIN_MAP4 3074
 #define END_MAP4 4110
-#define MAP_4_Y 360 
+#define MAP_4_Y 400 
 #define BEGIN_MAP5 4095
 #define END_MAP5 5632
 class Camera

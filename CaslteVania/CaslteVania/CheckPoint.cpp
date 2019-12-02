@@ -43,25 +43,25 @@ void CCheckPoint::Init()
 		break;
 	case 3:
 		posMoveSimonX = 3167;
-		posMoveSimonY = 350;
+		posMoveSimonY = 430;
 		height = 2;
 		break;
 	case 4:
 		
 		posMoveSimonX = 3167;
-		posMoveSimonY = 280;
+		posMoveSimonY = 360;
 		height = 2;
 		break;
 	case 5:
 		
 		posMoveSimonX = 3800;
-		posMoveSimonY = 280;
+		posMoveSimonY = 360;
 		height = 2;
 		break;
 	case 6:
 
 		posMoveSimonX = 3800;
-		posMoveSimonY = 350;
+		posMoveSimonY = 430;
 		height = 2;
 		break;
 	case 7: 

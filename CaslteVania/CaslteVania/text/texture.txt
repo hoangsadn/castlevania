@@ -8,3 +8,7 @@
 62 textures\\Sub_weapons.png 255 0 255
 70 textures\\Effect.png 255 0 255
 80 textures\\Enemies.png 255 0 255
+90 textures\\ScoreBoard.png 255 0 255
+91 textures\\TITLE_SCREEN.bmp 255 0 255
+92 textures\\TitleAnimation.png 255 0 255
+93 textures\\castle.png 255 0 255

@@ -58,6 +58,8 @@ CSimon::CSimon() :CGameObject()
 
 	AddAnimation(532, DEAD_LEFT);
 	AddAnimation(533, DEAD_RIGHT);
+
+	AddAnimation(534, STANDING_INTRO);
 	tag = PLAYER;
 
 }
@@ -185,13 +187,13 @@ void CSimon::HandleObject(LPGAMEOBJECT object)
 
 	}
 }
-void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects )
 {
 	
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 	// Simple fall down
-	if (!IsOnStair)
+	if (!IsOnStair || !IsOnIntro)
 		vy += SIMON_GRAVITY * dt;
 
 	//jump to hole and dead 
@@ -200,16 +202,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	//update state
 	state->Update();
-	if (y > CAMERA->y + CAMERA->mHeight)
-		ChangeAnimation(new PlayerDeadState());
+	if (GetTickCount() - countTime > 1000)
+	{
+		playTime--;
+		countTime = GetTickCount();
+	}
+	
 
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-
-	CalcPotentialCollisions(coObjects, coEvents);
 
 	if (Invincibility)
 	{
@@ -225,41 +224,51 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchTime = 0;
 	if (GetTickCount() - flashtime > TIME_FLASH_SCREEN)
 		flashtime = 0;
-
-
-	if (!IsOnStair)		
+	if (!IsOnStair)
 	{
 		IsOnFootStair = false;
 		IsOnTopStair = false;
 	}
-	if (coEvents.size() == 0)
-	{
+	if (!IsOnIntro) {
+		if (y > CAMERA->y + CAMERA->mHeight || playTime == 1)
+			ChangeAnimation(new PlayerDeadState());
+		vector<LPCOLLISIONEVENT> coEvents;
+		vector<LPCOLLISIONEVENT> coEventsResult;
+
+		coEvents.clear();
+
+
+		CalcPotentialCollisions(coObjects, coEvents);
 		
-		//clac obj with AABB
-		for (UINT i = 0; i < coObjects->size(); i++)
+		if (coEvents.size() == 0)
 		{
-			if (IsCollisionAABB(GetRect(), coObjects->at(i)->GetRect()))
+
+			//clac obj with AABB
+			for (UINT i = 0; i < coObjects->size(); i++)
 			{
-				HandleObject(coObjects->at(i));
+				if (IsCollisionAABB(GetRect(), coObjects->at(i)->GetRect()))
+				{
+					HandleObject(coObjects->at(i));
+				}
+
 			}
-
 		}
-	}
-	else {
+		else {
 
-		float min_tx, min_ty, nx = 0, ny;
+			float min_tx, min_ty, nx = 0, ny;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		// Collision logic with SweepAABB
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
+			// Collision logic with SweepAABB
+			for (UINT i = 0; i < coEventsResult.size(); i++)
+			{
+				LPCOLLISIONEVENT e = coEventsResult[i];
 
-			HandleObject(e->obj);
+				HandleObject(e->obj);
 
-			// clean up collision events
-			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+				// clean up collision events
+				for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+			}
 		}
 	}
 }
@@ -319,15 +328,18 @@ void CSimon::Revival()
 	IsWalkingComplete = false;
 	untouchTime = 0;
 	IsDead = false;
-	
+	IsOnIntro = false;
+	life = 3;
 	nx = 1;
 	whipType = 1;
 	bullet = 5;
-	weaponTypeCarry = KNIFE;
+	playTime = 300;
+	weaponTypeCarry = NOTHING;
 	Invincibility = false;
 	freeze = false;
 	health = 2;
 	ChangeAnimation(new PlayerStandingState());
+	countTime = GetTickCount();
 }
 void CSimon::OnKeyDown(int key)
 {

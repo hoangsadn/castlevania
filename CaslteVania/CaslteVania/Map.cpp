@@ -51,7 +51,7 @@ void Map::Render(int level)
 			r.right = r.left + TITLE_WIDTH;
 			r.bottom = r.top + TITLE_HEIGHT;
 			if (IsCollision(cam->GetBound(),r)) // if title rect touch the Camera rect then do not draw 
-				sprite->Draw(r.left, r.top, TITLE_WIDTH * mapTiles[i][j]- TITLE_WIDTH, 0, TITLE_HEIGHT*mapTiles[i][j] , TITLE_HEIGHT);
+				sprite->Draw(r.left, r.top +80, TITLE_WIDTH * mapTiles[i][j]- TITLE_WIDTH, 0, TITLE_HEIGHT*mapTiles[i][j] , TITLE_HEIGHT);
 		}
 
 }

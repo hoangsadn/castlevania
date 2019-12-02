@@ -23,6 +23,7 @@ public:
 	bool IsJumping;
 	bool IsHitting, IsThrowing;
 	bool IsOnStair, IsOutStair;
+	bool IsOnIntro;
 	bool IsOnFootStair, IsOnTopStair;
 	bool IsDead;
 	bool IsTouchDoor;
@@ -32,12 +33,15 @@ public:
 	float posOfStair;
 	int stairDirection;
 	DWORD untouchTime, flashtime;	//time hurting and enemy cant hurt more in this time 
+	DWORD playTime, countTime;
+
 	TYPE weaponTypeCarry;	
 	int whipType;	// type of whip 1,2,3 
 	int bullet;
 	int point;
 	int alpha,beta;		//for render
 	int health;
+	int life;
 	bool freeze;
 	CSimon();
 	void Revival();

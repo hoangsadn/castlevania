@@ -1,6 +1,7 @@
 #pragma once
 #include "ManagerScene.h"
 #include "PlayStage.h"
+#include "IntroScene.h"
 #include "GlobalConfig.h"
 #include <dinput.h>
 #include "Camera.h"

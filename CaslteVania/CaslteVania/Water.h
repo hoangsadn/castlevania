@@ -46,7 +46,7 @@ public:
 		CGameObject::Update(dt);
 		x += dx;
 		y += dy;
-		if (y > CAMERA->y + CAMERA->mHeight- 200)
+		if (y > CAMERA->y + CAMERA->mHeight- 120)
 			isDead = true;
 	}
 	~CWater() {};

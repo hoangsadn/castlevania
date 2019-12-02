@@ -166,6 +166,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GlobalConfig.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Knife.cpp" />
     <ClCompile Include="main.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="PlayerStandingState.cpp" />
     <ClCompile Include="PlayerWalkingStairState.cpp" />
     <ClCompile Include="PlayerWalkingState.cpp" />
+    <ClCompile Include="ScoreBroad.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="PlayStage.cpp" />
@@ -204,6 +206,7 @@
     <ClInclude Include="Grid.h" />
     <ClInclude Include="HolderHiddenBrick.h" />
     <ClInclude Include="HollyWater.h" />
+    <ClInclude Include="IntroScene.h" />
     <ClInclude Include="ItemAxe.h" />
     <ClInclude Include="ItemDoubleShot.h" />
     <ClInclude Include="ItemHollyWater.h" />
@@ -217,7 +220,9 @@
     <ClInclude Include="PlayerDeadState.h" />
     <ClInclude Include="PlayerHurtingState.h" />
     <ClInclude Include="PlayerStandingStairState.h" />
+    <ClInclude Include="PlayerStandIntroState.h" />
     <ClInclude Include="PlayerWalkingStairState.h" />
+    <ClInclude Include="ScoreBroad.h" />
     <ClInclude Include="Stair.h" />
     <ClInclude Include="HolderCandle.h" />
     <ClInclude Include="debug.h" />

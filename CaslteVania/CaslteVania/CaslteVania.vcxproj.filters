@@ -135,6 +135,12 @@
     <ClCompile Include="PlayStage.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBroad.cpp">
+      <Filter>Source Files\GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ManagerScene.h">
@@ -334,6 +340,15 @@
     </ClInclude>
     <ClInclude Include="PlayStage.h">
       <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBroad.h">
+      <Filter>Source Files\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandIntroState.h">
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

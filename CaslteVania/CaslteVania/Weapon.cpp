@@ -42,6 +42,21 @@ void CWeapon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 			if (player->freeze && coEvents.at(i)->tag == ENEMY)
 				coEvents.at(i)->isDead = true;
+			switch (coEvents.at(i)->type)
+			{
+			case GHOST:
+				player->point += 100;
+				break;
+			case AQUAMAN:
+				player->point += 300;
+				break;
+			case BLACKPANTHER: case BAT:
+				player->point += 200;
+				break;
+		
+			default:
+				break;
+			}
 			break;
 		}
 	}

@@ -68,7 +68,7 @@ public:
 		}
 		
 			
-		if (x < CAMERA->x || y > CAMERA->y + CAMERA->mHeight - 170 || x > CAMERA->x+ CAMERA->mHeight)
+		if (x < CAMERA->x || y > CAMERA->y + CAMERA->mHeight - 90 || x > CAMERA->x+ CAMERA->mHeight)
 			isDead = true;
 	}
 

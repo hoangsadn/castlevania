@@ -28,28 +28,31 @@ PlayStage::PlayStage()
 	level = 1;
 	ChangeMapProc = 0;
 	grid = new Grid();
+	scoreboard = new CScoreBroad();
 }
+
 void PlayStage::LoadResources(int level)
 {
 	PresentObjects.clear();
 	CannotTouchObjects.clear();
+	
 	switch (level)
 	{
 	case 1:
 	{
-		auto a = new CGlobalConfig();
+		/*auto a = new CGlobalConfig();
 		a->TypeMapToString();
 		CTextures * textures = CTextures::GetInstance();
 		textures->LoadResources();
 		CSprites * sprites = CSprites::GetInstance();
 		sprites->LoadResources();
 		CAnimations * animations = CAnimations::GetInstance();
-		animations->LoadResources();
+		animations->LoadResources();*/
 
 		camera->map = 1;
 	
 		map->LoadResources(level);
-		
+		scoreboard->Init();
 		
 		grid->CreateFileGird(level);
 		p = player;
@@ -510,6 +513,7 @@ void PlayStage::Update(float dt)
 	}
 
 	map->Update(dt);
+	scoreboard->Update(dt);
 	camera->Update();
 	grid->Update();
 	RepawnEnemy();
@@ -518,8 +522,7 @@ void PlayStage::Update(float dt)
 
 void PlayStage::Render()
 {
-
-	
+	scoreboard->Render();
 	map->Render(level);
 	for (auto it : PresentObjects)
 		(it)->Render();

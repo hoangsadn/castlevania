@@ -26,7 +26,10 @@ public:
 		
 		this->HandleKeyBoard();
 		if (GetTickCount() - timedead > 3000)
+		{
 			player->Revival();
+			player->life--;
+		}
 	}
 	void HandleKeyBoard()
 	{
