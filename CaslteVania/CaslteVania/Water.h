@@ -1,5 +1,7 @@
 #pragma once
 #include "Weapon.h"
+#define WATER_WIDTH  14
+#define WATER_HEIGHT 12
 class CWater : public CWeapon
 {
 public:
@@ -7,8 +9,8 @@ public:
 	{
 		AddAnimation(702, WATER);
 		CurAnimation = animations[WATER];
-		width = 14;
-		height = 12;
+		width = WATER_WIDTH;
+		height = WATER_HEIGHT;
 		tag = ENEMY;
 		type = WATER;
 		switch (id)

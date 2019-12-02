@@ -194,9 +194,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (!IsOnStair)
 		vy += SIMON_GRAVITY * dt;
 
+	//jump to hole and dead 
+	
+	
+
 	//update state
 	state->Update();
-
+	if (y > CAMERA->y + CAMERA->mHeight)
+		ChangeAnimation(new PlayerDeadState());
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -288,6 +293,24 @@ void CSimon::ChangeAnimation(PlayerState * newState)
 void CSimon::Revival()
 {
 	cam = CAMERA;
+	cam->map = Checkpoint;
+	switch (Checkpoint)
+	{
+	case 1:
+		SetPosition(BEGIN_MAP1, 0);
+		break;
+	case 2:
+		SetPosition(BEGIN_MAP2, 0);
+		break;
+	case 3:
+		SetPosition(BEGIN_MAP3+ 10, 0);
+		break;
+	case 5:
+		SetPosition(BEGIN_MAP5+ 10, 0);
+		break;
+	default:
+		break;
+	}
 	allow[JUMPING] = true;
 	allow[WALKING] = true;
 	allow[THROWING] = true;
@@ -296,14 +319,14 @@ void CSimon::Revival()
 	IsWalkingComplete = false;
 	untouchTime = 0;
 	IsDead = false;
-	SetPosition(1333.0f, 0);
+	
 	nx = 1;
 	whipType = 1;
 	bullet = 5;
 	weaponTypeCarry = KNIFE;
 	Invincibility = false;
 	freeze = false;
-	health = 10;
+	health = 2;
 	ChangeAnimation(new PlayerStandingState());
 }
 void CSimon::OnKeyDown(int key)
@@ -334,7 +357,7 @@ void CSimon::OnKeyDown(int key)
 		break;
 	}
 	case DIK_C:
-
+	{
 		if (keyCode[DIK_UP] && bullet != 0 && allow[THROWING] && weaponTypeCarry != NOTHING && !IsOnStair)
 		{
 			bullet--;
@@ -348,6 +371,49 @@ void CSimon::OnKeyDown(int key)
 			ChangeAnimation(new PlayerHittingState());
 			break;
 		}
+		break;
+	}
+	case DIK_1:
+	{
+		Checkpoint = 1;
+		Revival();
+		break;
+	}
+	case DIK_2:
+	{
+		SetPosition(1350, 200);
+		
+		break;
+	}
+	case DIK_3:
+	{
+		cam->map = 2;
+		Checkpoint = 2;
+		SetPosition(BEGIN_MAP2 + 10, 0);
+		break;
+	}
+	case DIK_4:
+	{
+		cam->map = 3;
+		Checkpoint = 3;
+		SetPosition(BEGIN_MAP3 + 10, 0);
+		break;
+		
+	}
+	case DIK_5:
+	{
+		cam->map = 4;
+		Checkpoint = 3;
+		SetPosition(BEGIN_MAP4, MAP_4_Y);
+		break;
+	}
+	case DIK_6:
+	{
+		cam->map = 5;
+		Checkpoint = 5;
+		SetPosition(BEGIN_MAP5+ 20, 0);
+		break;
+	}
 	}
 
 

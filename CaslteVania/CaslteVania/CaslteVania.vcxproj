@@ -181,7 +181,7 @@
     <ClCompile Include="PlayerWalkingState.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Sprites.cpp" />
-    <ClCompile Include="Stage1.cpp" />
+    <ClCompile Include="PlayStage.cpp" />
     <ClCompile Include="Holder.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Weapon.cpp" />
@@ -245,7 +245,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Sprites.h" />
-    <ClInclude Include="Stage1.h" />
+    <ClInclude Include="PlayStage.h" />
     <ClInclude Include="Holder.h" />
     <ClInclude Include="HolderFirePillar.h" />
     <ClInclude Include="StopWatch.h" />

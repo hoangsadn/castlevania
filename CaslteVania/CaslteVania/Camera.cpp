@@ -12,6 +12,8 @@ Camera * Camera::GetInstance()
 }
 Camera::Camera()
 {
+	x = 0;
+	y = 0;
 	IsChangeMap = false;
 }
 void Camera::Update()
@@ -21,60 +23,64 @@ void Camera::Update()
 		switch (map)
 		{
 		case 1:
-			if (this->x < 0)
+			if (this->x < BEGIN_MAP1)
 			{
-				this->x = 0;
+				this->x = BEGIN_MAP1;
 
 			}
-			else if (this->x > 1500 - mWidth)
+			else if (this->x > END_MAP1 - mWidth)
 			{
-				this->x = 1500 - mWidth;
+				this->x = END_MAP1 - mWidth;
 			}
 			break;
 		case 2:
 		{
-			if (this->x < 0)
+			if (this->x < BEGIN_MAP2)
 			{
-				this->x = 0;
+				this->x = BEGIN_MAP2;
 
 			}
-			else if (this->x > 3084 - mWidth)
+			else if (this->x > END_MAP2 - mWidth)
 			{
-				this->x = 3084 - mWidth;
+				this->x = END_MAP2 - mWidth;
 			}
 			break;
 		}
 		case 3:
 		{
-			if (this->x < 3074)
+			if (this->x < BEGIN_MAP3)
 			{
-				this->x = 3074;
+				this->x = BEGIN_MAP3;
 
 			}
-			else if (this->x > 4110 - mWidth)
+			else if (this->x > END_MAP3 - mWidth)
 			{
-				this->x = 4110 - mWidth;
+				this->x = END_MAP3 - mWidth;
 			}
 			break;
 		}
 		case 4:
 		{
-			if (this->x < 3074)
+			if (this->x < BEGIN_MAP4)
 			{
-				this->x = 3074;
+				this->x = BEGIN_MAP4;
 			}
-			else if (this->x > 4110 - mWidth)
+			else if (this->x > END_MAP4 - mWidth)
 			{
-				this->x = 4110 - mWidth;
+				this->x = END_MAP4 - mWidth;
 			}
-			this->y = 360;
+			this->y = MAP_4_Y;
 			break;
 		}
 		case 5:
 		{
-			if (this->x < 4095)
+			if (this->x < BEGIN_MAP5)
 			{
-				this->x = 4095;
+				this->x = BEGIN_MAP5;
+			}
+			else if (this->x > END_MAP5 - mWidth -10)
+			{
+				this->x = END_MAP5 - mWidth -10 ;
 			}
 			break;
 		}

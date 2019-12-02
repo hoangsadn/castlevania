@@ -1,5 +1,9 @@
 #pragma once
 #include "Enemy.h"
+#define TIME_REPAWN_GHOST 5000
+#define GHOST_WIDTH  34
+#define GHOST_HEIGHT 64
+#define GHOST_WALKING_SPEED 0.05
 class CGhost : public CEnemy
 {
 public:
@@ -11,11 +15,11 @@ public:
 		AddAnimation(901, GHOST_LEFT);
 		AddAnimation(902, GHOST_RIGHT);
 		CurAnimation = animations[GHOST_LEFT];
-		timeDelay = 5000;
+		timeDelay = TIME_REPAWN_GHOST;
 		vy = 0.0f;
-		vx = -0.05;
-		width = 34;
-		height = 64;
+		vx = -GHOST_WALKING_SPEED;
+		width = GHOST_WIDTH;
+		height = GHOST_HEIGHT;
 	}
 	
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom)

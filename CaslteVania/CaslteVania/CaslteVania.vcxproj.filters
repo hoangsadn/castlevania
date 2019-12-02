@@ -87,9 +87,6 @@
     <ClCompile Include="ManagerScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Stage1.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\GameComponents</Filter>
     </ClCompile>
@@ -135,15 +132,15 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayStage.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ManagerScene.h">
       <Filter>Source Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage1.h">
       <Filter>Source Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
@@ -334,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="ItemRoast.h">
       <Filter>Source Files\GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayStage.h">
+      <Filter>Source Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

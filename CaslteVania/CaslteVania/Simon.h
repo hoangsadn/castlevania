@@ -28,7 +28,7 @@ public:
 	bool IsTouchDoor;
 	bool IsWalkingComplete;
 	bool Invincibility;
-	
+	int Checkpoint;
 	float posOfStair;
 	int stairDirection;
 	DWORD untouchTime, flashtime;	//time hurting and enemy cant hurt more in this time 

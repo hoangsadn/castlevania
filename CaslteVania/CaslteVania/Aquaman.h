@@ -1,6 +1,11 @@
 #pragma once
 #include "Enemy.h"
 #include "Water.h"
+#define DISTANCE_AQUAMAN_WALK 150
+#define TIME_REPAWN_AQUAMAN 3000
+#define AQUAMAN_JUMPING_SPEED 0.9
+#define AQUAMAN_WIDTH  32
+#define AQUAMAN_HEIGHT 62
 class CAquaman : public CEnemy
 {
 public:
@@ -20,13 +25,13 @@ public:
 		AddAnimation(915, AQUAMAN_FIRE_LEFT);
 		AddAnimation(916, AQUAMAN_FIRE_RIGHT);
 		state = AQUAMAN_STAND;
-		timeDelay = 3000;
+		timeDelay = TIME_REPAWN_AQUAMAN;
 		nx = 1;
 		CurAnimation = nx < 0 ? animations[AQUAMAN_STAND_LEFT] : animations[AQUAMAN_STAND_RIGHT];
-		vy = -0.9;
+		vy = -AQUAMAN_JUMPING_SPEED;
 		vx = 0;
-		width = 32;
-		height = 62;
+		width = AQUAMAN_WIDTH;
+		height = AQUAMAN_HEIGHT;
 	}
 	void UpdatePosition(float dt)
 	{
@@ -41,7 +46,7 @@ public:
 			
 		}
 
-		if (state == AQUAMAN_WALK && abs(abs(prePos) - abs(x)) > 150)
+		if (state == AQUAMAN_WALK && abs(abs(prePos) - abs(x)) > DISTANCE_AQUAMAN_WALK)
 		{
 			vx = 0;
 			prePos = x;

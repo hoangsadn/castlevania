@@ -1,5 +1,8 @@
 #pragma once
 #include "Enemy.h"
+#define TIME_REPAWN_BAT 5000
+#define BAT_WIDTH  34
+#define BAT_HEIGHT 32
 class CBat : public CEnemy
 {
 public:
@@ -8,13 +11,13 @@ public:
 		type = BAT;
 		AddAnimation(909, BAT_LEFT);
 		AddAnimation(910, BAT_RIGHT);
-		timeDelay = 5000;
+		timeDelay = TIME_REPAWN_BAT;
 		nx = -1;
 		
 
 		CurAnimation = nx > 0 ? animations[BAT_RIGHT] : animations[BAT_LEFT];
-		width = 34;
-		height = 32;
+		width = BAT_WIDTH;
+		height = BAT_HEIGHT;
 	}
 	void CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
