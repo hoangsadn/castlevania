@@ -1,11 +1,11 @@
 #pragma once
 #include "Enemy.h"
 #include "Simon.h"
-#define BLACKPANTHER_WIDTH  64
-#define BLACKPANTHER_HEIGHT 30
 #define BLACKPANTHER_ACTIVE_DISTANCE 100
 #define BLACKPANTHER_RUNNING_SPEED 0.2
 #define BLACKPANTHER_JUMPING_SPEED -0.4
+#define BLACKPANTHER_WIDTH  64
+#define BLACKPANTHER_HEIGHT 30
 class CBlackPanther : public CEnemy
 {
 public:

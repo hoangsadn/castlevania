@@ -1,9 +1,9 @@
 #pragma once
 #include "Enemy.h"
 #define TIME_REPAWN_GHOST 5000
+#define GHOST_WALKING_SPEED 0.05
 #define GHOST_WIDTH  34
 #define GHOST_HEIGHT 64
-#define GHOST_WALKING_SPEED 0.05
 class CGhost : public CEnemy
 {
 public:

@@ -78,10 +78,15 @@ void Camera::Update()
 			{
 				this->x = BEGIN_MAP5;
 			}
-			else if (this->x > END_MAP5 - mWidth +10 )
+			else if (this->x > END_MAP5 - mWidth  )
 			{
-				this->x = END_MAP5 - mWidth + 10;
+				this->x = END_MAP5 - mWidth ;
 			}
+			break;
+		}
+		case 6:
+		{
+			this->x = END_MAP5 - mWidth;
 			break;
 		}
 		default:

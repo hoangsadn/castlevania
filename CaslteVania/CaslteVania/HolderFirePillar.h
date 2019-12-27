@@ -15,7 +15,7 @@ public:
 	{
 		left = x;
 		top = y;
-		right = left + 32;
-		bottom = top + 64;
+		right = left + width;
+		bottom = top + height;
 	}
 };

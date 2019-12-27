@@ -132,14 +132,17 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayStage.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="IntroScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="ScoreBroad.cpp">
       <Filter>Source Files\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Source Files\GameObjects\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -338,9 +341,6 @@
     <ClInclude Include="ItemRoast.h">
       <Filter>Source Files\GameObjects\Item</Filter>
     </ClInclude>
-    <ClInclude Include="PlayStage.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="ScoreBroad.h">
       <Filter>Source Files\GameComponents</Filter>
     </ClInclude>
@@ -349,6 +349,12 @@
     </ClInclude>
     <ClInclude Include="PlayerStandIntroState.h">
       <Filter>Source Files\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Source Files\GameObjects\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

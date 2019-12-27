@@ -1,5 +1,7 @@
 #pragma once
 #include "Weapon.h"
+#define AXE_HEIGHT 28
+#define AXE_WIDTH 30
 class CAxe : public CWeapon
 {
 public:
@@ -8,8 +10,8 @@ public:
 		allowHit = true;
 		AddAnimation(807, AXE_THORW);
 		CurAnimation = animations[AXE_THORW];
-		width = 30;
-		height = 28;
+		width = AXE_WIDTH;
+		height = AXE_HEIGHT;
 		vx = player->nx > 0? vx = 0.14 : vx = -0.14;
 		vy = -0.38;
 		x = player->x;
@@ -20,8 +22,8 @@ public:
 	{
 		l = x;
 		t = y;
-		r = l + 30;
-		b = t + 28;
+		r = l + width;
+		b = t + height;
 	}
 	virtual void UpdatePosititon(DWORD dt)
 	{

@@ -2,6 +2,8 @@
 #include "Weapon.h"
 #define WATER_WIDTH  14
 #define WATER_HEIGHT 12
+#define WATER_NUMBER 4
+#define WATER_POS_Y 20
 class CWater : public CWeapon
 {
 public:

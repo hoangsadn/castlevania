@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="debug.cpp" />
@@ -183,7 +184,7 @@
     <ClCompile Include="ScoreBroad.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Sprites.cpp" />
-    <ClCompile Include="PlayStage.cpp" />
+    <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Holder.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Weapon.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Axe.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="BlackPanter.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="BrokenBrickEffect.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Brick.h" />
@@ -250,7 +252,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Sprites.h" />
-    <ClInclude Include="PlayStage.h" />
+    <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Holder.h" />
     <ClInclude Include="HolderFirePillar.h" />
     <ClInclude Include="StopWatch.h" />

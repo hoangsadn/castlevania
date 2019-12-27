@@ -11,8 +11,7 @@ public:
 		CurAnimation = animations[HIDDEN_BRICK];
 		this->stored = stored;
 		type = HIDDEN_BRICK;
-		width = 32;
-		height = 32;
+
 
 	}
 	

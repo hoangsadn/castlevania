@@ -76,13 +76,13 @@ void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b)
 	{
 	case 1:case 2:
 		l = player->nx > 0 ? x + 76 : x + 35;
-		t = y + 14;
+		t = y + 16;
 		r = l + 56;
 		b = t + 18;
 		break;
 	case 3:
 		l = player->nx > 0 ? x + 72 : x + 3;
-		t = y + 14;
+		t = y + 23;
 		r = l + 88;
 		b = t + 12;
 		break;

@@ -13,11 +13,11 @@ class Map;
 class CBrick;
 class CScoreBroad;
 
-class PlayStage : public Scene
+class PlayScene : public Scene
 {
 public:
 
-	PlayStage();
+	PlayScene();
 	int ChangeMapProc;
 	void LoadResources(int level);
 	void ChangeMap(float dt);

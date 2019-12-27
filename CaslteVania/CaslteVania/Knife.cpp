@@ -1,11 +1,13 @@
 #include "Knife.h"
+#define KNIFE_WIDTH 32
+#define KNIFE_HEIGHT 18 
 CKnife::CKnife()
 {
 	allowHit = true;
 	AddAnimation(803, KNIFE_RIGHT);
 	AddAnimation(804, KNIFE_LEFT);
-	width = 32;
-	height = 18;
+	width = KNIFE_WIDTH;
+	height = KNIFE_HEIGHT;
 	if (player->nx > 0)
 	{
 		CurAnimation = animations[KNIFE_RIGHT];

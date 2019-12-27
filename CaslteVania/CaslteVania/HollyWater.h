@@ -1,5 +1,7 @@
 #pragma once
 #include "Weapon.h"
+#define HOLLY_WATER_WIDTH 32
+#define HOLLY_WATER_HEIGHT 26
 class CHollyWater : public CWeapon
 {
 public:
@@ -10,8 +12,8 @@ public:
 		AddAnimation(809, HOLLY_WATER_THROW);
 		AddAnimation(810, HOLLY_WATER_BURN);
 		CurAnimation = animations[HOLLY_WATER_THROW];
-		width = 32;
-		height = 26;
+		width = HOLLY_WATER_WIDTH;
+		height = HOLLY_WATER_HEIGHT;
 
 		vx = player->nx > 0 ? vx = 0.12 : vx = -0.12;
 		vy = -0.09;

@@ -4,6 +4,7 @@
 #include "BlackPanter.h"
 #include "Bat.h"
 #include "Aquaman.h"
+#include "Boss.h"
 class CEnemys
 {
 public:
@@ -22,6 +23,8 @@ public:
 			return new CBat();
 		case 4:
 			return new CAquaman();
+		case 5: 
+			return new Boss();
 		default: return NULL;
 		}
 	}

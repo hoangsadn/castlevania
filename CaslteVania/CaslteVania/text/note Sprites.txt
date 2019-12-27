@@ -69,7 +69,8 @@
  - 60023 fire right 916
  - 60024 fireball left 917 
  - 60025 fireball right 918
-
++ 60026 BOSS_stand  919
++ 60027- 60028 920
 90000 - scoreboard 
 90004 title screen 1000
 90005 - 90016 BATFLY 1001

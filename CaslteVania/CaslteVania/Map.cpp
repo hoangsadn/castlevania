@@ -1,7 +1,8 @@
 #include "Map.h"
 #include "Textures.h"
 #include "Simon.h"
-
+#define ID_TEXTURE_MAP_1 40
+#define ID_TEXTURE_MAP_2 41
 Map * Map::_instance = NULL;
 Camera * cam = CAMERA;
 
@@ -33,9 +34,9 @@ void Map::Render(int level)
 	CTextures * textures = CTextures::GetInstance();
 	LPDIRECT3DTEXTURE9 texMap;
 	if (level == 1)
-		texMap = textures->Get(40);
+		texMap = textures->Get(ID_TEXTURE_MAP_1);
 	else
-		texMap = textures->Get(41);
+		texMap = textures->Get(ID_TEXTURE_MAP_2);
 	CSprites * sprites = CSprites::GetInstance();
 	sprites->Add(99999, 0,0, 32,1568, texMap);
 

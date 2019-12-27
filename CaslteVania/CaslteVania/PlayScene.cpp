@@ -1,4 +1,4 @@
-#include "PlayStage.h"
+#include "PlayScene.h"
 #include "Whip.h"
 #include "Brick.h"
 #include "Simon.h"
@@ -20,7 +20,7 @@ vector<LPGAMEOBJECT> CannotTouchObjects;
 std::unordered_set<LPGAMEOBJECT> Objlist;
 
 
-PlayStage::PlayStage()
+PlayScene::PlayScene()
 {
 	camera = camera->GetInstance();
 	camera->SetRect(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -31,7 +31,7 @@ PlayStage::PlayStage()
 	scoreboard = new CScoreBroad();
 }
 
-void PlayStage::LoadResources(int level)
+void PlayScene::LoadResources(int level)
 {
 	PresentObjects.clear();
 	CannotTouchObjects.clear();
@@ -40,14 +40,14 @@ void PlayStage::LoadResources(int level)
 	{
 	case 1:
 	{
-		/*auto a = new CGlobalConfig();
+		auto a = new CGlobalConfig();
 		a->TypeMapToString();
 		CTextures * textures = CTextures::GetInstance();
 		textures->LoadResources();
 		CSprites * sprites = CSprites::GetInstance();
 		sprites->LoadResources();
 		CAnimations * animations = CAnimations::GetInstance();
-		animations->LoadResources();*/
+		animations->LoadResources();
 
 		camera->map = 1;
 	
@@ -73,6 +73,9 @@ void PlayStage::LoadResources(int level)
 		camera->map = 2;
 		p->Checkpoint = camera->map;
 
+		Boss * boss = new Boss();
+		boss->SetPosition(5300.0f, 0);
+		grid->AddObject(boss);
 		RepawnObjects.clear();
 		
 	}
@@ -85,7 +88,7 @@ void PlayStage::LoadResources(int level)
 
 };
 
-void PlayStage::UpdateObject(float dt)
+void PlayScene::UpdateObject(float dt)
 {
 	if (p->IsHitting)
 	{
@@ -139,22 +142,27 @@ void PlayStage::UpdateObject(float dt)
 					if (enemy->state == AQUAMAN_FIRE && !enemy->fire)
 					{
 						auto we = new CFireBall(enemy->nx);
-						we->SetPosition(obj->x, obj->y + 10);
+						we->SetPosition(obj->x, obj->y + FIRE_POS_Y);
 						grid->AddObject(we);
 						enemy->fire = true;
 					}
-					if (enemy->y > enemy->repawnPosY - 20 &&enemy->y < enemy->repawnPosY && enemy->water < 3)
+					if (enemy->y >= enemy->repawnPosY - WATER_POS_Y && enemy->y < enemy->repawnPosY)
 					{
-						for (int i = 1; i < 4; i++)
+						for (int i = 1; i < WATER_NUMBER; i++)
 						{
 							auto water = new CWater(i);
 							water->SetPosition(enemy->x, enemy->y);
 							grid->AddObject(water);
 						}
-						enemy->water++;
 
-						
+
 					}
+				}
+				else if (obj->type == BOSS)
+				{
+					auto boss = (Boss*)obj;
+					if (boss->isActive)
+						CAMERA->map = 6;
 				}
 				it++;
 			}
@@ -174,7 +182,7 @@ void PlayStage::UpdateObject(float dt)
 					auto holder = (CHolderHiddenBrick*)obj;
 
 					grid->RemoveStaticObject(*obj);
-					for (int i = 1; i < 5; i++)
+					for (int i = 1; i < BRICK_EFFECT_NUMBER; i++)
 					{
 						auto brokebrick = new CBrokenBrickEffect(i);
 						brokebrick->SetPosition(obj->x, obj->y);
@@ -271,7 +279,7 @@ void PlayStage::UpdateObject(float dt)
 		}
 	}
 }
-void PlayStage::ChangeMap(float dt)
+void PlayScene::ChangeMap(float dt)
 {
 	camera->IsChangeMap = true;
 
@@ -306,7 +314,7 @@ void PlayStage::ChangeMap(float dt)
 		p->Checkpoint = camera->map;
 	}
 }
-void PlayStage::UpdatePlayer(float dt)
+void PlayScene::UpdatePlayer(float dt)
 {
 	auto it = PresentObjects.begin();
 	while (it != PresentObjects.end())
@@ -321,7 +329,7 @@ void PlayStage::UpdatePlayer(float dt)
 	};
 	this->UpdateObject(dt);
 }
-void PlayStage::RepawnEnemy()
+void PlayScene::RepawnEnemy()
 {
 	auto it = RepawnObjects.begin();
 	while (it != RepawnObjects.end())
@@ -419,7 +427,7 @@ void PlayStage::RepawnEnemy()
 		else it++;
 	};
 }
-void PlayStage::Update(float dt)
+void PlayScene::Update(float dt)
 {
 	vector<LPGAMEOBJECT> coObjects;
 	
@@ -520,21 +528,21 @@ void PlayStage::Update(float dt)
 	
 };
 
-void PlayStage::Render()
+void PlayScene::Render()
 {
 	scoreboard->Render();
 	map->Render(level);
 	for (auto it : PresentObjects)
 		(it)->Render();
 };
-void PlayStage::OnKeyDown(int Key)
+void PlayScene::OnKeyDown(int Key)
 {
 	keyCode[Key] = true;
 	if (!camera->IsChangeMap)
 		p->OnKeyDown(Key);
 
 };
-void PlayStage::OnKeyUp(int Key)
+void PlayScene::OnKeyUp(int Key)
 {
 	keyCode[Key] = false;
 	p->OnKeyUp(Key);

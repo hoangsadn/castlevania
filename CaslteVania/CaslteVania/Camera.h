@@ -13,7 +13,7 @@
 #define END_MAP4 4110
 #define MAP_4_Y 400 
 #define BEGIN_MAP5 4095
-#define END_MAP5 5632
+#define END_MAP5 5642
 class Camera
 {
 private:

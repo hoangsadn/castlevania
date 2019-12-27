@@ -13,8 +13,6 @@ public:
 		AddAnimation(910, BAT_RIGHT);
 		timeDelay = TIME_REPAWN_BAT;
 		nx = -1;
-		
-
 		CurAnimation = nx > 0 ? animations[BAT_RIGHT] : animations[BAT_LEFT];
 		width = BAT_WIDTH;
 		height = BAT_HEIGHT;

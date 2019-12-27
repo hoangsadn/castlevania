@@ -1,6 +1,6 @@
 #pragma once
 #include "ManagerScene.h"
-#include "PlayStage.h"
+#include "PlayScene.h"
 #include "IntroScene.h"
 #include "GlobalConfig.h"
 #include <dinput.h>

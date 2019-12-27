@@ -5,6 +5,8 @@
 #define HEIGHT_SCORE_BROAD 80
 #define POS_X_HEALTH_BAR 109 
 #define POS_Y_HEALTH_BAR 25 
+#define POS_X_WEAPOINT 310 
+#define POS_Y_WEAPOINT 26 
 #define DISTANCE_BETWEEN_BLOOD 11
 #define ID_AXE 40006
 #define ID_HOLLY_WATER 40012
@@ -88,7 +90,7 @@ void CScoreBroad::Render()
 	for (int i = 0 ; i < player->health ; i++)
 		healthSimon->Draw(CAMERA->x + POS_X_HEALTH_BAR + i* DISTANCE_BETWEEN_BLOOD, CAMERA->y + POS_Y_HEALTH_BAR);
 	if (player->weaponTypeCarry != NOTHING)
-		weapointSimon->Draw(CAMERA->x + 310, CAMERA->y + 26);
+		weapointSimon->Draw(CAMERA->x + POS_X_WEAPOINT, CAMERA->y + POS_Y_WEAPOINT);
 
 }
 CScoreBroad::~CScoreBroad()

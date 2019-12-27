@@ -1,5 +1,6 @@
 #pragma once
 #include "Weapon.h"
+#define BRICK_EFFECT_NUMBER 5
 class CBrokenBrickEffect: public CWeapon
 {
 public:

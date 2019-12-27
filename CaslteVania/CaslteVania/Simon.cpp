@@ -10,6 +10,8 @@
 #include "Brick.h"
 #include "CheckPoint.h"
 #include "Whip.h"
+#define SIMON_POS_REPAWN_3 3084
+#define SIMON_POS_REPAWN_4 4105
 CSimon * CSimon::_instance = NULL;
 CSimon::CSimon() :CGameObject()
 {
@@ -21,7 +23,7 @@ CSimon::CSimon() :CGameObject()
 
 	AddAnimation(508, JUMPING_LEFT);		//jump left
 	AddAnimation(509, JUMPING_RIGHT);		//jump right
-	AddAnimation(400, FALLING_RIGHT);
+	AddAnimation(400, FALLING_RIGHT);	
 	AddAnimation(401, FALLING_LEFT);
 
 	AddAnimation(510, DOWNING_RIGHT);	 //down right
@@ -193,7 +195,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects )
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 	// Simple fall down
-	if (!IsOnStair || !IsOnIntro)
+	if (!IsOnStair && !IsOnIntro)
 		vy += SIMON_GRAVITY * dt;
 
 	//jump to hole and dead 
@@ -312,10 +314,11 @@ void CSimon::Revival()
 		SetPosition(BEGIN_MAP2, 0);
 		break;
 	case 3:
-		SetPosition(BEGIN_MAP3+ 10, 0);
+		
+		SetPosition(SIMON_POS_REPAWN_3, 0);
 		break;
 	case 5:
-		SetPosition(BEGIN_MAP5+ 10, 0);
+		SetPosition(SIMON_POS_REPAWN_4, 0);
 		break;
 	default:
 		break;
@@ -332,12 +335,12 @@ void CSimon::Revival()
 	life = 3;
 	nx = 1;
 	whipType = 1;
-	bullet = 5;
+	bullet = 100;
 	playTime = 300;
-	weaponTypeCarry = NOTHING;
+	weaponTypeCarry = AXE;
 	Invincibility = false;
 	freeze = false;
-	health = 2;
+	health = 10;
 	ChangeAnimation(new PlayerStandingState());
 	countTime = GetTickCount();
 }
@@ -394,21 +397,20 @@ void CSimon::OnKeyDown(int key)
 	case DIK_2:
 	{
 		SetPosition(1350, 200);
-		
 		break;
 	}
 	case DIK_3:
 	{
 		cam->map = 2;
 		Checkpoint = 2;
-		SetPosition(BEGIN_MAP2 + 10, 0);
+		SetPosition(0, 0);
 		break;
 	}
 	case DIK_4:
 	{
 		cam->map = 3;
 		Checkpoint = 3;
-		SetPosition(BEGIN_MAP3 + 10, 0);
+		SetPosition(SIMON_POS_REPAWN_3, 0);
 		break;
 		
 	}
@@ -423,7 +425,7 @@ void CSimon::OnKeyDown(int key)
 	{
 		cam->map = 5;
 		Checkpoint = 5;
-		SetPosition(BEGIN_MAP5+ 20, 0);
+		SetPosition(SIMON_POS_REPAWN_4+1000, 0);
 		break;
 	}
 	}

@@ -1,4 +1,14 @@
 #include "CheckPoint.h"
+#define CHECKPOINT_3_SIMON_POS_Y 430
+#define CHECKPOINT_4_SIMON_POS_X 3167
+#define CHECKPOINT_4_SIMON_POS_Y 360
+#define CHECKPOINT_5_SIMON_POS_X 3800
+#define CHECKPOINT_1_SIMON_TAR 1500
+#define CHECKPOINT_2_SIMON_TAR 3100
+#define CHECKPOINT_7_SIMON_TAR 4110
+#define CHECKPOINT_HEIGHT 2
+
+
 
 CCheckPoint * CCheckPoint::_instance = NULL;
 
@@ -36,37 +46,37 @@ void CCheckPoint::Init()
 	switch (id)
 	{
 	case 1:
-		posTarX = 1500;
+		posTarX = CHECKPOINT_1_SIMON_TAR;
 		break;
 	case 2:
-		posTarX = 3100;
+		posTarX = CHECKPOINT_2_SIMON_TAR;
 		break;
 	case 3:
-		posMoveSimonX = 3167;
-		posMoveSimonY = 430;
-		height = 2;
+		posMoveSimonX = CHECKPOINT_4_SIMON_POS_X;
+		posMoveSimonY = CHECKPOINT_3_SIMON_POS_Y;
+		height = CHECKPOINT_HEIGHT;
 		break;
 	case 4:
 		
-		posMoveSimonX = 3167;
-		posMoveSimonY = 360;
-		height = 2;
+		posMoveSimonX = CHECKPOINT_4_SIMON_POS_X;
+		posMoveSimonY = CHECKPOINT_4_SIMON_POS_Y;
+		height = CHECKPOINT_HEIGHT;
 		break;
 	case 5:
 		
-		posMoveSimonX = 3800;
-		posMoveSimonY = 360;
-		height = 2;
+		posMoveSimonX = CHECKPOINT_5_SIMON_POS_X;
+		posMoveSimonY = CHECKPOINT_4_SIMON_POS_Y;
+		height = CHECKPOINT_HEIGHT;
 		break;
 	case 6:
 
-		posMoveSimonX = 3800;
-		posMoveSimonY = 430;
-		height = 2;
+		posMoveSimonX = CHECKPOINT_5_SIMON_POS_X;
+		posMoveSimonY = CHECKPOINT_3_SIMON_POS_Y;
+		height = CHECKPOINT_HEIGHT;
 		break;
 	case 7: 
 	{
-		posTarX = 4140;
+		posTarX = CHECKPOINT_7_SIMON_TAR;
 		break;
 	}
 	default:

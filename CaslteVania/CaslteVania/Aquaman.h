@@ -6,6 +6,8 @@
 #define AQUAMAN_JUMPING_SPEED 0.9
 #define AQUAMAN_WIDTH  32
 #define AQUAMAN_HEIGHT 62
+#define AQUAMAN_EDIT 90 
+#define FIRE_POS_Y 10
 class CAquaman : public CEnemy
 {
 public:
@@ -68,7 +70,7 @@ public:
 		}
 		
 			
-		if (x < CAMERA->x || y > CAMERA->y + CAMERA->mHeight - 90 || x > CAMERA->x+ CAMERA->mHeight)
+		if (x < CAMERA->x || y > CAMERA->y + CAMERA->mHeight - AQUAMAN_EDIT || x > CAMERA->x+ CAMERA->mHeight)
 			isDead = true;
 	}
 

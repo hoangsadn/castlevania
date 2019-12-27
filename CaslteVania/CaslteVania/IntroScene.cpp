@@ -2,6 +2,9 @@
 #include "Simon.h"
 #include "PlayerWalkingState.h"
 #include "PlayerStandIntroState.h"
+#define TIME_INTRO 5000
+#define	CASTLE_BAT_POS_X 350
+#define	CASTLE_BAT_POS_Y 200
 IntroScene::IntroScene()
 {
 
@@ -38,7 +41,7 @@ void IntroScene::Render()
 	if (ProcessScene == 1)
 	{
 		TitleScreen->Render(0, 0);
-		BatFly->Render(260, 200);
+		BatFly->Render(CASTLE_BAT_POS_X, CASTLE_BAT_POS_Y);
 	}
 	else if (ProcessScene == 2)
 	{
@@ -60,9 +63,9 @@ void IntroScene::Update(float dt)
 		if (p->IsWalkingComplete)
 		{
 			p->ChangeAnimation(new PlayerStandIntroState());
-			if (GetTickCount() - time > 5000)
+			if (GetTickCount() - time > TIME_INTRO)
 			{
-				ManagerScene::GetInstance()->PlayScene(new PlayStage());
+				ManagerScene::GetInstance()->PlayScene(new PlayScene());
 				ManagerScene::GetInstance()->PresentScene->LoadResources(1);
 			}
 		}
@@ -74,8 +77,8 @@ void IntroScene::OnKeyDown(int keyCode)
 	{
 		ProcessScene = 2;
 		p->Revival();
-		p->SetPosition(500, 335);
-		p->ChangeAnimation(new PlayerWalkingState(255));
+		p->SetPosition(SCREEN_WIDTH, 335);
+		p->ChangeAnimation(new PlayerWalkingState((SCREEN_WIDTH/2) + p->width ));
 		time = GetTickCount();
 		p->IsOnIntro = true;
 	}

@@ -32,7 +32,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 */
 void LoadResources()
 {
-	auto tam = new IntroScene();
+	auto tam = new PlayScene();
 	
 	ManagerScene::GetInstance()->PlayScene(tam);
 	ManagerScene::GetInstance()->PresentScene->LoadResources(1);
