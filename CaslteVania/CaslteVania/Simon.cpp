@@ -72,126 +72,130 @@ CSimon * CSimon::GetInstance()
 	return _instance;
 }
 void CSimon::HandleObject(LPGAMEOBJECT object)
-{
-	if (object->tag == ITEM)
+{ 
+	if (object != NULL)
 	{
-		object->isDead = true;
-		switch (object->type)
+		if (object->tag == ITEM)
 		{
-		case MORNING_STAR:
-			whipType = whipType != 3 ? whipType + 1 : 3;
-			ChangeAnimation(new PlayerReciveItemState());
-			break;
-		case BIG_HEART:
-			bullet += 5;
-			break;
-		case SMALL_HEART:
-			bullet++;
-			break;
-		case KNIFE:
-			weaponTypeCarry = KNIFE;
-			break;
-		case AXE:
-			weaponTypeCarry = AXE;
-			break;
-		case HOLLY_WATER:
-			weaponTypeCarry = HOLLY_WATER;
-			break;
-		case STOP_WATCH:
-			weaponTypeCarry = STOP_WATCH;
-			break;
-		case MONEY_BLUE:
-			point += 400;
-			break;
-		case MONEY_RED:
-			point += 1000;
-			break;
-		case MONEY_WHITE:
-			point += 700;
-			break;
-		case INVINCIBILITY:
-			Invincibility = true;
-			untouchTime = GetTickCount();
-			break;
-		case ROSARY:
-			flashtime = GetTickCount();
-			beta = 0;
-			break;
-		case DOUBLE_SHOT:
-			DoubleShot = true;
-			break;
-		case ROAST:
-			health += 5;
-			break;
-		case NOTHING:
-			break;
-		}
-	}
-	else if (object->tag == BOX)
-	{
-		switch (object->type)
-		{
-		case CHECKPOINT: case DOOR:
-		{
-			auto checkpoint = (CCheckPoint*)object;
 			object->isDead = true;
-			if (checkpoint->id == 2 || checkpoint->id == 7)
-				IsTouchDoor = true;
-			break;
-		}
-		case STAIR_BOTTOM_RIGHT:
-			IsOnFootStair = true;
-			posOfStair = object->x;
-			stairDirection = 1;
-			break;
-		case STAIR_BOTTOM_LEFT:
-			IsOnFootStair = true;
-			posOfStair = object->x;
-			stairDirection = 2;
-			break;
-		case STAIR_TOP_RIGHT:
-			IsOnTopStair = true;
-			posOfStair = object->x;
-			stairDirection = -1;
-			break;
-		case STAIR_TOP_LEFT:
-			IsOnTopStair = true;
-			posOfStair = object->x;
-			stairDirection = -2;
-			break;
-		default:
-			break;
-		}
-
-	}
-	else if (object->tag == ENEMY)
-	{
-		switch (object->type)
-		{
-		case BAT:
-		{
-			object->isBuring = true;
-			break;
-		}
-		default:
-			break;
-		}
-		if (untouchTime == 0 && !IsDead)
-		{
-
-			if (health == 1)
+			switch (object->type)
 			{
-				IsDead = true;
-				ChangeAnimation(new PlayerDeadState());
-			}
-			else if (!IsOnStair)
-			{
-				ChangeAnimation(new PlayerHurtingState());
-			}
-			else untouchTime = GetTickCount();
-			health--;
-		}
+			case MORNING_STAR:
+				whipType = whipType != 3 ? whipType + 1 : 3;
+				ChangeAnimation(new PlayerReciveItemState());
+				break;
+			case BIG_HEART:
+				bullet += 5;
+				break;
+			case SMALL_HEART:
+				bullet++;
+				break;
+			case KNIFE:
+				weaponTypeCarry = KNIFE;
+				break;
+			case AXE:
+				weaponTypeCarry = AXE;
+				break;
+			case HOLLY_WATER:
+				weaponTypeCarry = HOLLY_WATER;
+				break;
+			case STOP_WATCH:
+				weaponTypeCarry = STOP_WATCH;
+				break;
+			case MONEY_BLUE:
+				point += 400;
+				break;
+			case MONEY_RED:
+				point += 1000;
+				break;
+			case MONEY_WHITE:
+				point += 700;
+				break;
+			case INVINCIBILITY:
+				Invincibility = true;
+				untouchTime = GetTickCount();
+				break;
+			case ROSARY:
+				flashtime = GetTickCount();
+				beta = 0;
+				break;
+			case DOUBLE_SHOT:
+				DoubleShot = 2;
+				break;
+			case ROAST:
+				health += 5;
+				break;
+			default:
+				break;
 
+			}
+		}
+		else if (object->tag == BOX)
+		{
+			switch (object->type)
+			{
+			case CHECKPOINT: case DOOR:
+			{
+				auto checkpoint = (CCheckPoint*)object;
+				object->isDead = true;
+				if (checkpoint->id == 2 || checkpoint->id == 7)
+					IsTouchDoor = true;
+				break;
+			}
+			case STAIR_BOTTOM_RIGHT:
+				IsOnFootStair = true;
+				posOfStair = object->x;
+				stairDirection = 1;
+				break;
+			case STAIR_BOTTOM_LEFT:
+				IsOnFootStair = true;
+				posOfStair = object->x;
+				stairDirection = 2;
+				break;
+			case STAIR_TOP_RIGHT:
+				IsOnTopStair = true;
+				posOfStair = object->x;
+				stairDirection = -1;
+				break;
+			case STAIR_TOP_LEFT:
+				IsOnTopStair = true;
+				posOfStair = object->x;
+				stairDirection = -2;
+				break;
+			default:
+				break;
+			}
+
+		}
+		else if (object->tag == ENEMY)
+		{
+			switch (object->type)
+			{
+			case BAT:
+			{
+				object->isBuring = true;
+				break;
+			}
+			default:
+				break;
+			}
+			if (untouchTime == 0 && !IsDead)
+			{
+
+				if (health == 1)
+				{
+					IsDead = true;
+					ChangeAnimation(new PlayerDeadState());
+				}
+				else if (!IsOnStair)
+				{
+					ChangeAnimation(new PlayerHurtingState());
+				}
+				else untouchTime = GetTickCount();
+				health--;
+			}
+
+		}
 	}
 }
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects )
@@ -209,7 +213,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects )
 
 	//update state
 	state->Update();
-	if (GetTickCount() - countTime > 1000)
+	if (GetTickCount() - countTime > 1000 && !freeze)
 	{
 		playTime--;
 		countTime = GetTickCount();
@@ -337,13 +341,14 @@ void CSimon::Revival()
 	untouchTime = 0;
 	IsDead = false;
 	IsOnIntro = false;
-	DoubleShot = false;
+	DoubleShot = 1;
 	life = 3;
 	nx = 1;
 	whipType = 1;
 	bullet = 100;
+	numWeapon = 0;
 	playTime = 300;
-	weaponTypeCarry = AXE;
+	weaponTypeCarry = STOP_WATCH;
 	Invincibility = false;
 	freeze = false;
 	health = 10;
@@ -380,10 +385,16 @@ void CSimon::OnKeyDown(int key)
 	}
 	case DIK_C:
 	{
-		if (keyCode[DIK_UP] && bullet != 0 && allow[THROWING] && weaponTypeCarry != NOTHING && !IsOnStair)
+		if (keyCode[DIK_UP] && bullet != 0 && allow[THROWING] && weaponTypeCarry != NOTHING && !IsOnStair && numWeapon < DoubleShot)
 		{
 			bullet--;
 			ChangeAnimation(new PlayerHittingState());
+			if (weaponTypeCarry == KNIFE || weaponTypeCarry == AXE || weaponTypeCarry == HOLLY_WATER)
+			{
+				numWeapon++;
+			}
+			
+			GAMELOG("THORWING %d", numWeapon);
 			IsThrowing = true;
 			break;
 		}
@@ -510,7 +521,7 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			x += dx; 
 			y += dy;
-			GAMELOG("chay truoc");
+
 		}
 		
 

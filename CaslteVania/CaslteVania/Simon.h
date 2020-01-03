@@ -29,7 +29,7 @@ public:
 	bool IsTouchDoor;
 	bool IsWalkingComplete;
 	bool Invincibility;
-	bool DoubleShot;
+	int DoubleShot;
 	int Checkpoint;
 	float posOfStair;
 	int stairDirection;

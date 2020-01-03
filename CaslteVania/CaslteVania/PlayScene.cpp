@@ -323,9 +323,13 @@ void PlayScene::UpdatePlayer(float dt)
 		auto obj = *it;
 		if (obj->tag == WEAPON && obj->isDead)
 		{
-
+			if (obj->type == KNIFE || obj->type == AXE || obj->type ==HOLLY_WATER)
+			{
+				p->numWeapon--;
+			}	
 			it = PresentObjects.erase(it);
 			grid->RemoveObject(*obj);
+			
 		}
 		else it++;
 	};
@@ -527,7 +531,7 @@ void PlayScene::Update(float dt)
 	camera->Update();
 	grid->Update();
 	RepawnEnemy();
-	
+	//GAMELOG("throwing %d", p->numWeapon);
 };
 
 void PlayScene::Render()
