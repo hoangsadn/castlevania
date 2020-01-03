@@ -19,6 +19,7 @@ using namespace std;
 
 
 #define SIMON_WALKING_SPEED		0.1f 
+#define SIMON_STEP_STAIR_SPEED 0.05f
 
 #define SIMON_JUMP_SPEED_Y		0.5f
 #define SIMON_JUMP_DEFLECT_SPEED 0.2f

@@ -73,9 +73,10 @@ void PlayScene::LoadResources(int level)
 		camera->map = 2;
 		p->Checkpoint = camera->map;
 
-		Boss * boss = new Boss();
+		Boss *boss = new Boss();
 		boss->SetPosition(5300.0f, 0);
 		grid->AddObject(boss);
+
 		RepawnObjects.clear();
 		
 	}
@@ -322,6 +323,7 @@ void PlayScene::UpdatePlayer(float dt)
 		auto obj = *it;
 		if (obj->tag == WEAPON && obj->isDead)
 		{
+
 			it = PresentObjects.erase(it);
 			grid->RemoveObject(*obj);
 		}

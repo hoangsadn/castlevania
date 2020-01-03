@@ -29,6 +29,7 @@ public:
 	bool IsTouchDoor;
 	bool IsWalkingComplete;
 	bool Invincibility;
+	bool DoubleShot;
 	int Checkpoint;
 	float posOfStair;
 	int stairDirection;
@@ -42,7 +43,9 @@ public:
 	int alpha,beta;		//for render
 	int health;
 	int life;
+	int bossHealth;
 	bool freeze;
+	int numWeapon;
 	CSimon();
 	void Revival();
 

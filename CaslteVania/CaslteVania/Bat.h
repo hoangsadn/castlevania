@@ -25,7 +25,11 @@ public:
 	void UpdatePosition(float dt)
 	{
 		
-		if (!isBuring || !ishitting || !isDead )
+		if (isBuring || ishitting )
+		{
+			
+		}
+		else
 		{
 			CurAnimation = nx > 0 ? animations[BAT_RIGHT] : animations[BAT_LEFT];
 			vx = nx > 0 ? 0.1f : -0.1f;

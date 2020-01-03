@@ -1,5 +1,5 @@
 #include "PlayerWalkingState.h"
-
+#include "PlayerWalkingStairState.h"
 
 
 PlayerWalkingState::PlayerWalkingState(DWORD timeFinish)
@@ -33,32 +33,39 @@ void PlayerWalkingState::walking(DWORD dt)
 
 	if (player->x < dt)
 	{
-		if (player->x > dt - 10)
+		if (player->x >= dt - 2)
 		{
 			//get in the position
 			player->allow[STAIRING] = true;
 			player->IsWalkingComplete = true;
-			player->ChangeAnimation(new PlayerStandingState());
+			if (player->IsOnFootStair || player->IsOnTopStair)
+			{
+				player->ChangeAnimation(new PlayerWalkingStairState());
+			}
+			else 
+				player->ChangeAnimation(new PlayerStandingState());
 			return;
 		}
 		player->nx = 1;
-		player->ChangeAnimation(new PlayerWalkingState(dt));
 	}
 	else
 	{
-		if (player->x < dt + 10)
+		if (player->x <= dt + 2)
 		{
 			//get in the position
 			player->allow[STAIRING] = true;
 			player->IsWalkingComplete = true;
-			player->ChangeAnimation(new PlayerStandingState());
+			if (player->IsOnFootStair || player->IsOnTopStair)
+			{
+				player->ChangeAnimation(new PlayerWalkingStairState());
+			}
+			else
+				player->ChangeAnimation(new PlayerStandingState());
 			return;
 		}
 		player->nx = -1;
-		player->ChangeAnimation(new PlayerWalkingState(dt));
-		
-		
 	}
+	player->ChangeAnimation(new PlayerWalkingState(dt));
 }
 void PlayerWalkingState::Update()
 {

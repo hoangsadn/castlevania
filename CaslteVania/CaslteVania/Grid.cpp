@@ -39,7 +39,7 @@ void Grid::CreateFileGird(int level)
 
 	sprintf_s(gridFileName, "text\\Grid%d.txt", level);
 	GridFile.open(gridFileName);
-	float posX, posY, width, height, id;
+	float posX, posY, width, height, id, posTarX, PosMoveSimonX, PosMoveSimonY;
 	int left, top, right, bot;
 	string str, type;
 	GridFile >> WidthCell >> HeightCell >> rows >> cols;
@@ -125,15 +125,18 @@ void Grid::CreateFileGird(int level)
 		}
 		case CHECKPOINT:
 		{
-			GridFile >> posX >> posY >> id >> width >> height >> type;
+			GridFile >> posX >> posY >> id >> width >> height >> posTarX >> PosMoveSimonX >> PosMoveSimonY >> type;
+
 			GridFile >> left >> top >> right >> bot;
 			CCheckPoint * checkpoint = new CCheckPoint();
 			checkpoint->id = id;
 			checkpoint->type = TYPEString[type];
 			checkpoint->width = width;
 			checkpoint->height = height;
+			checkpoint->posTarX = posTarX;
+			checkpoint->posMoveSimonX = PosMoveSimonX;
+			checkpoint->posMoveSimonY = PosMoveSimonY;
 			checkpoint->SetPosition(posX, posY);
-			checkpoint->Init();
 
 			loop(r, top, bot)
 				loop(c, left, right)
@@ -256,7 +259,7 @@ std::unordered_set<LPGAMEOBJECT> Grid::GetObj()
 			g->selected = false;
 		}
 
-	GAMELOG("sl ob %d", Objlist.size());
+	//GAMELOG("sl ob %d", Objlist.size());
 	return Objlist;
 }
 std::vector<LPGAMEOBJECT> Grid::GetWall()
@@ -351,7 +354,7 @@ void Grid::AddObject(CGameObject * obj)
 	loop(r, o->TopCell, o->BottomCell)
 		loop(c, o->LeftCell, o->RightCell)
 		cells[r][c]->objects.insert(obj);
-	GAMELOG("add %d %d %d %d", o->LeftCell, o->TopCell, o->RightCell, o->BottomCell);
+//	GAMELOG("add %d %d %d %d", o->LeftCell, o->TopCell, o->RightCell, o->BottomCell);
 }
 void Grid::RemoveObject(CGameObject & obj)
 {
@@ -361,7 +364,7 @@ void Grid::RemoveObject(CGameObject & obj)
 	loop(r, o->TopCell, o->BottomCell)
 		loop(c, o->LeftCell, o->RightCell)
 		cells[r][c]->objects.erase(&obj);
-	GAMELOG("removes %d %d %d %d", o->LeftCell, o->TopCell, o->RightCell, o->BottomCell);
+//	GAMELOG("removes %d %d %d %d", o->LeftCell, o->TopCell, o->RightCell, o->BottomCell);
 }
 void Grid::RemoveStaticObject(CGameObject & obj)
 {

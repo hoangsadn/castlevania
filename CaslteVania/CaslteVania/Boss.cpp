@@ -1,6 +1,7 @@
 #include "Boss.h"
 #include "Simon.h"
 #include <math.h>
+
 void Boss::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	left = x;
@@ -39,7 +40,7 @@ void Boss::MoveCurved(float x1, float y1, float x2, float y2, float x3, float y3
 	float xb = Slerp(x2, x3, j);
 	float yb = Slerp(y2, y3, j);
 
-	
+
 
 	if (j < 1)
 		j += 0.01;
@@ -50,9 +51,12 @@ void Boss::MoveCurved(float x1, float y1, float x2, float y2, float x3, float y3
 }
 void Boss::RepareToMove()
 {
-	BossPos = PosBossAttack[rand() % 3];
-	CPos.x = player->x + rand() % 500;
-	CPos.y = 90 + rand() % 140;
+	if (player->y+ player->height < 273 )
+		BossPos = PosBossAttack[rand() % 3];
+	else 
+		BossPos = PosBossAttack[3 + rand() % 3];
+	
+	GAMELOG("pos %f", player->y + player->height);
 	state = BOSS_MOVE;
 	BossPrePos.x = x;
 	BossPrePos.y = y;
@@ -63,7 +67,7 @@ void Boss::RepareToMove()
 }
 void Boss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	GAMELOG("health %d",health );
+	//GAMELOG("health %d", health);
 
 	if (abs(abs(player->x) - abs(x)) < 100 && !isActive)
 	{
@@ -79,14 +83,30 @@ void Boss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (i < 1)
 			{
 				MoveStraight(BossPrePos.x, BossPrePos.y, BossPos.x, BossPos.y);
+
 				waitTime = GetTickCount();
+				if (player->x > x)
+				{
+					int r =  END_MAP5 - player->x - BOSS_WIDTH;
+					r = r <= 0 ? 1 : r;
+					CPos.x = player->x + rand() % r;
+					CPos.y = (player->y + player->height) - rand() % 60;
+
+				}
+				else
+				{
+					int r = player->x - CAMERA->x;
+					r = r < 0 ? 1 : r;
+					CPos.x = player->x - rand() % r;
+					CPos.y = (player->y + player->height) - rand() % 60;
+				}
 			}
 			else if (GetTickCount() - waitTime > 2000)
 			{
 				isGetPosAttack = true;
 				state = BOSS_READY_ATTACK;
 				SimonPos.x = player->x;
-				SimonPos.y = player->y;
+				SimonPos.y = player->y + player->height;
 
 			}
 		}
@@ -96,13 +116,13 @@ void Boss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (j < 1)
 				{
 					MoveCurved(BossPos.x, BossPos.y, SimonPos.x, SimonPos.y, CPos.x, CPos.y);
-					
+
 				}
 				else
 				{
 					RepareToMove();
 				}
-				
+
 
 			}
 		}
@@ -111,7 +131,7 @@ void Boss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (isBuring)
 	{
-		
+
 		LPANIMATION ani = new CAnimation(50);
 		ani->Add(50001);
 		ani->Add(50002);
@@ -124,15 +144,15 @@ void Boss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	if (ishitting && EffectHit->isLastFrame)
 	{
-		health--;
+		player->bossHealth--;
 		EffectHit->isLastFrame = false;
 		EffectHit->currentFrame = -1;
 		EffectHit = NULL;
 		ishitting = false;
-	
+
 	}
-	
-	if (health == 0)
+
+	if (player->bossHealth == 0)
 	{
 		isDead = true;
 
@@ -141,9 +161,9 @@ void Boss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void Boss::UpdatePosition(float dt)
 {
-	
+
 }
-void Boss::Render() 
+void Boss::Render()
 {
 	CurAnimation->Render(x, y, 255);
 	if (EffectHit != NULL)

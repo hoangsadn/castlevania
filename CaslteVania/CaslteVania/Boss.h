@@ -4,17 +4,19 @@
 #define BOSS_HEIGHT 46
 struct xy
 {
-	float x,y;
+	float x, y;
 };
+
+
 class Boss : public CEnemy
 {
+
 public:
-	int health;
 	DWORD waitTime;
 	bool isActive, isGetSimonPos, isGetPosAttack, isAttackSimon, isGetCpoint;
 	TYPE state;
 	CAnimation* EffectHit;
-	vector <xy > PosBossAttack ;
+	vector <xy > PosBossAttack;
 	xy BossPos, SimonPos, BossPrePos, CPos;
 
 	Boss() : CEnemy()
@@ -23,7 +25,6 @@ public:
 		AddAnimation(919, BOSS_HANG);
 		AddAnimation(920, BOSS_MOVE);
 		CurAnimation = animations[BOSS_HANG];
-		health = 10;
 		state = BOSS_HANG;
 		width = BOSS_WIDTH;
 		height = BOSS_HEIGHT;
@@ -31,12 +32,20 @@ public:
 		isGetPosAttack = false;
 		xy k;
 		k.x = 5150;
-		k.y = 200; 
+		k.y = 150;
 		PosBossAttack.push_back(k);
 		k.x = 5350;
 		PosBossAttack.push_back(k);
 		k.x = 5400;
 		PosBossAttack.push_back(k);
+		k.x = 5150;
+		k.y = 250;
+		PosBossAttack.push_back(k);
+		k.x = 5350;
+		PosBossAttack.push_back(k);
+		k.x = 5400;
+		PosBossAttack.push_back(k);
+		
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	void UpdatePosition(float dt);

@@ -12,7 +12,7 @@ class CWhip;
 class Map;
 class CBrick;
 class CScoreBroad;
-
+class Boss;
 class PlayScene : public Scene
 {
 public:
@@ -36,6 +36,7 @@ private:
 	CWhip *whip;
 	Map *map;
 	Camera *camera;
+	//CBatBoss * boss;
 	//Grid * grid;
 	int level;
 	bool loadDone;

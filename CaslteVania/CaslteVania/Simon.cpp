@@ -117,8 +117,13 @@ void CSimon::HandleObject(LPGAMEOBJECT object)
 			flashtime = GetTickCount();
 			beta = 0;
 			break;
+		case DOUBLE_SHOT:
+			DoubleShot = true;
+			break;
 		case ROAST:
 			health += 5;
+			break;
+		case NOTHING:
 			break;
 		}
 	}
@@ -332,6 +337,7 @@ void CSimon::Revival()
 	untouchTime = 0;
 	IsDead = false;
 	IsOnIntro = false;
+	DoubleShot = false;
 	life = 3;
 	nx = 1;
 	whipType = 1;
@@ -341,6 +347,7 @@ void CSimon::Revival()
 	Invincibility = false;
 	freeze = false;
 	health = 10;
+	bossHealth = 10;
 	ChangeAnimation(new PlayerStandingState());
 	countTime = GetTickCount();
 }
@@ -474,7 +481,8 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		
 		x += dx;
 		y += dy;
-		
+		//GAMELOG("chay truoc %f %f ",x,y);
+
 
 	}
 	else
@@ -502,6 +510,7 @@ void CSimon::CollisonGroundWall(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			x += dx; 
 			y += dy;
+			GAMELOG("chay truoc");
 		}
 		
 
