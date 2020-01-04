@@ -40,14 +40,16 @@ void PlayScene::LoadResources(int level)
 	{
 	case 1:
 	{
-		auto a = new CGlobalConfig();
+		/*auto a = new CGlobalConfig();
 		a->TypeMapToString();
 		CTextures * textures = CTextures::GetInstance();
 		textures->LoadResources();
 		CSprites * sprites = CSprites::GetInstance();
 		sprites->LoadResources();
 		CAnimations * animations = CAnimations::GetInstance();
-		animations->LoadResources();
+		animations->LoadResources();*/
+		
+
 
 		camera->map = 1;
 	

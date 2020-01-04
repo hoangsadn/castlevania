@@ -16,6 +16,7 @@ IntroScene::IntroScene()
 	sprites->LoadResources();
 	CAnimations * animations = CAnimations::GetInstance();
 	animations->LoadResources();
+
 	p = player;
 	ProcessScene = 1;
 	AddAnimation(1000, TITLE_SCREEN);

@@ -209,8 +209,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects )
 
 	//jump to hole and dead 
 	
-	
-
 	//update state
 	state->Update();
 	if (GetTickCount() - countTime > 1000 && !freeze)
@@ -241,8 +239,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects )
 		IsOnTopStair = false;
 	}
 	if (!IsOnIntro) {
-		if (y > CAMERA->y + CAMERA->mHeight || playTime == 1)
+		if ((y > CAMERA->y + CAMERA->mHeight || playTime == 1)&&!IsDead)
+		{
+			IsDead = true;
 			ChangeAnimation(new PlayerDeadState());
+		}
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -323,7 +324,6 @@ void CSimon::Revival()
 		SetPosition(BEGIN_MAP2, 0);
 		break;
 	case 3:
-		
 		SetPosition(SIMON_POS_REPAWN_3, 0);
 		break;
 	case 5:
@@ -351,7 +351,7 @@ void CSimon::Revival()
 	weaponTypeCarry = STOP_WATCH;
 	Invincibility = false;
 	freeze = false;
-	health = 10;
+	health = 2;
 	bossHealth = 10;
 	ChangeAnimation(new PlayerStandingState());
 	countTime = GetTickCount();

@@ -23,13 +23,14 @@ public:
 	}
 	void Update()
 	{
-		
+	
 		this->HandleKeyBoard();
-		if (GetTickCount() - timedead > 3000)
+		if (GetTickCount() - timedead > 2000)
 		{
 			player->Revival();
 			player->life--;
 		}
+		GAMELOG("DEAD %d", GetTickCount() - timedead);
 	}
 	void HandleKeyBoard()
 	{
